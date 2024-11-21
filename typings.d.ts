@@ -1,0 +1,1 @@
+type TabKeys = "viewall" | "savemoney" | "tips" | "guides";
