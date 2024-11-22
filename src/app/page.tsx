@@ -8,6 +8,9 @@ import Link from "next/link";
 // Aceternity UI components
 import { HoverEffect } from "@/components/ui/CardHoverEffect";
 
+// custom hooks
+import { useMediaQuery } from "@/hooks/UseMediaQuery";
+
 // json data
 import {
   insuranceOptions,
@@ -17,14 +20,14 @@ import {
 } from "@/data/index";
 
 export default function Home() {
-  const [activeTab, setActiveTab] = React.useState<TabKeys>("viewall");
+  const isSmallMobile = useMediaQuery("(max-width: 1024px)");
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
     address: "",
     phone: "",
-    product: "Auto Insurance",
+    product: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,28 +49,21 @@ export default function Home() {
   };
 
   return (
-    <div className="mb-20">
-      <div className="relative h-96 lg:h-[410px] w-full flex flex-col lg:flex-row items-center justify-start pb-12 lg:pb-0">
-        <div className="w-3/5 hidden lg:flex items-center justify-center z-10">
-          <h2 className="w-6/12 text-3xl text-[#ff3448b9] font-lulo font-extrabold uppercase">
+    <div className="lg:mt-[13.3rem] mb-20">
+      <div className="relative h-96 lg:h-[410px] w-full">
+        <div className="absolute top-0 left-64 h-full hidden lg:flex items-center w-80">
+          <h2 className="text-3xl text-[#ff3448b9] font-lulo font-extrabold uppercase">
             Your one stop solution for personalized insurance coverage.
           </h2>
         </div>
         <Image
-          src="/familyImg.jpg"
+          src={isSmallMobile ? "/familyImgimp.jpg" : "/familyImg.jpg"}
           alt="Image with a family"
-          height={1000}
-          width={1000}
-          className="absolute h-full w-full hidden lg:flex object-cover"
+          height={1500}
+          width={1500}
+          className="h-full w-full -my-24 md:my-0 object-contain xl:object-cover -z-10"
         />
-        <Image
-          src="/familyImgimp.jpg"
-          alt="Image with a family"
-          height={1000}
-          width={1000}
-          className="h-full w-full lg:hidden object-contain"
-        />
-        <h2 className="text-xl text-center font-lulo font-extrabold uppercase">
+        <h2 className="block lg:hidden text-xl text-gray-700 text-center font-extrabold tracking-wide uppercase">
           Your one stop solution for personalized insurance <br />
           coverage.
         </h2>
@@ -75,23 +71,22 @@ export default function Home() {
       <div className="max-w-6xl mx-auto px-8">
         <HoverEffect items={projects} />
       </div>
-      <div className="h-52 w-full flex items-center justify-center bg-[#fbdbdc]">
+      <div className="h-60 lg:h-52 w-full flex flex-col lg:flex-row items-center justify-center bg-[#fbdbdc]">
         <Image src="/logobox.png" alt="logo" height={100} width={100} />
-        <p className="w-2/5 text-2xl text-gray-600 text-center font-lulo">
+        <p className="max-w-2xl lg:w-2/5 lg:text-2xl text-gray-600 text-center font-lulo mt-4 lg:mt-0">
           20 YEARS OF COMBINED EXPERTISE 15 PARTNERS ACROSS NORTH CAROLINA
         </p>
       </div>
-
       <div className="w-full flex flex-col items-center justify-center gap-6 py-8">
-        <h2 className="text-[44px] text-[#ff3447] font-extrabold">
+        <h2 className="text-3xl lg:text-[44px] text-[#ff3447] text-center lg:text-left font-extrabold">
           Compare your Rates in Minutes!
         </h2>
-        <p className="text-xl text-gray-600 font-sans font-light">
+        <p className="text-xl text-gray-600 text-center lg:text-left font-sans font-light px-3 lg:px-0">
           FREE & No obligation, compare quotes from top providers and save more
           on your policy today.
         </p>
-        <div className="flex items-center justify-center gap-16">
-          <p className="max-w-[36.5rem] text-2xl text-[#f15e65] font-semibold">
+        <div className="flex flex-col lg:flex-row items-center justify-center gap-16">
+          <p className="max-w-full lg:max-w-[36.5rem] text-[18px] lg:text-2xl text-[#f15e65] font-semibold px-6 lg:px-0">
             Get the fastest and most accurate free quote by clicking this link!
             Our system retrieves your information directly from your current
             provider, making the process quick, simple, and hassle-free.
@@ -100,10 +95,10 @@ export default function Home() {
             href="https://app.usecanopy.com/c/you-insurance-agency"
             target="blank"
             rel="noopener noreferrer"
-            className="h-14 w-fit flex items-center justify-center bg-red-800/90 pb-1 pr-1 rounded-3xl hover:scale-95"
+            className="h-14 w-fit flex items-center justify-center bg-red-800/90 pb-2 pr-1 rounded-3xl hover:scale-95"
           >
             <span
-              className="text-xs text-white font-medium uppercase bg-[#ff3448dc]
+              className="text-sm lg:text-xs text-white font-medium uppercase bg-[#ff3448dc]
               px-6 py-4 border-2 border-transparent rounded-3xl transition
               duration-200 hover:bg-red-500
               hover:border-[#e87a85ef]"
@@ -112,24 +107,24 @@ export default function Home() {
             </span>
           </Link>
         </div>
-        <div className="w-3/6 flex flex-col items-center justify-center mt-5">
+        <div className="w-full lg:w-3/6 flex flex-col items-center justify-center mt-5">
           <span className="text-7xl text-[#f15e63] font-bold mb-4">OR</span>
           <p className="text-3xl text-[#ff3447] font-poppins font-black -tracking-wide">
             Use our Forms
           </p>
-          <div className="flex flex-col md:flex-row items-start justify-center mt-8">
+          <div className="flex flex-col lg:flex-row items-start justify-center gap-12 lg:gap-0 mt-8">
             {insuranceOptions.map((option) => (
               <div
                 key={option.id}
                 className="flex flex-col items-center justify-center gap-5"
               >
-                <div className="h-32 w-32 text-7xl text-white font-semibold bg-black rounded-full flex items-center justify-center">
+                <div className="h-24 w-24 lg:h-32 lg:w-32 text-5xl lg:text-7xl text-white font-semibold bg-black rounded-full flex items-center justify-center">
                   {option.id}
                 </div>
                 <h3 className="w-1/2 text-3xl text-[#a33636] text-center font-extrabold mb-3">
                   {option.title}
                 </h3>
-                <p className="max-w-44 text-2xl text-[#1d7adf] text-center">
+                <p className="w-72 lg:max-w-44 text-2xl text-[#1d7adf] text-center">
                   {option.description}
                 </p>
               </div>
@@ -137,148 +132,186 @@ export default function Home() {
           </div>
         </div>
       </div>
-
-      <div className="h-[450px] flex flex-col items-center justify-center gap-12 bg-[#eaf7ff] py-8">
-        <h2 className="text-5xl text-[#e21c21] font-extrabold">What Our Clients Say</h2>
-        <div className="flex flex-col md:flex-row items-center justify-center gap-8">
+      <div className="lg:h-[450px] flex flex-col items-center justify-center gap-12 bg-[#eaf7ff] py-8">
+        <h2 className="text-[28px] lg:text-5xl text-[#e21c21] font-extrabold">
+          What Our Clients Say
+        </h2>
+        <div className="flex flex-col md:flex-row items-center justify-center gap-16 lg:gap-8">
           {reviews.map((review) => (
-            <div key={review.id} className="h-60 max-w-[16.5rem] flex flex-col items-center justify-center gap-2 text-center p-4">
+            <div
+              key={review.id}
+              className="h-60 max-w-[16.5rem] flex flex-col items-center justify-center gap-2 text-center p-4"
+            >
               <Image src="/quotes.png" alt="quotes" height={50} width={50} />
-              <p className="flex-1 text-sm text-gray-700 font-poppins font-medium mt-2 ">{review.review}</p>
-              <h3 className="text-sm text-[#b5423c] font-light tracking-wide">{review.name}</h3>
+              <p className="flex-1 lg:text-sm text-gray-700 font-poppins font-medium mt-2 ">
+                {review.review}
+              </p>
+              <h3
+                className={`text-lg lg:text-base text-[#b5423c] font-light tracking-wide ${
+                  review.id === 2 && "mt-6 lg:mt-0"
+                }`}
+              >
+                {review.name}
+              </h3>
             </div>
           ))}
         </div>
       </div>
-
       <div className="h-fit flex flex-col items-center justify-center gap-8 py-12">
-        <h2 className="text-5xl text-[#e21c21] font-extrabold">Knowledge Center</h2>
-        <div className="container mx-auto p-4">
+        <h2 className="text-[28px] lg:text-5xl text-[#e21c21] font-extrabold">
+          Knowledge Center
+        </h2>
+        <div className="mx-auto">
           {/* Tabs */}
-          <div className="-full flex items-center justify-center space-x-4 mb-6">
+          <div className="w-full flex items-center justify-center lg:gap-4 mb-6">
             {["View All", "Save Money", "Tips", "Guides"].map((tab, index) => (
-              <button
+              <Link
+                href="/"
                 key={index}
-                onClick={() =>
-                  setActiveTab(tab.toLowerCase().replace(" ", "") as TabKeys)
-                }
-                className={`px-4 py-2 rounded ${
-                  activeTab === tab.toLowerCase().replace(" ", "")
-                    ? "bg-red-500 text-white"
-                    : "text-gray-700"
-                }`}
+                className="text-base hover:text-red-500 text-black px-4 py-2 rounded"
               >
                 {tab}
-              </button>
+              </Link>
             ))}
           </div>
           {/* Tab Content */}
-          <div className="w-10/12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mx-auto">
-            {knowledgeCenter[activeTab]?.map((item) => (
-              <div
-                key={item.id}
-                className="h-40 w-96 bg-white p-4 border-[1.25px] border-gray-300 transition"
-              >
-                <h3 className="text-lg font-bold">{item.title}</h3>
-                <p className="mt-2 text-gray-600">{item.description}</p>
-              </div>
-            )) || <p>No content available for this tab.</p>}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {knowledgeCenter.map(
+              (item: {
+                id: number;
+                imageUrl: string;
+                date: string;
+                description: string;
+              }) => (
+                <div
+                  key={item.id}
+                  className="h-52 lg:h-40 w-72 lg:w-96 flex flex-col bg-white p-4 border-[1.25px] border-red-400 mx-auto lg:mx-0 transition"
+                >
+                  <div className="flex items-start justify-between">
+                    <p className="w-3/5 mt-2 text-gray-600">
+                      {item.description}
+                    </p>
+                    <Image
+                      src={item.imageUrl}
+                      alt="image"
+                      height={80}
+                      width={80}
+                    />
+                  </div>
+                  <div>
+                    <p className="mt-2 text-gray-600">{item.date}</p>
+                  </div>
+                </div>
+              )
+            )}
           </div>
         </div>
       </div>
 
-      <div className="h-[900px] flex items-center justify-start">
-        <div className="h-full w-10/12">
+      {/* Contact Form */}
+      <div className="lg:h-[900px] flex flex-col lg:flex-row items-center justify-start">
+        <div className="h-full lg:w-10/12">
           <Image
             src="/businessWoman.jpg"
             alt="Business Woman"
-            height={1000}
-            width={1000}
-            className="h-full w-full object-cover"
+            height={1500}
+            width={1500}
+            className="h-full w-full mb-8 lg:mb-0 object-cover"
           />
         </div>
-        <div className="h-full w-5/12 flex flex-col items-center justify-center gap-16">
-          <div className="w-80 mx-auto">
-            <h2 className="text-2xl font-bold mb-4">Contact an agent now.</h2>
-            <p>
+        <div className="h-full w-full lg:w-5/12 flex flex-col items-center justify-center gap-16">
+          <div className="w-80 space-y-8 mx-auto">
+            <h2 className="text-5xl text-[#a33650] text-center font-bold mb-4">
+              Contact an agent now
+            </h2>
+            <p className="text-xl text-gray-700 font-semibold">
               Got other questions? Schedule a consultation with an agent for a
               personalized plan.
             </p>
           </div>
-          <form onSubmit={handleSubmit} className="w-80 mx-auto">
-            <h2>Contact information</h2>
-            {/* First Name */}
-            <div className="mb-4">
-              <label
-                htmlFor="firstName"
-                className="block text-sm font-medium text-gray-700"
-              >
-                First Name <span className="text-red-500">*</span>
-              </label>
-              <input
-                type="text"
-                id="firstName"
-                name="firstName"
-                value={formData.firstName}
-                onChange={handleChange}
-                required
-                className="mt-1 p-2 block w-full border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-              />
-            </div>
+          <form
+            onSubmit={handleSubmit}
+            className="w-5/6 lg:mx-auto px-5 lg:px-0"
+          >
+            <h2 className="text-3xl text-[#a33650] mb-10">
+              Contact Information
+            </h2>
 
-            {/* Last Name */}
-            <div className="mb-4">
-              <label
-                htmlFor="lastName"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Last Name
-              </label>
-              <input
-                type="text"
-                id="lastName"
-                name="lastName"
-                value={formData.lastName}
-                onChange={handleChange}
-                className="mt-1 p-2 block w-full border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-              />
+            {/* First Name and Last Name */}
+            <div className="flex flex-col lg:flex-row gap-4 mb-4">
+              <div className="w-full lg:w-1/2">
+                <label
+                  htmlFor="firstName"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  First Name <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="firstName"
+                  name="firstName"
+                  value={formData.firstName}
+                  onChange={handleChange}
+                  placeholder="e.g., John"
+                  required
+                  className="mt-1 p-2 block w-full border border-red-400 rounded-md focus:outline-none focus:ring-red-700 focus:border-red-700"
+                />
+              </div>
+              <div className="w-full lg:w-1/2">
+                <label
+                  htmlFor="lastName"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Last Name
+                </label>
+                <input
+                  type="text"
+                  id="lastName"
+                  name="lastName"
+                  value={formData.lastName}
+                  onChange={handleChange}
+                  placeholder="e.g., Doe"
+                  required
+                  className="mt-1 p-2 block w-full border border-red-400 rounded-md focus:outline-none focus:ring-red-700 focus:border-red-700"
+                />
+              </div>
             </div>
-
-            {/* Email */}
-            <div className="mb-4">
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Email <span className="text-red-500">*</span>
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                className="mt-1 p-2 block w-full border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-              />
-            </div>
-
-            {/* Address */}
-            <div className="mb-4">
-              <label
-                htmlFor="address"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Address
-              </label>
-              <input
-                type="text"
-                id="address"
-                name="address"
-                value={formData.address}
-                onChange={handleChange}
-                className="mt-1 p-2 block w-full border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-              />
+            <div className="flex flex-col lg:flex-row gap-4 mb-4">
+              <div className="w-full lg:w-1/2">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Email <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="e.g., john.doe@example.com"
+                  required
+                  className="mt-1 p-2 block w-full border border-red-400 rounded-md focus:outline-none focus:ring-red-700 focus:border-red-700"
+                />
+              </div>
+              <div className="w-full lg:w-1/2">
+                <label
+                  htmlFor="address"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Address
+                </label>
+                <input
+                  type="text"
+                  id="address"
+                  name="address"
+                  value={formData.address}
+                  onChange={handleChange}
+                  placeholder="e.g., 123 Elm Street, Springfield"
+                  className="mt-1 p-2 block w-full border border-red-400 rounded-md focus:outline-none focus:ring-red-700 focus:border-red-700"
+                />
+              </div>
             </div>
 
             {/* Phone */}
@@ -295,7 +328,8 @@ export default function Home() {
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
-                className="mt-1 p-2 block w-full border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                placeholder="e.g., +1 234-567-8901"
+                className="mt-1 p-2 block w-full border border-red-400 rounded-md focus:outline-none focus:ring-red-700 focus:border-red-700"
               />
             </div>
 
@@ -313,7 +347,9 @@ export default function Home() {
                 name="product"
                 value={formData.product}
                 onChange={handleChange}
-                className="mt-1 p-2 block w-full border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Auto Insurance"
+                required
+                className="mt-1 p-2 block w-full border border-red-400 rounded-md focus:outline-none focus:ring-red-700 focus:border-red-700"
               />
             </div>
 
@@ -330,33 +366,61 @@ export default function Home() {
         </div>
       </div>
 
+      {/* Contact Info */}
       <div className="max-w-6xl mx-auto mt-8 p-4 flex flex-col lg:flex-row">
-        {/* Contact Info */}
-        <div className="flex-1 flex flex-col justify-center">
+        <div className="flex-1 flex flex-col justify-center mb-8 lg:mb-0">
           <h2 className="text-xl font-bold">You Insurance Agency</h2>
           <p className="text-lg">
             257 Timber Dr <br />
             Garner, NC 27529
           </p>
           <p className="mt-4 text-lg">
-            <span className="font-semibold"> Anthony You</span> <br />
+            <span className="font-bold"> Anthony You</span> <br />
             Agency Owner
           </p>
-          <Link href="mailto:ayou@youinsuranceagency.com">
+          <Link href="mailto:ayou@youinsuranceagency.com" className="text-lg">
             ayou@youinsuranceagency.com
           </Link>
           <div className="mt-4 text-lg">
-            <span className="font-semibold">Office Phone:</span> <br />
-            <p className="underline">919-341-0606</p>
+            <span className="font-bold">Office Phone:</span> <br />
+            <Link href="tel:9193410606" className="underline">
+              919-341-0606
+            </Link>{" "}
           </div>
           <p className="mt-4 text-lg">
-            <span className="font-semibold">Office Hours:</span> <br />
+            <span className="font-bold">Office Hours:</span> <br />
             Monday - Friday: 8:30 AM to 5:30 PM
           </p>
         </div>
 
         {/* Map */}
         <div className="flex-1">
+          <div className="h-20 w-full flex items-center lg:justify-end gap-3 mb-8 lg:mb-0">
+            <Link
+              href="https://www.facebook.com/youinsuranceagency"
+              target="blank"
+              rel="noopener noreferrer"
+            >
+              <Image
+                src="/facebookicon.png"
+                alt="Business Woman"
+                height={35}
+                width={35}
+              />
+            </Link>
+            <Link
+              href="https://www.instagram.com/insurewithyou/"
+              target="blank"
+              rel="noopener noreferrer"
+            >
+              <Image
+                src="/instagramicon.png"
+                alt="Business Woman"
+                height={40}
+                width={40}
+              />
+            </Link>
+          </div>
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3306.671208999865!2d-78.60746068497464!3d35.70346918018957!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89ac597576317ccf%3A0xf1688db2c903007c!2s257%20Timber%20Dr%2C%20Garner%2C%20NC%2027529!5e0!3m2!1sen!2sus!4v1697808512955!5m2!1sen!2sus"
             title="Location Map"

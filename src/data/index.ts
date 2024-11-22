@@ -25,12 +25,14 @@ export const projects = [
   },
   {
     title: "Renters",
-    lottieUrl: "https://lottie.host/b17bf1dd-736b-41a2-8de9-cb16c3763e94/o5IF3v51RU.lottie",
+    lottieUrl:
+      "https://lottie.host/b17bf1dd-736b-41a2-8de9-cb16c3763e94/o5IF3v51RU.lottie",
     link: "https://amazon.com",
   },
   {
     title: "Motorcycle",
-    lottieUrl: "https://lottie.host/8a63fa75-005e-47a6-9e44-e4f4e177018c/HVeUV1L85Y.lottie",
+    lottieUrl:
+      "https://lottie.host/8a63fa75-005e-47a6-9e44-e4f4e177018c/HVeUV1L85Y.lottie",
     link: "https://microsoft.com",
   },
   {
@@ -41,7 +43,8 @@ export const projects = [
   },
   {
     title: "Umbrella",
-    lottieUrl: "https://lottie.host/abbd9746-387c-412d-bf17-bef15bc503bc/wdiKcicUfy.lottie",
+    lottieUrl:
+      "https://lottie.host/abbd9746-387c-412d-bf17-bef15bc503bc/wdiKcicUfy.lottie",
     link: "https://micrdwwdwdwosoft.com",
   },
 ];
@@ -88,52 +91,39 @@ export const reviews = [
   },
 ];
 
-export const knowledgeCenter: Record<
-  TabKeys,
-  { id: number; title: string; description: string }[]
-> = {
-  viewall: [
-    {
-      id: 1,
-      title: "Overview",
-      description: "Explore all content available here.",
-    },
-    {
-      id: 2,
-      title: "Savings Strategies",
-      description: "Learn how to maximize your budget.",
-    },
-  ],
-  savemoney: [
-    {
-      id: 3,
-      title: "Budget Tips",
-      description: "Cut costs without sacrificing quality.",
-    },
-    {
-      id: 4,
-      title: "Coupon Hacks",
-      description: "Find the best deals with ease.",
-    },
-  ],
-  tips: [
-    { id: 5, title: "Quick Tips", description: "Fast advice for busy users." },
-    {
-      id: 6,
-      title: "Efficiency Tricks",
-      description: "Work smarter, not harder.",
-    },
-  ],
-  guides: [
-    {
-      id: 7,
-      title: "Step-by-Step Guides",
-      description: "Follow these steps to succeed.",
-    },
-    {
-      id: 8,
-      title: "Expert Recommendations",
-      description: "Insights from the pros.",
-    },
-  ],
-};
+export const knowledgeCenter = [
+  {
+    id: 1,
+    imageUrl: "/center1.png",
+    date: "Nov 7",
+    description:
+      "What to Do About Home and Auto Insurance When Moving to North Carolina",
+  },
+  {
+    id: 2,
+    imageUrl: "/center2.jpg",
+    date: "Nov 7",
+    description:
+      "Moving to North Carolina: Getting Your License and Auto Insurance Updated",
+  },
+  {
+    id: 3,
+    imageUrl: "/center3.png",
+    date: "Nov 7",
+    description:
+      "Supplemental Life Insurance and Retirement Planning: A Comprehensive Guide",
+  },
+  {
+    id: 4,
+    imageUrl: "/center4.jpg",
+    date: "Nov 7",
+    description:
+      "Unlock the Lowest Home Insurance Premiums for New Builds in North Carolina",
+  },
+  {
+    id: 5,
+    imageUrl: "/center5.jpg",
+    date: "Oct 29",
+    description: "Save Money with your New Home",
+  },
+];

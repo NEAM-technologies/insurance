@@ -24,7 +24,7 @@ export const HoverEffect = ({
   return (
     <div
       className={cn(
-        "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 py-10",
+        "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 py-16 lg:py-10",
         className
       )}
     >
@@ -57,10 +57,10 @@ export const Card = ({
   children: React.ReactNode;
 }) => {
   return (
-    <div className="h-[12.5rem] bg-red-100 rounded-2xl hover:scale-105 shadow-xl z-0">
+    <div className="h-[12.5rem] bg-black/40 rounded-2xl hover:bg-black/60 mx-auto hover:scale-105 shadow-xl z-0">
       <div
         className={cn(
-          "relative h-[12.5rem] w-[21.3rem] md:w-52 xl:w-[15.3rem] flex items-center justify-center bg-white p-8 border group-hover:border-gray-300 rounded-2xl shadow-xl overflow-hidden",
+          "relative h-[12.5rem] w-[96%] flex items-center justify-center bg-white p-8 border group-hover:border-gray-300 rounded-2xl shadow-xl overflow-hidden",
           className
         )}
       >

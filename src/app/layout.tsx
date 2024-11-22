@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Header } from "@/components/Header";
+
+// custom components
+import DesktopNavbar from "@/components/DesktopNavbar";
+import MobileNavbar from "@/components/MobileNavbar";
+import HeadSection from "@/components/HeadSection";
+import LetsChat from "@/components/LetsChat";
 
 export const metadata: Metadata = {
   title: "You Insurance Agency",
@@ -14,11 +19,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`antialiased`}
-      >
-        <Header />
+      <body className={`relative antialiased`}>
+        <DesktopNavbar />
+        <MobileNavbar />
+        <HeadSection/>
         {children}
+        <LetsChat />
       </body>
     </html>
   );
