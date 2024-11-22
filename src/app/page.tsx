@@ -51,7 +51,7 @@ export default function Home() {
   return (
     <div className="lg:mt-[13.3rem] mb-20">
       <div className="relative h-96 lg:h-[410px] w-full">
-        <div className="absolute top-0 left-64 h-full hidden lg:flex items-center w-80">
+        <div className="absolute top-0 left-10 xl:left-64 h-full hidden lg:flex items-center w-80">
           <h2 className="text-3xl text-[#ff3448b9] font-lulo font-extrabold uppercase">
             Your one stop solution for personalized insurance coverage.
           </h2>
@@ -107,7 +107,7 @@ export default function Home() {
             </span>
           </Link>
         </div>
-        <div className="w-full lg:w-3/6 flex flex-col items-center justify-center mt-5">
+        <div className="w-full xl:w-3/6 flex flex-col items-center justify-center mt-5">
           <span className="text-7xl text-[#f15e63] font-bold mb-4">OR</span>
           <p className="text-3xl text-[#ff3447] font-poppins font-black -tracking-wide">
             Use our Forms

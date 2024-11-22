@@ -35,7 +35,7 @@ const LetsChat = () => {
       {!isModalOpen && (
         <button
           onClick={() => setIsModalOpen(true)}
-          className="flex items-center justify-center gap-4 text-xl text-white font-extralight bg-[#f15e63] px-6 py-3 rounded-full fixed bottom-5 right-5 shadow-lg"
+          className="flex items-center justify-center gap-4 text-xl text-white font-extralight bg-[#f15e63] px-6 py-3 rounded-full fixed bottom-5 right-5 shadow-lg z-[999]"
         >
           <BiSolidMessageRoundedDetail />
           Let&apos;s Chat!
@@ -43,16 +43,16 @@ const LetsChat = () => {
       )}
       {/* Chat Modal */}
       {isModalOpen && (
-        <div className="fixed bottom-5 right-5 w-[22rem] h-[500px] bg-gray-50 rounded-lg shadow-lg">
+        <div className="fixed bottom-5 right-5 w-72 md:w-[22rem] h-[500px] bg-gray-50 rounded-lg shadow-lg z-[999]">
           {/* Modal Header */}
           <div className="h-20 flex items-center justify-between p-5">
-            <div className="flex flex-col">
-              <h3 className="text-xl text-gray-700 tracking-wide">
+            <div className="flex flex-col gap-1">
+              <h3 className="text-lg md:text-xl text-gray-700 tracking-wide">
                 You Insurance Agency
               </h3>
-              <div className="flex items-center justify-center gap-3 pl-1">
+              <div className="flex items-center md:justify-center gap-3 pl-1">
                 <div className="h-2 w-2 bg-green-400 rounded-full"></div>
-                <p>We&apos;ll reply as soon as we can</p>
+                <p className="text-xs md:text-base">We&apos;ll reply as soon as we can</p>
               </div>
             </div>
             <button
