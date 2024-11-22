@@ -72,19 +72,19 @@ export const reviews = [
     id: 1,
     name: "Sookanya",
     review:
-      "Informative and helpful. Helped me find policies for my home, truck, car, and boat. Very responsive to questions and found great coverage for me. I hope the great service continues in the case of a claim.",
+      "Tabatha was awesome. She went over everything to make sure I understood everything. Very friendly and great customer service.",
   },
   {
     id: 2,
     name: "Nicole Yang",
     review:
-      "You Insurance Agency has amazing customer service. I spoke with Cathrine, she answered all my questions. Definitely recommend!",
+      "Informative and helpful. Helped me find policies for my home, truck ,car and boat. Very responsive to questions and found great coverage for me. I hope the great service continues in the case of a claim.",
   },
   {
     id: 3,
     name: "Calvin Smith",
     review:
-      "Abatha was awesome. She went over everything to make sure I understood everything. Very friendly and great customer service.",
+      "You Insurance Agency has amazing customer service. I spoke with Cathrine, she answered all my questions. Definitely recommend!",
   },
 ];
 

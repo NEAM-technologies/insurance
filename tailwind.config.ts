@@ -10,6 +10,7 @@ export default {
     extend: {
       fontFamily: {
         lulo: ['Lulo Clean', 'sans-serif'],
+        poppins: ['Poppins', 'sans-serif'],
       },
     },
   },

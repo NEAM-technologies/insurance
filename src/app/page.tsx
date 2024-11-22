@@ -75,59 +75,84 @@ export default function Home() {
       <div className="max-w-6xl mx-auto px-8">
         <HoverEffect items={projects} />
       </div>
-      <div className="h-40 w-full flex items-center justify-center bg-[#fbdbdc]">
+      <div className="h-52 w-full flex items-center justify-center bg-[#fbdbdc]">
         <Image src="/logobox.png" alt="logo" height={100} width={100} />
-        <p className="w-2/5 text-2xl text-gray-600 text-center font-lulo">20 YEARS OF COMBINED EXPERTISE 15 PARTNERS ACROSS NORTH CAROLINA</p>
+        <p className="w-2/5 text-2xl text-gray-600 text-center font-lulo">
+          20 YEARS OF COMBINED EXPERTISE 15 PARTNERS ACROSS NORTH CAROLINA
+        </p>
       </div>
 
-      <div className="h-fit w-full flex flex-col items-center justify-center my-10">
-        <h2 className="text-[#ff3447]">Compare your Rates in Minutes!</h2>
-        <p>
+      <div className="w-full flex flex-col items-center justify-center gap-6 py-8">
+        <h2 className="text-[44px] text-[#ff3447] font-extrabold">
+          Compare your Rates in Minutes!
+        </h2>
+        <p className="text-xl text-gray-600 font-sans font-light">
           FREE & No obligation, compare quotes from top providers and save more
           on your policy today.
         </p>
-        <div className="flex items-center justify-center">
-          <p className="max-w-xl">
+        <div className="flex items-center justify-center gap-16">
+          <p className="max-w-[36.5rem] text-2xl text-[#f15e65] font-semibold">
             Get the fastest and most accurate free quote by clicking this link!
             Our system retrieves your information directly from your current
             provider, making the process quick, simple, and hassle-free.
           </p>
-          <button className="px-8 py-2 rounded-md bg-teal-500 text-white font-bold transition duration-200 hover:bg-white hover:text-black border-2 border-transparent hover:border-teal-500">
-            Invert it
-          </button>
+          <Link
+            href="https://app.usecanopy.com/c/you-insurance-agency"
+            target="blank"
+            rel="noopener noreferrer"
+            className="h-14 w-fit flex items-center justify-center bg-red-800/90 pb-1 pr-1 rounded-3xl hover:scale-95"
+          >
+            <span
+              className="text-xs text-white font-medium uppercase bg-[#ff3448dc]
+              px-6 py-4 border-2 border-transparent rounded-3xl transition
+              duration-200 hover:bg-red-500
+              hover:border-[#e87a85ef]"
+            >
+              Click here now!
+            </span>
+          </Link>
         </div>
-        <div>
-          <span>OR</span>
-          <p>Use our Forms</p>
-          <div className="flex flex-col md:flex-row items-center space-y-8">
+        <div className="w-3/6 flex flex-col items-center justify-center mt-5">
+          <span className="text-7xl text-[#f15e63] font-bold mb-4">OR</span>
+          <p className="text-3xl text-[#ff3447] font-poppins font-black -tracking-wide">
+            Use our Forms
+          </p>
+          <div className="flex flex-col md:flex-row items-start justify-center mt-8">
             {insuranceOptions.map((option) => (
-              <div key={option.id} className="flex flex-col items-center">
-                <div className="h-32 w-32 text-xl text-white font-semibold bg-black rounded-full flex items-center justify-center">
+              <div
+                key={option.id}
+                className="flex flex-col items-center justify-center gap-5"
+              >
+                <div className="h-32 w-32 text-7xl text-white font-semibold bg-black rounded-full flex items-center justify-center">
                   {option.id}
                 </div>
-                <h3 className="text-center">{option.title}</h3>
-                <p className="text-center">{option.description}</p>
+                <h3 className="w-1/2 text-3xl text-[#a33636] text-center font-extrabold mb-3">
+                  {option.title}
+                </h3>
+                <p className="max-w-44 text-2xl text-[#1d7adf] text-center">
+                  {option.description}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </div>
 
-      <div>
-        <h2 className="text-[#ff3447]">What Our Clients Say</h2>
-        <div className="flex flex-col md:flex-row items-center space-y-8">
+      <div className="h-[450px] flex flex-col items-center justify-center gap-12 bg-[#eaf7ff] py-8">
+        <h2 className="text-5xl text-[#e21c21] font-extrabold">What Our Clients Say</h2>
+        <div className="flex flex-col md:flex-row items-center justify-center gap-8">
           {reviews.map((review) => (
-            <div key={review.id} className="p-4 max-w-sm text-center">
+            <div key={review.id} className="h-60 max-w-[16.5rem] flex flex-col items-center justify-center gap-2 text-center p-4">
               <Image src="/quotes.png" alt="quotes" height={50} width={50} />
-              <p className="mt-2 text-gray-700">{review.review}</p>
-              <h3 className="text-xl font-semibold">{review.name}</h3>
+              <p className="flex-1 text-sm text-gray-700 font-poppins font-medium mt-2 ">{review.review}</p>
+              <h3 className="text-sm text-[#b5423c] font-light tracking-wide">{review.name}</h3>
             </div>
           ))}
         </div>
       </div>
 
-      <div>
-        <h2 className="text-[#ff3447]">Knowledge Center</h2>
+      <div className="h-fit flex flex-col items-center justify-center gap-8 py-12">
+        <h2 className="text-5xl text-[#e21c21] font-extrabold">Knowledge Center</h2>
         <div className="container mx-auto p-4">
           {/* Tabs */}
           <div className="-full flex items-center justify-center space-x-4 mb-6">
@@ -141,7 +166,7 @@ export default function Home() {
                   activeTab === tab.toLowerCase().replace(" ", "")
                     ? "bg-red-500 text-white"
                     : "text-gray-700"
-                } hover:text-red-500`}
+                }`}
               >
                 {tab}
               </button>
@@ -152,7 +177,7 @@ export default function Home() {
             {knowledgeCenter[activeTab]?.map((item) => (
               <div
                 key={item.id}
-                className="h-40 w-96 bg-white p-4 border-[1.25px] border-gray-300 hover:shadow-lg transition"
+                className="h-40 w-96 bg-white p-4 border-[1.25px] border-gray-300 transition"
               >
                 <h3 className="text-lg font-bold">{item.title}</h3>
                 <p className="mt-2 text-gray-600">{item.description}</p>
@@ -320,10 +345,10 @@ export default function Home() {
           <Link href="mailto:ayou@youinsuranceagency.com">
             ayou@youinsuranceagency.com
           </Link>
-          <p className="mt-4 text-lg">
+          <div className="mt-4 text-lg">
             <span className="font-semibold">Office Phone:</span> <br />
             <p className="underline">919-341-0606</p>
-          </p>
+          </div>
           <p className="mt-4 text-lg">
             <span className="font-semibold">Office Hours:</span> <br />
             Monday - Friday: 8:30 AM to 5:30 PM
