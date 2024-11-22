@@ -1,15 +1,13 @@
-"use client";
-
 // react/nextjs components
-import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
 // libraries and utilities
 import { cn } from "@/lib/utils";
 
-// framer motion components
-import { AnimatePresence, motion } from "framer-motion";
+
+// lottie components
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 export const HoverEffect = ({
   items,
@@ -17,12 +15,11 @@ export const HoverEffect = ({
 }: {
   items: {
     title: string;
-    imageUrl: string;
+    lottieUrl?: string;
     link: string;
   }[];
   className?: string;
 }) => {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
     <div
@@ -35,29 +32,8 @@ export const HoverEffect = ({
         <Link
           href={item?.link}
           key={item?.link}
-          className="relative group  block p-2 h-full w-full"
-          onMouseEnter={() => setHoveredIndex(idx)}
-          onMouseLeave={() => setHoveredIndex(null)}
+          className="relative group block p-2 h-full w-full"
         >
-          <AnimatePresence>
-            {hoveredIndex === idx && (
-              <motion.span
-                className={`absolute inset-0 ${
-                  idx > 3 ? "top-4 left-4" : ""
-                }  h-[12.5rem] w-60 bg-[#f5a7aa] block rounded-xl z-0`}
-                layoutId="hoverBackground"
-                initial={{ opacity: 0 }}
-                animate={{
-                  opacity: 1,
-                  transition: { duration: 0.15 },
-                }}
-                exit={{
-                  opacity: 0,
-                  transition: { duration: 0.15, delay: 0.2 },
-                }}
-              />
-            )}
-          </AnimatePresence>
           <Card item={item}>
             <CardTitle>{item.title}</CardTitle>
           </Card>
@@ -72,22 +48,43 @@ export const Card = ({
   className,
   children,
 }: {
-  item: { title: string; imageUrl: string; link: string };
+  item: {
+    title: string;
+    lottieUrl?: string;
+    link: string;
+  };
   className?: string;
   children: React.ReactNode;
 }) => {
   return (
-    <div
-      className={cn(
-        "relative h-[12.5rem] w-60 flex items-center justify-center bg-white p-8 border group-hover:border-gray-300 rounded-lg shadow-lg overflow-hidden z-10",
-        className
-      )}
-    >
-      <div className="relative w-full flex flex-col items-center justify-center gap-3 z-50">
-        <div className="h-28 w-full border">
-          <Image src={item.imageUrl} alt={item.title} height={100} width={100}/>
+    <div className="h-[12.5rem] bg-red-100 rounded-2xl hover:scale-105 shadow-xl z-0">
+      <div
+        className={cn(
+          "relative h-[12.5rem] w-[21.3rem] md:w-52 xl:w-[15.3rem] flex items-center justify-center bg-white p-8 border group-hover:border-gray-300 rounded-2xl shadow-xl overflow-hidden",
+          className
+        )}
+      >
+        <div className="relative w-full flex flex-col items-center justify-center gap-3 z-50">
+          <div className="h-fit w-fit">
+            {item.lottieUrl ? (
+              <div className="relative">
+                <DotLottieReact src={item.lottieUrl} loop autoplay />
+                {item.title === "Renters" && (
+                  <Image
+                    src="/house.png"
+                    alt="Image with a house"
+                    height={100}
+                    width={100}
+                    className="absolute top-0 right-0 -z-10"
+                  />
+                )}
+              </div>
+            ) : (
+              <p>No media available</p>
+            )}
+          </div>
+          <div>{children}</div>
         </div>
-        <div>{children}</div>
       </div>
     </div>
   );

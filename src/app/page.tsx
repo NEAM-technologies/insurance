@@ -47,7 +47,7 @@ export default function Home() {
 
   return (
     <div className="mb-20">
-      <div className="relative h-96 lg:h-[410px] w-full flex flex-col lg:flex-row items-center justify-start pb-12 lg:pb-0 border">
+      <div className="relative h-96 lg:h-[410px] w-full flex flex-col lg:flex-row items-center justify-start pb-12 lg:pb-0">
         <div className="w-3/5 hidden lg:flex items-center justify-center z-10">
           <h2 className="w-6/12 text-3xl text-[#ff3448b9] font-lulo font-extrabold uppercase">
             Your one stop solution for personalized insurance coverage.
@@ -75,7 +75,10 @@ export default function Home() {
       <div className="max-w-6xl mx-auto px-8">
         <HoverEffect items={projects} />
       </div>
-      <div className="h-40 w-full bg-[#fbdbdc]"></div>
+      <div className="h-40 w-full flex items-center justify-center bg-[#fbdbdc]">
+        <Image src="/logobox.png" alt="logo" height={100} width={100} />
+        <p className="w-2/5 text-2xl text-gray-600 text-center font-lulo">20 YEARS OF COMBINED EXPERTISE 15 PARTNERS ACROSS NORTH CAROLINA</p>
+      </div>
 
       <div className="h-fit w-full flex flex-col items-center justify-center my-10">
         <h2 className="text-[#ff3447]">Compare your Rates in Minutes!</h2>
