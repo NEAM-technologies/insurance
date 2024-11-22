@@ -38,7 +38,7 @@ const LetsChat = () => {
           className="flex items-center justify-center gap-4 text-xl text-white font-extralight bg-[#f15e63] px-6 py-3 rounded-full fixed bottom-5 right-5 shadow-lg"
         >
           <BiSolidMessageRoundedDetail />
-          Let's Chat!
+          Let&apos;s Chat!
         </button>
       )}
       {/* Chat Modal */}
