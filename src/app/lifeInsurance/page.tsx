@@ -61,7 +61,7 @@ const Page = () => {
         <>
           <p className="text-4xl">
             Let&apos;s get started!
-            <span className="font-raleway"> What is Name</span>
+            <span className="font-raleway"> What is your Name?</span>
           </p>
           <div className="w-11/12 bg-black/20 pr-[2px] pb-[2px] rounded-lg shadow-lg hover:bg-gray-400">
             <input
@@ -338,16 +338,16 @@ const Page = () => {
           Compare Life Insurance Rates in
           <span className="font-raleway font-semibold"> North Carolina</span>
         </p>
-        <div className="h-8 w-4/5 bg-gray-400 rounded">
+        <div className="h-12 w-4/5 bg-gray-400 rounded-lg">
           <div
             className={`h-full flex items-center justify-center bg-red-800 ${
               currentStep < totalSteps
-                ? "rounded-l"
-                : currentStep === totalSteps && "rounded-r"
+                ? "rounded-l-lg"
+                : currentStep === totalSteps && "rounded-r-lg"
             }`}
             style={{ width: `${percentageComplete}%` }}
           >
-            <p className="text-xs text-white font-semibold">
+            <p className="text-white font-semibold">
               {percentageComplete}% Complete
             </p>
           </div>
@@ -361,7 +361,7 @@ const Page = () => {
       <div className="w-fit flex justify-center gap-4 bg-red-800 mx-auto pb-1 rounded-lg hover:scale-95 shadow-lg">
         <button
           onClick={handleNextStep}
-          className="h-16 w-48 flex items-center justify-center text-xl font-semibold bg-red-900 text-white rounded-lg hover:bg-red-800 shadow-lg"
+          className="h-16 w-48 flex items-center justify-center text-xl font-semibold bg-red-800 text-white rounded-lg hover:bg-red-800 shadow-lg"
         >
           {currentStep === totalSteps ? "Submit" : "Next"}
         </button>
