@@ -49,25 +49,24 @@ export default function Home() {
   };
 
   return (
-    <div className="lg:mt-[13.3rem] mb-20">
-      <div className="relative h-96 lg:h-[410px] w-full">
-        <div className="absolute top-0 left-10 xl:left-64 h-full hidden lg:flex items-center w-80">
-          <h2 className="text-3xl text-[#ff3448b9] font-lulo font-extrabold uppercase">
-            Your one stop solution for personalized insurance coverage.
-          </h2>
+    <div className="mt-10 lg:mt-[13.3rem] mb-20">
+      <div className="relative h-28 lg:h-[370px] w-full">
+        <div className="h-full w-3/6 hidden lg:flex items-center justify-center text-3xl text-[#ff3448b9] font-lulo font-extrabold uppercase">
+          Your one stop <br /> solution for <br /> personalized <br /> insurance <br />
+          coverage.
         </div>
         <Image
-          src={isSmallMobile ? "/familyImgimp.jpg" : "/familyImg.jpg"}
+          src="/familyImg.jpg"
           alt="Image with a family"
-          height={1500}
-          width={1500}
-          className="h-full w-full -my-24 md:my-0 object-contain xl:object-cover -z-10"
+          height={1920}
+          width={1920}
+          className="absolute top-0 left-0 -z-10"
         />
-        <h2 className="block lg:hidden text-xl text-gray-700 text-center font-extrabold tracking-wide uppercase">
-          Your one stop solution for personalized insurance <br />
-          coverage.
-        </h2>
       </div>
+      <h2 className="block lg:hidden text-xl text-gray-700 text-center font-extrabold tracking-wide uppercase px-1">
+        Your one stop solution for personalized insurance <br />
+        coverage.
+      </h2>
       <div className="max-w-6xl mx-auto px-8">
         <HoverEffect items={projects} />
       </div>
@@ -78,7 +77,7 @@ export default function Home() {
         </p>
       </div>
       <div className="w-full flex flex-col items-center justify-center gap-6 py-8">
-        <h2 className="text-3xl lg:text-[44px] text-[#ff3447] text-center lg:text-left font-extrabold">
+        <h2 className="text-3xl lg:text-[44px] text-[#ff3447] text-center lg:text-left font-extrabold px-1">
           Compare your Rates in Minutes!
         </h2>
         <p className="text-xl text-gray-600 text-center lg:text-left font-sans font-light px-3 lg:px-0">
@@ -185,7 +184,7 @@ export default function Home() {
               }) => (
                 <div
                   key={item.id}
-                  className="h-52 lg:h-40 w-72 lg:w-96 flex flex-col bg-white p-4 border-[1.25px] border-red-400 mx-auto lg:mx-0 transition"
+                  className="h-52 lg:h-40 w-72 lg:w-96 flex flex-col bg-white p-4 border-[1.25px] border-gray-300 mx-auto lg:mx-0 transition"
                 >
                   <div className="flex items-start justify-between">
                     <p className="w-3/5 mt-2 text-gray-600">
@@ -363,7 +362,7 @@ export default function Home() {
             <div>
               <button
                 type="submit"
-                className="w-full text-white font-semibold bg-[#ff3448ce] px-4 py-4 rounded-full hover:bg-red-600 transition"
+                className="w-full text-white font-semibold bg-red-800 px-4 py-4 rounded-full hover:bg-red-700 transition"
               >
                 Submit
               </button>

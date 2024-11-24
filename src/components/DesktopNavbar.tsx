@@ -1,35 +1,24 @@
 "use client";
 
 // react/nextjs components
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-// custom hooks
-import { useMediaQuery } from "@/hooks/UseMediaQuery";
-
 const DesktopNavbar = () => {
   const currentPathname = usePathname();
-  const isSmallMobile = useMediaQuery("(max-width: 1024px)");
 
   return (
-    <div className="fixed top-0 left-0 w-screen hidden lg:block bg-white shadow-md z-[1000]">
+    <div className="fixed top-0 left-0 w-full hidden lg:block bg-white shadow-md z-[1000]">
       <div className="h-1 w-full flex bg-[#790d6c] z-10"></div>
-      <div className="h-72 xl:h-40 w-full md:w-4/5 xl:w-3/5 flex flex-col xl:flex-row items-center justify-between mx-auto">
+      <div className="h-72 xl:h-40 w-full md:w-4/5 2xl:w-3/5 flex flex-col xl:flex-row items-center justify-between mx-auto">
         <Link href="/">
-          <Image
-            src="/lglogo.jpg"
-            alt="logo"
-            height={isSmallMobile ? "300" : "220"}
-            width={isSmallMobile ? "300" : "220"}
-          />
+          <Image src="/lglogo.jpg" alt="logo" height={220} width={220} priority/>
         </Link>
-        {!isSmallMobile && (
-          <p className="text-2xl xl:text-4xl text-[#f15e63] font-lulo">
-            919-341-0606
-          </p>
-        )}
+        <p className="text-2xl xl:text-4xl text-[#f15e63] font-lulo">
+          919-341-0606
+        </p>
         <Link
           href="https://bit.ly/AutoQuoteForYou"
           target="blank"
@@ -38,11 +27,6 @@ const DesktopNavbar = () => {
         >
           <span>Request a Quote</span>
         </Link>
-        {isSmallMobile && (
-          <p className="text-2xl xl:text-4xl text-[#f15e63] font-lulo">
-            919-341-0606
-          </p>
-        )}
       </div>
       <div className="h-12 flex items-center justify-center text-black font-medium tracking-wide p-2">
         <div className="w-11/12 flex items-center justify-between">

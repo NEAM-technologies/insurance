@@ -19,7 +19,6 @@ export const HoverEffect = ({
   }[];
   className?: string;
 }) => {
-
   return (
     <div
       className={cn(
@@ -56,30 +55,33 @@ export const Card = ({
   children: React.ReactNode;
 }) => {
   return (
-    <div className="h-[12.5rem] bg-black/40 rounded-2xl hover:bg-black/60 mx-auto hover:scale-95 shadow-xl z-0">
+    <div className="h-52 bg-black/40 pr-3 rounded-2xl hover:bg-black/60 hover:scale-95 shadow-xl">
       <div
         className={cn(
-          "relative h-[12.5rem] w-[96%] flex items-center justify-center bg-white p-8 border group-hover:border-gray-300 rounded-2xl shadow-xl overflow-hidden",
+          "relative h-full w-full flex items-center justify-center bg-white p-8 rounded-2xl shadow-xl",
           className
         )}
       >
-        <div className="relative w-full flex flex-col items-center justify-center gap-3 z-50">
+        <div className="relative w-full flex flex-col items-center justify-center gap-3">
           <div className="h-fit w-fit">
-            {item.lottieUrl ? (
+            {item.lottieUrl && (
               <div className="relative">
-                <DotLottieReact src={item.lottieUrl} loop autoplay />
+                <DotLottieReact
+                  src={item.lottieUrl}
+                  loop
+                  autoplay
+                  className="relative z-10"
+                />
                 {item.title === "Renters" && (
                   <Image
                     src="/house.png"
                     alt="Image with a house"
-                    height={150}
-                    width={150}
-                    className="absolute top-0 right-0 -z-10"
+                    height={100}
+                    width={100}
+                    className="absolute top-0 right-0 z-0"
                   />
                 )}
               </div>
-            ) : (
-              <p>No media available</p>
             )}
           </div>
           <div>{children}</div>

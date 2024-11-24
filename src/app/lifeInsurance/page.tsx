@@ -63,7 +63,7 @@ const Page = () => {
             Let&apos;s get started!
             <span className="font-raleway"> What is Name</span>
           </p>
-          <div className="w-11/12 bg-black/20 pr-1 pb-1 rounded-lg shadow-lg hover:bg-gray-400">
+          <div className="w-11/12 bg-black/20 pr-[2px] pb-[2px] rounded-lg shadow-lg hover:bg-gray-400">
             <input
               type="text"
               name="firstName"
@@ -74,7 +74,7 @@ const Page = () => {
               className="h-20 w-full text-lg p-4 border-2 rounded-lg shadow-md focus:outline-none"
             />
           </div>
-          <div className="w-11/12 bg-black/20 pr-1 pb-1 rounded-lg shadow-lg hover:bg-gray-400">
+          <div className="w-11/12 bg-black/20 pr-[2px] pb-[2px] rounded-lg shadow-lg hover:bg-gray-400">
             <input
               type="text"
               name="lastName"
@@ -91,7 +91,7 @@ const Page = () => {
     {
       title: "What is Your Date of Birth?",
       content: (
-        <div className="w-11/12 bg-black/20 pr-1 pb-1 rounded-lg shadow-lg hover:bg-gray-400">
+        <div className="w-11/12 bg-black/20 pr-[2px] pb-[2px] rounded-lg shadow-lg hover:bg-gray-400">
           <input
             type="date"
             name="dob"

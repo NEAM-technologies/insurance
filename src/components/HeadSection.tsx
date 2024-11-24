@@ -5,25 +5,10 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-// custom hooks
-import { useMediaQuery } from "@/hooks/UseMediaQuery";
-
 const HeadSection = () => {
-  const isSmallMobile = useMediaQuery("(max-width: 1024px)");
-
   return (
     <div className="h-72 flex lg:hidden flex-col xl:flex-row items-center justify-between mx-auto mt-28">
-      <Image
-        src="/lglogo.jpg"
-        alt="logo"
-        height={isSmallMobile ? "300" : "220"}
-        width={isSmallMobile ? "300" : "220"}
-      />
-      {!isSmallMobile && (
-        <p className="text-2xl xl:text-4xl text-[#f15e63] font-lulo">
-          919-341-0606
-        </p>
-      )}
+      <Image src="/lglogo.jpg" alt="logo" height={300} width={300} priority/>
       <Link
         href="https://bit.ly/AutoQuoteForYou"
         target="blank"
@@ -32,11 +17,9 @@ const HeadSection = () => {
       >
         <span>Request a Quote</span>
       </Link>
-      {isSmallMobile && (
-        <p className="text-2xl xl:text-4xl text-[#f15e63] font-lulo">
-          919-341-0606
-        </p>
-      )}
+      <p className="text-2xl xl:text-4xl text-[#f15e63] font-lulo">
+        919-341-0606
+      </p>
     </div>
   );
 };
