@@ -1,0 +1,283 @@
+year,make,model
+1992,Acura,Integra
+1992,Acura,Legend
+1992,Acura,NSX
+1992,Acura,Vigor
+1992,Alfa Romeo,164
+1992,Alfa Romeo,Spider
+1992,Audi,100
+1992,Audi,80
+1992,Audi,Quattro
+1992,Audi,S4
+1992,BMW,3 Series
+1992,BMW,5 Series
+1992,BMW,7 Series
+1992,BMW,8 Series
+1992,BMW,M5
+1992,Buick,Century
+1992,Buick,LeSabre
+1992,Buick,Park Avenue
+1992,Buick,Regal
+1992,Buick,Riviera
+1992,Buick,Roadmaster
+1992,Buick,Skylark
+1992,Cadillac,Allante
+1992,Cadillac,Brougham
+1992,Cadillac,DeVille
+1992,Cadillac,Eldorado
+1992,Cadillac,Fleetwood
+1992,Cadillac,Seville
+1992,Chevrolet,1500 Extended Cab
+1992,Chevrolet,1500 Regular Cab
+1992,Chevrolet,2500 Extended Cab
+1992,Chevrolet,2500 Regular Cab
+1992,Chevrolet,3500 Crew Cab
+1992,Chevrolet,3500 Extended Cab
+1992,Chevrolet,3500 Regular Cab
+1992,Chevrolet,APV Cargo
+1992,Chevrolet,Astro Cargo
+1992,Chevrolet,Astro Passenger
+1992,Chevrolet,Beretta
+1992,Chevrolet,Blazer
+1992,Chevrolet,Camaro
+1992,Chevrolet,Caprice
+1992,Chevrolet,Cavalier
+1992,Chevrolet,Corsica
+1992,Chevrolet,Corvette
+1992,Chevrolet,G-Series G10
+1992,Chevrolet,G-Series G20
+1992,Chevrolet,G-Series G30
+1992,Chevrolet,Lumina
+1992,Chevrolet,Lumina APV
+1992,Chevrolet,S10 Blazer
+1992,Chevrolet,S10 Extended Cab
+1992,Chevrolet,S10 Regular Cab
+1992,Chevrolet,Sportvan G10
+1992,Chevrolet,Sportvan G20
+1992,Chevrolet,Sportvan G30
+1992,Chevrolet,Suburban 1500
+1992,Chevrolet,Suburban 2500
+1992,Chrysler,Fifth Ave
+1992,Chrysler,Imperial
+1992,Chrysler,LeBaron
+1992,Chrysler,New Yorker
+1992,Chrysler,Town & Country
+1992,Daihatsu,Charade
+1992,Daihatsu,Rocky
+1992,Dodge,Caravan Cargo
+1992,Dodge,Caravan Passenger
+1992,Dodge,Colt
+1992,Dodge,D150 Club Cab
+1992,Dodge,D150 Regular Cab
+1992,Dodge,D250 Club Cab
+1992,Dodge,D250 Regular Cab
+1992,Dodge,D350 Club Cab
+1992,Dodge,D350 Regular Cab
+1992,Dodge,Dakota Club Cab
+1992,Dodge,Dakota Regular Cab
+1992,Dodge,Daytona
+1992,Dodge,Dynasty
+1992,Dodge,Grand Caravan Passenger
+1992,Dodge,Monaco
+1992,Dodge,Ram 50 Regular Cab
+1992,Dodge,Ram Van B150
+1992,Dodge,Ram Van B250
+1992,Dodge,Ram Van B350
+1992,Dodge,Ram Wagon B150
+1992,Dodge,Ram Wagon B250
+1992,Dodge,Ram Wagon B350
+1992,Dodge,Ramcharger
+1992,Dodge,Shadow
+1992,Dodge,Spirit
+1992,Dodge,Stealth
+1992,Dodge,Viper
+1992,Eagle,Premier
+1992,Eagle,Summit
+1992,Eagle,Talon
+1992,Ford,Aerostar Cargo
+1992,Ford,Aerostar Passenger
+1992,Ford,Bronco
+1992,Ford,Club Wagon
+1992,Ford,Crown Victoria
+1992,Ford,Econoline E150 Cargo
+1992,Ford,Econoline E250 Cargo
+1992,Ford,Econoline E350 Cargo
+1992,Ford,Escort
+1992,Ford,Explorer
+1992,Ford,F150 Regular Cab
+1992,Ford,F150 Super Cab
+1992,Ford,F250 Regular Cab
+1992,Ford,F250 Super Cab
+1992,Ford,F350 Crew Cab
+1992,Ford,F350 Regular Cab
+1992,Ford,F350 Super Cab
+1992,Ford,Festiva
+1992,Ford,Mustang
+1992,Ford,Probe
+1992,Ford,Ranger Regular Cab
+1992,Ford,Ranger Super Cab
+1992,Ford,Taurus
+1992,Ford,Tempo
+1992,Ford,Thunderbird
+1992,Geo,Metro
+1992,Geo,Prizm
+1992,Geo,Storm
+1992,Geo,Tracker
+1992,GMC,1500 Club Coupe
+1992,GMC,1500 Regular Cab
+1992,GMC,2500 Club Coupe
+1992,GMC,2500 Regular Cab
+1992,GMC,3500 Club Coupe
+1992,GMC,3500 Crew Cab
+1992,GMC,3500 Regular Cab
+1992,GMC,Jimmy
+1992,GMC,Rally Wagon 1500
+1992,GMC,Rally Wagon 2500
+1992,GMC,Rally Wagon 3500
+1992,GMC,Safari Cargo
+1992,GMC,Safari Passenger
+1992,GMC,Sonoma Club Cab
+1992,GMC,Sonoma Regular Cab
+1992,GMC,Suburban 1500
+1992,GMC,Suburban 2500
+1992,GMC,Vandura 1500
+1992,GMC,Vandura 2500
+1992,GMC,Vandura 3500
+1992,GMC,Yukon
+1992,Honda,Accord
+1992,Honda,Civic
+1992,Honda,Prelude
+1992,Hyundai,Elantra
+1992,Hyundai,Excel
+1992,Hyundai,Scoupe
+1992,Hyundai,Sonata
+1992,INFINITI,G
+1992,INFINITI,M
+1992,INFINITI,Q
+1992,Isuzu,Amigo
+1992,Isuzu,Impulse
+1992,Isuzu,Regular Cab
+1992,Isuzu,Rodeo
+1992,Isuzu,Spacecab
+1992,Isuzu,Stylus
+1992,Isuzu,Trooper
+1992,Jaguar,XJ
+1992,Jeep,Cherokee
+1992,Jeep,Comanche Regular Cab
+1992,Jeep,Wrangler
+1992,Land Rover,Range Rover
+1992,Lexus,ES
+1992,Lexus,LS
+1992,Lexus,SC
+1992,Lincoln,Continental
+1992,Lincoln,Mark VII
+1992,Lincoln,Town Car
+1992,MAZDA,323
+1992,MAZDA,626
+1992,MAZDA,929
+1992,MAZDA,B-Series Cab Plus
+1992,MAZDA,B-Series Regular Cab
+1992,MAZDA,MPV
+1992,MAZDA,MX-3
+1992,MAZDA,MX-5 Miata
+1992,MAZDA,MX-6
+1992,MAZDA,Navajo
+1992,MAZDA,Protege
+1992,Mercedes-Benz,190 E
+1992,Mercedes-Benz,300 CE
+1992,Mercedes-Benz,300 D
+1992,Mercedes-Benz,300 E
+1992,Mercedes-Benz,300 SD
+1992,Mercedes-Benz,300 SE
+1992,Mercedes-Benz,300 SL
+1992,Mercedes-Benz,300 TE
+1992,Mercedes-Benz,400 E
+1992,Mercedes-Benz,400 SE
+1992,Mercedes-Benz,500 E
+1992,Mercedes-Benz,500 SEL
+1992,Mercedes-Benz,500 SL
+1992,Mercedes-Benz,600 SEL
+1992,Mercury,Capri
+1992,Mercury,Cougar
+1992,Mercury,Grand Marquis
+1992,Mercury,Sable
+1992,Mercury,Topaz
+1992,Mercury,Tracer
+1992,Mitsubishi,3000GT
+1992,Mitsubishi,Diamante
+1992,Mitsubishi,Eclipse
+1992,Mitsubishi,Expo
+1992,Mitsubishi,Galant
+1992,Mitsubishi,Mighty Max Macro Cab
+1992,Mitsubishi,Mighty Max Regular Cab
+1992,Mitsubishi,Mirage
+1992,Mitsubishi,Montero
+1992,Mitsubishi,Precis
+1992,Nissan,240SX
+1992,Nissan,300ZX
+1992,Nissan,King Cab
+1992,Nissan,Maxima
+1992,Nissan,NX
+1992,Nissan,Pathfinder
+1992,Nissan,Regular Cab
+1992,Nissan,Sentra
+1992,Nissan,Stanza
+1992,Oldsmobile,88
+1992,Oldsmobile,98
+1992,Oldsmobile,Achieva
+1992,Oldsmobile,Bravada
+1992,Oldsmobile,Custom Cruiser
+1992,Oldsmobile,Cutlass Ciera
+1992,Oldsmobile,Cutlass Supreme
+1992,Oldsmobile,Silhouette
+1992,Oldsmobile,Toronado
+1992,Plymouth,Acclaim
+1992,Plymouth,Colt
+1992,Plymouth,Colt Vista
+1992,Plymouth,Grand Voyager
+1992,Plymouth,Laser
+1992,Plymouth,Sundance
+1992,Plymouth,Voyager
+1992,Pontiac,Bonneville
+1992,Pontiac,Firebird
+1992,Pontiac,Grand Am
+1992,Pontiac,Grand Prix
+1992,Pontiac,LeMans
+1992,Pontiac,Sunbird
+1992,Pontiac,Trans Sport
+1992,Porsche,911
+1992,Porsche,968
+1992,Saab,900
+1992,Saab,9000
+1992,Saturn,S-Series
+1992,Subaru,Justy
+1992,Subaru,Legacy
+1992,Subaru,Loyale
+1992,Subaru,SVX
+1992,Suzuki,Samurai
+1992,Suzuki,Sidekick
+1992,Suzuki,Swift
+1992,Toyota,4Runner
+1992,Toyota,Camry
+1992,Toyota,Celica
+1992,Toyota,Corolla
+1992,Toyota,Cressida
+1992,Toyota,Land Cruiser
+1992,Toyota,MR2
+1992,Toyota,Paseo
+1992,Toyota,Previa
+1992,Toyota,Regular Cab
+1992,Toyota,Supra
+1992,Toyota,Tercel
+1992,Toyota,Xtra Cab
+1992,Volkswagen,Cabriolet
+1992,Volkswagen,Corrado
+1992,Volkswagen,Fox
+1992,Volkswagen,Golf
+1992,Volkswagen,GTI
+1992,Volkswagen,Jetta
+1992,Volkswagen,Passat
+1992,Volvo,240
+1992,Volvo,740
+1992,Volvo,940
+1992,Volvo,960

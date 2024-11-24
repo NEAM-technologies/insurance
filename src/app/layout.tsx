@@ -5,6 +5,7 @@ import "./globals.css";
 import DesktopNavbar from "@/components/DesktopNavbar";
 import MobileNavbar from "@/components/MobileNavbar";
 import HeadSection from "@/components/HeadSection";
+import Footer from "@/components/Footer";
 import LetsChat from "@/components/LetsChat";
 
 export const metadata: Metadata = {
@@ -24,6 +25,7 @@ export default function RootLayout({
         <MobileNavbar />
         <HeadSection/>
         {children}
+        <Footer/>
         <LetsChat />
       </body>
     </html>

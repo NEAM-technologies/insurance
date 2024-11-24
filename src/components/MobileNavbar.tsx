@@ -31,18 +31,20 @@ const MobileNavbar = () => {
       document.documentElement.style.overflow = "";
     };
   }, [showMenu]);
-  
+
   return (
     <div
       className={`fixed top-0 left-0 w-screen flex-col lg:hidden items-center justify-center ${
         showMenu ? "h-fit overflow-hidden" : "h-24"
       } z-[1000]`}
     >
-      <div className="h-24 w-screen flex items-center justify-between bg-white py-4 pr-8 shadow-lg z-[1000]">
-        <Image src="/logobox.png" alt="logo" height={80} width={80} />
+      <div className="h-24 w-screen flex items-center justify-between bg-white py-4 pl-8 pr-12 shadow-lg z-50">
+        <Link href="/">
+          <Image src="/logobox.png" alt="logo" height={60} width={60} />
+        </Link>
         <button type="button" onClick={toggleMenu}>
           <svg
-            className="w-8 h-8 hover:scale-95"
+            className="w-8 h-8 text-red-600 hover:scale-95"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -60,8 +62,8 @@ const MobileNavbar = () => {
       </div>
       <div
         className={`h-screen w-full ${
-          showMenu ? "translate-y-0" : "translate-y-[-150%]"
-        } bg-[#d22a30] transition-all duration-500 ease-in-out z-[999] overflow-clip`}
+          showMenu ? "translate-y-0" : "translate-y-[-150%] -z-50"
+        } bg-[#d22a30] transition-all duration-700 ease-in-out overflow-clip`}
       >
         <div className="flex-1 w-full text-3xl text-white font-poppins font-medium tracking-wide">
           <div className="h-full flex flex-col items-start justify-start gap-8 p-10 md:p-6">
@@ -88,7 +90,7 @@ const MobileNavbar = () => {
               About
             </Link>
             <Link
-              href="/autoInsurance"
+              href="/autoInfo"
               onClick={() => setShowMenu(!showMenu)}
               className={`${
                 currentPathname === "/home"
@@ -110,7 +112,7 @@ const MobileNavbar = () => {
               Home Insurance
             </Link>
             <Link
-              href="/lifeInsurance"
+              href="/lifeInsuranceInfo"
               onClick={() => setShowMenu(!showMenu)}
               className={`${
                 currentPathname === "/services"

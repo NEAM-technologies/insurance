@@ -5,7 +5,6 @@ import Image from "next/image";
 // libraries and utilities
 import { cn } from "@/lib/utils";
 
-
 // lottie components
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
@@ -57,7 +56,7 @@ export const Card = ({
   children: React.ReactNode;
 }) => {
   return (
-    <div className="h-[12.5rem] bg-black/40 rounded-2xl hover:bg-black/60 mx-auto hover:scale-105 shadow-xl z-0">
+    <div className="h-[12.5rem] bg-black/40 rounded-2xl hover:bg-black/60 mx-auto hover:scale-95 shadow-xl z-0">
       <div
         className={cn(
           "relative h-[12.5rem] w-[96%] flex items-center justify-center bg-white p-8 border group-hover:border-gray-300 rounded-2xl shadow-xl overflow-hidden",
@@ -73,8 +72,8 @@ export const Card = ({
                   <Image
                     src="/house.png"
                     alt="Image with a house"
-                    height={100}
-                    width={100}
+                    height={150}
+                    width={150}
                     className="absolute top-0 right-0 -z-10"
                   />
                 )}

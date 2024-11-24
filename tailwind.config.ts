@@ -9,8 +9,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        lulo: ['Lulo Clean', 'sans-serif'],
-        poppins: ['Poppins', 'sans-serif'],
+        lulo: ["Lulo Clean", "sans-serif"],
+        poppins: ["Poppins", "sans-serif"],
+        raleway: ["Raleway", "sans-serif"],
       },
     },
   },

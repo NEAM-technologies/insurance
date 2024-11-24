@@ -3,49 +3,49 @@ export const projects = [
     title: "Auto",
     lottieUrl:
       "https://lottie.host/f678cace-d7cd-432e-993c-604366bd2ab7/wxmJGyQ24V.lottie",
-    link: "https://stripe.com",
+    link: "/autoInsurance",
   },
   {
     title: "Home",
     lottieUrl:
       "https://lottie.host/e01068ed-3f7e-4924-a818-c16e7ddd507c/akYIFiUVuA.lottie",
-    link: "https://netflix.com",
+    link: "/homeInsurance",
   },
   {
     title: "Life",
     lottieUrl:
       "https://lottie.host/5e792da9-6285-4bf2-a3c8-43d66b866341/weviWvRg9f.lottie",
-    link: "https://google.com",
+    link: "/lifeInsurance",
   },
   {
     title: "Commercial",
     lottieUrl:
       "https://lottie.host/e8dcd266-d7c2-43e3-b04b-3d1d6c41d60d/PBXyBPSfut.lottie",
-    link: "https://meta.com",
+    link: "/",
   },
   {
     title: "Renters",
     lottieUrl:
       "https://lottie.host/b17bf1dd-736b-41a2-8de9-cb16c3763e94/o5IF3v51RU.lottie",
-    link: "https://amazon.com",
+    link: "/",
   },
   {
     title: "Motorcycle",
     lottieUrl:
       "https://lottie.host/8a63fa75-005e-47a6-9e44-e4f4e177018c/HVeUV1L85Y.lottie",
-    link: "https://microsoft.com",
+    link: "/",
   },
   {
     title: "Recreational",
     lottieUrl:
       "https://lottie.host/bbaf83f2-9ccf-4c7d-a9a9-69f9f923ced2/pUVHJGOAxV.lottie",
-    link: "https://ddwdwwd.com",
+    link: "/",
   },
   {
     title: "Umbrella",
     lottieUrl:
       "https://lottie.host/abbd9746-387c-412d-bf17-bef15bc503bc/wdiKcicUfy.lottie",
-    link: "https://micrdwwdwdwosoft.com",
+    link: "/",
   },
 ];
 

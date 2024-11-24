@@ -17,12 +17,14 @@ const DesktopNavbar = () => {
     <div className="fixed top-0 left-0 w-screen hidden lg:block bg-white shadow-md z-[1000]">
       <div className="h-1 w-full flex bg-[#790d6c] z-10"></div>
       <div className="h-72 xl:h-40 w-full md:w-4/5 xl:w-3/5 flex flex-col xl:flex-row items-center justify-between mx-auto">
-        <Image
-          src="/lglogo.jpg"
-          alt="logo"
-          height={isSmallMobile ? "300" : "220"}
-          width={isSmallMobile ? "300" : "220"}
-        />
+        <Link href="/">
+          <Image
+            src="/lglogo.jpg"
+            alt="logo"
+            height={isSmallMobile ? "300" : "220"}
+            width={isSmallMobile ? "300" : "220"}
+          />
+        </Link>
         {!isSmallMobile && (
           <p className="text-2xl xl:text-4xl text-[#f15e63] font-lulo">
             919-341-0606
@@ -63,7 +65,7 @@ const DesktopNavbar = () => {
             About
           </Link>
           <Link
-            href="/autoInsurance"
+            href="/autoInfo"
             className={`${
               currentPathname === "/home" ? "text-yellow-400" : "text-black"
             } hover:text-red-600 transition-colors duration-200`}
@@ -81,7 +83,7 @@ const DesktopNavbar = () => {
             Home Insurance
           </Link>
           <Link
-            href="/lifeInsurance"
+            href="/lifeInsuranceInfo"
             className={`${
               currentPathname === "/services"
                 ? "text-red-600 font-semibold"
