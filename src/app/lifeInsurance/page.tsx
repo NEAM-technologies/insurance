@@ -61,7 +61,7 @@ const Page = () => {
         <>
           <p className="text-4xl">
             Let&apos;s get started!
-            <span className="font-raleway"> What is Your Date of Birth</span>
+            <span className="font-raleway"> What is Name</span>
           </p>
           <div className="w-11/12 bg-black/20 pr-1 pb-1 rounded-lg shadow-lg hover:bg-gray-400">
             <input
@@ -91,15 +91,16 @@ const Page = () => {
     {
       title: "What is Your Date of Birth?",
       content: (
-        <>
+        <div className="w-11/12 bg-black/20 pr-1 pb-1 rounded-lg shadow-lg hover:bg-gray-400">
           <input
             type="date"
             name="dob"
             value={formData.dob}
             onChange={handleInputChange}
             required
+            className="h-20 w-full text-lg p-4 border-2 rounded-lg shadow-md focus:outline-none"
           />
-        </>
+        </div>
       ),
     },
     {
@@ -360,7 +361,7 @@ const Page = () => {
       <div className="w-fit flex justify-center gap-4 bg-red-800 mx-auto pb-1 rounded-lg hover:scale-95 shadow-lg">
         <button
           onClick={handleNextStep}
-          className="h-16 w-48 flex items-center justify-center text-xl font-semibold bg-red-500 text-white rounded-lg shadow-lg"
+          className="h-16 w-48 flex items-center justify-center text-xl font-semibold bg-red-900 text-white rounded-lg hover:bg-red-800 shadow-lg"
         >
           {currentStep === totalSteps ? "Submit" : "Next"}
         </button>
