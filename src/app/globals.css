@@ -34,3 +34,22 @@ body {
   background: #efeeee;
   border-radius: 1rem;
 }
+
+/* In your global CSS or a dedicated stylesheet */
+@layer utilities {
+  .animate-pulseCustom {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1; /* Full opacity */
+  }
+  50% {
+    opacity: 0.5; /* Half opacity */
+  }
+  100% {
+    opacity: 1; /* Full opacity */
+  }
+}

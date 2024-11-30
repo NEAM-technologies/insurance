@@ -8,9 +8,6 @@ import Link from "next/link";
 // Aceternity UI components
 import { HoverEffect } from "@/components/ui/CardHoverEffect";
 
-// custom hooks
-import { useMediaQuery } from "@/hooks/UseMediaQuery";
-
 // json data
 import {
   insuranceOptions,
@@ -20,7 +17,6 @@ import {
 } from "@/data/index";
 
 export default function Home() {
-  const isSmallMobile = useMediaQuery("(max-width: 1024px)");
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",

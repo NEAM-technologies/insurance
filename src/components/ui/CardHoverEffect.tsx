@@ -8,6 +8,9 @@ import { cn } from "@/lib/utils";
 // lottie components
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
+// state components
+import useLifeFormStore from "@/store/useLifeFormStore";
+
 export const HoverEffect = ({
   items,
   className,
@@ -19,6 +22,8 @@ export const HoverEffect = ({
   }[];
   className?: string;
 }) => {
+  const { reset } = useLifeFormStore();
+
   return (
     <div
       className={cn(
@@ -29,6 +34,7 @@ export const HoverEffect = ({
       {items.map((item, idx) => (
         <Link
           href={item?.link}
+          onClick={item?.title === "Life" ? () => reset() : undefined}
           key={item?.link}
           className="relative group block p-2 h-full w-full"
         >

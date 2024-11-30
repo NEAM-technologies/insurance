@@ -120,7 +120,7 @@ const Page = () => {
             {/* Year Dropdown */}
             <div className="space-y-1 px-3">
               <button
-                className="w-full inline-flex items-center justify-between text-lg text-white font-semibold bg-red-900 mx-auto p-5 rounded-lg hover:bg-red-800 focus:ring-2 focus:outline-none focus:ring-gray-200"
+                className="w-full inline-flex items-center justify-between text-lg text-white font-semibold bg-red-700 mx-auto p-5 rounded-lg hover:bg-red-800 focus:ring-2 focus:outline-none focus:ring-gray-200"
                 type="button"
                 onClick={() => toggleDropdown("year")}
               >
@@ -162,7 +162,7 @@ const Page = () => {
             {formData.year && (
               <div className="space-y-1  px-3">
                 <button
-                  className="w-full inline-flex items-center justify-between text-lg text-white font-semibold bg-red-900 mx-auto p-5 rounded-lg hover:bg-red-800 focus:ring-2 focus:outline-none focus:ring-gray-200"
+                  className="w-full inline-flex items-center justify-between text-lg text-white font-semibold bg-red-700 mx-auto p-5 rounded-lg hover:bg-red-800 focus:ring-2 focus:outline-none focus:ring-gray-200"
                   type="button"
                   onClick={() => toggleDropdown("make")}
                 >
@@ -207,7 +207,7 @@ const Page = () => {
             {formData.make && (
               <div className="space-y-1  px-3">
                 <button
-                  className="w-full inline-flex items-center justify-between text-lg text-white font-semibold bg-red-900 mx-auto p-5 rounded-lg hover:bg-red-800 focus:ring-2 focus:outline-none focus:ring-gray-200"
+                  className="w-full inline-flex items-center justify-between text-lg text-white font-semibold bg-red-700 mx-auto p-5 rounded-lg hover:bg-red-800 focus:ring-2 focus:outline-none focus:ring-gray-200"
                   type="button"
                   onClick={() => toggleDropdown("model")}
                 >
@@ -254,7 +254,7 @@ const Page = () => {
         {formData.model && (
           <div className="px-3">
             <button
-              className="w-full text-xl font-semibold text-white bg-red-900 p-5 rounded-lg hover:bg-red-800"
+              className="w-full text-xl font-semibold text-white bg-red-700 p-5 rounded-lg hover:bg-red-800"
               onClick={handleSubmit}
             >
               Submit
