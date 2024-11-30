@@ -36,7 +36,7 @@ type LifeFormData = {
   healthConditions: string[];
   coverageType: string;
   coverageAmount: string;
-}
+};
 
 type ValidationSchema = {
   [key: number]: string[];
@@ -47,5 +47,18 @@ type StoreState = {
   setCurrentStep: (step: number) => void;
   formData: LifeFormData;
   setFormData: (data: LifeFormData) => void;
-  reset: () => void; 
+  reset: () => void;
+};
+
+type AutoInsuranceQuestion = {
+  question: string;
+  options: (string | number)[];
+  note?: string;
+};
+
+interface AutoFormData {
+  year: string;
+  make: string;
+  model: string;
+  [key: string]: string | number | undefined; // To handle dynamic question responses
 }

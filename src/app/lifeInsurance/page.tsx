@@ -824,9 +824,19 @@ const Page = () => {
                   onClick={() =>
                     setFormData({ ...formData, coverageAmount: item })
                   }
-                  className="h-16 w-96 bg-red-800/80 pr-1 pb-1 rounded-lg shadow-lg hover:scale-95"
+                  className={`h-16 w-96 ${
+                    formData.coverageAmount.includes(item)
+                      ? "bg-red-800/80"
+                      : "bg-red-700"
+                  } pr-1 pb-1 rounded-lg shadow-lg hover:scale-95`}
                 >
-                  <div className="h-full flex items-center justify-center text-2xl font-semibold text-white bg-red-700 rounded-lg shadow-md focus:outline-none">
+                  <div
+                    className={`h-full flex items-center justify-center text-2xl font-semibold text-white ${
+                      formData.coverageAmount.includes(item)
+                        ? "bg-red-800/80"
+                        : "bg-red-700"
+                    } rounded-lg shadow-md focus:outline-none`}
+                  >
                     {item}
                   </div>
                 </button>

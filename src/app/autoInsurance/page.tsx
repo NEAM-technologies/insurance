@@ -6,11 +6,17 @@ import React, { useEffect, useState } from "react";
 // firebase components
 import { getAutoInsuranceCollection, getAutoYear } from "../../../firebase";
 
+// framer motion components
+import { motion } from "framer-motion";
+
 // lottie components
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
+// data
+import { autoInsuranceQuestions } from "@/data";
+
 // icons
-import { FaChevronDown } from "react-icons/fa";
+import { IoIosCheckmarkCircle } from "react-icons/io";
 
 const loadingStates: LoadingState[] = [
   { text: "Preparing to fetch data..." },
@@ -21,14 +27,36 @@ const loadingStates: LoadingState[] = [
 const Page = () => {
   const [year, setYear] = useState<AutoYear[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const [currentStep, setCurrentStep] = useState(1);
   const [vechileData, setVechileData] = useState<VechileData[]>([]);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<AutoFormData>({
     year: "",
     make: "",
     model: "",
+    "What do you use your Chevrolet for?": "",
+    "How many miles per day do you drive?": "",
+    "Do you own your Chevrolet 4500HD?": "",
+    "Would You Like Full Coverage or Liability Only?": "",
+    "Select Deductible for Collision": "",
+    "Select Deductible for Comprehensive": "",
+    "Want to add a second vehicle?": "",
   });
+
+  const handleOptionChange = (
+    questionIndex: number,
+    selectedOption: string | number
+  ) => {
+    const question = autoInsuranceQuestions[questionIndex].question;
+
+    setFormData((prev) => ({
+      ...prev,
+      [question]: selectedOption,
+    }));
+
+    // Move to the next question
+    setCurrentStep((prevStep) => prevStep + 1);
+  };
 
   // Function to toggle dropdown visibility
   const toggleDropdown = (type: string) => {
@@ -97,7 +125,8 @@ const Page = () => {
           className="w-60 mx-auto"
         />
         <h1 className="w-3/5 text-3xl text-center font-raleway mx-auto">
-          Hi there, let&apos;s see how much we can save you on your car insurance.
+          Hi there, let&apos;s see how much we can save you on your car
+          insurance.
         </h1>
       </div>
       <div>
@@ -247,6 +276,54 @@ const Page = () => {
                 )}
               </div>
             )}
+          </div>
+          <div>
+            <div>
+              <IoIosCheckmarkCircle size={22} color="red" />
+              <p> What do you use your Chevrolet for?</p>
+            </div>
+            <div></div>
+          </div>
+          <div className="w-full">
+            {autoInsuranceQuestions.map((question, index) => {
+              // Render questions only if they are the current step or have already been answered
+              return (
+                index <= currentStep && (
+                  <motion.div
+                    key={index}
+                    className="w-11/12 space-y-12 mx-auto"
+                    initial={{ y: 50 }}
+                    animate={{ y: 0 }}
+                    exit={{ y: -50 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <p className="text-4xl text-center font-raleway">
+                      {question.question}
+                    </p>
+
+                    {question.options.map((option, idx) => (
+                      <div key={idx} className="flex justify-center">
+                        <button
+                          type="button"
+                          onClick={() => handleOptionChange(index, option)}
+                          className="h-20 w-96 text-xl font-semibold bg-red-700 pr-1 pb-1 rounded-lg shadow-xl hover:bg-red-800 hover:scale-95"
+                        >
+                          <div className="h-full w-full flex items-center justify-center text-white bg-red-700 rounded-lg shadow-md focus:outline-none">
+                            {option}
+                          </div>
+                        </button>
+                      </div>
+                    ))}
+
+                    {question.note && (
+                      <p className="text-lg text-center text-gray-500">
+                        {question.note}
+                      </p>
+                    )}
+                  </motion.div>
+                )
+              );
+            })}
           </div>
         </div>
 

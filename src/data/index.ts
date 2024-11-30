@@ -270,3 +270,49 @@ export const coverageAmount = [
   "$1,750,000",
   "$2,000,000",
 ];
+
+
+export const autoInsuranceQuestions: AutoInsuranceQuestion[] = [
+  {
+    question: "What do you use your Chevrolet for?",
+    options: [
+      "Getting to Work",
+      "Running Errands",
+      "Pleasure",
+      "Uber / Lyft",
+    ],
+  },
+  {
+    question: "How many miles per day do you drive?",
+    options: [5, 10, 20, "30+"],
+    note: "Most drivers average 30 per day"
+  },
+  {
+    question: "Do you own your Chevrolet 4500HD?",
+    options: ["Own", "Lease", "Finance"],
+    note: "Drivers who lease or finance may need more coverage",
+  },
+  {
+    question: "Would You Like Full Coverage or Liability Only?",
+    options: [
+      "Full Coverage",
+      "Liability Only",
+    ],
+    note: "Liability covers damage you cause other drivers or their property. Full coverage applies to damage to your vehicle.",
+  },
+  {
+    question: "Select Deductible for Collision",
+    options: [1000, 500, 250, 200, 100, 50, 0],
+    note: "Amount you pay in case of an accident.",
+  },
+  {
+    question: "Select Deductible for Comprehensive",
+    options: [1000, 500, 250, 200, 100, 50, 0],
+    note: "Amount you pay in case of theft, vandalism, etc.",
+  },
+  {
+    question: "Want to add a second vehicle?",
+    options: ["Yes", "No"],
+    note: "You can save up to 25% by having multiple vehicles on the same policy",
+  },
+];
