@@ -22,7 +22,7 @@ body {
 }
 
 .custom-scrollbar::-webkit-scrollbar {
-  width: 2px;
+  width: 3px;
   scrollbar-color: #f3f4f6 transparent;
 }
 
@@ -31,7 +31,7 @@ body {
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #efeeee;
+  background: #bb2828;
   border-radius: 1rem;
 }
 

@@ -1,20 +1,45 @@
 "use client";
 
 // react/nextjs components
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const DesktopNavbar = () => {
   const currentPathname = usePathname();
+  const [hasScrolled, setHasScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setHasScrolled(true);
+      } else {
+        setHasScrolled(false);
+      }
+    };
+
+    // Add scroll event listener
+    window.addEventListener("scroll", handleScroll);
+
+    // Cleanup on component unmount
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
-    <div className="fixed top-0 left-0 w-full hidden lg:block bg-white shadow-md z-[1000]">
+    <div className={`fixed top-0 left-0 w-full hidden lg:block bg-white ${hasScrolled ? "shadow-md " : ""} z-50`}>
       <div className="h-1 w-full flex bg-[#790d6c] z-10"></div>
-      <div className="h-72 xl:h-40 w-full md:w-4/5 2xl:w-3/5 flex flex-col xl:flex-row items-center justify-between mx-auto">
+      <div className="h-72 xl:h-40 w-full md:w-4/5 flex flex-col xl:flex-row items-center justify-between mx-auto">
         <Link href="/">
-          <Image src="/lglogo.jpg" alt="logo" height={220} width={220} priority/>
+          <Image
+            src="/lglogo.jpg"
+            alt="logo"
+            height={280}
+            width={280}
+            priority
+          />
         </Link>
         <p className="text-2xl xl:text-4xl text-[#f15e63] font-lulo">
           919-341-0606

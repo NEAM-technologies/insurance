@@ -1,9 +1,9 @@
-import React from 'react'
+"use client";
 
-const Page = () => {
-  return (
-    <div>Home Insurance</div>
-  )
-}
+// Next.js dynamic import to disable SSR for the entire page
+import dynamic from "next/dynamic";
 
-export default Page
+// Dynamically import the page component
+const Page = dynamic(() => import("../../components/insurance/HomeInsurancePage"), { ssr: false });
+
+export default Page;

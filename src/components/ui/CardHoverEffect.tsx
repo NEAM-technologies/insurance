@@ -8,8 +8,10 @@ import { cn } from "@/lib/utils";
 // lottie components
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
-// state components
+// global store
 import useLifeFormStore from "@/store/useLifeFormStore";
+import useHomeInsuranceStore from "@/store/useHomeInsuranceStore";
+import useAutoInsuranceStore from "@/store/useAutoInsuranceStore";
 
 export const HoverEffect = ({
   items,
@@ -22,7 +24,18 @@ export const HoverEffect = ({
   }[];
   className?: string;
 }) => {
-  const { reset } = useLifeFormStore();
+  const { resetLifeForm } = useLifeFormStore();
+  const { resetHomeForm } = useHomeInsuranceStore();
+  const { resetAutoForm } = useAutoInsuranceStore();
+
+  const resetPage = () => {
+    resetHomeForm();
+    resetLifeForm();
+    resetAutoForm();
+    localStorage.removeItem("completedSections");
+    localStorage.removeItem("currentSection");
+    localStorage.removeItem("isCompleted");
+  };
 
   return (
     <div
@@ -31,10 +44,10 @@ export const HoverEffect = ({
         className
       )}
     >
-      {items.map((item, idx) => (
+      {items.map((item, _) => (
         <Link
           href={item?.link}
-          onClick={item?.title === "Life" ? () => reset() : undefined}
+          onClick={resetPage}
           key={item?.link}
           className="relative group block p-2 h-full w-full"
         >
@@ -61,7 +74,7 @@ export const Card = ({
   children: React.ReactNode;
 }) => {
   return (
-    <div className="h-52 bg-black/40 pr-3 rounded-2xl hover:bg-black/60 hover:scale-95 shadow-xl">
+    <div className="h-52 bg-black/40 pr-3 rounded-2xl hover:bg-black/60 hover:scale-[98%] shadow-xl">
       <div
         className={cn(
           "relative h-full w-full flex items-center justify-center bg-white p-8 rounded-2xl shadow-xl",

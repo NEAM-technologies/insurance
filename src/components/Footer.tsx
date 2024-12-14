@@ -4,9 +4,9 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <div className="w-full bg-gray-100 py-5">
+    <div className="w-full py-5">
       {/* Contact Info */}
-      <div className="max-w-6xl flex flex-col lg:flex-row mx-auto p-4">
+      <div className="max-w-6xl flex flex-col lg:flex-row mx-auto mt-10 p-4">
         <div className="flex-1 flex flex-col justify-center">
           <h2 className="text-xl font-bold">You Insurance Agency</h2>
           <p className="text-lg">

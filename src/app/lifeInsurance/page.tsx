@@ -5,7 +5,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 
 // framer motion components
-import { motion } from "framer-motion";
+import { color, motion } from "framer-motion";
 
 // state components
 import useLifeFormStore from "@/store/useLifeFormStore";
@@ -55,20 +55,20 @@ const Page = () => {
 
   // Handle Next Step with Validation and Update Message
   const handleNextStep = () => {
-    // Get the fields for the current step from the validationSchema
-    const currentFields = validationSchema[currentStep];
+    // // Get the fields for the current step from the validationSchema
+    // const currentFields = validationSchema[currentStep];
 
-    // Loop through the fields for the current step and check if any are empty
-    for (const field of currentFields) {
-      if (isFieldEmpty(field, formData)) {
-        setMessage(`Please fill in the necessary fields.`);
-        setTimeout(() => setMessage(null), 5000);
-        return; // Stop the function from progressing to the next step if any field is empty
-      }
-    }
+    // // Loop through the fields for the current step and check if any are empty
+    // for (const field of currentFields) {
+    //   if (isFieldEmpty(field, formData)) {
+    //     setMessage(`Please fill in the necessary fields.`);
+    //     setTimeout(() => setMessage(null), 5000);
+    //     return; // Stop the function from progressing to the next step if any field is empty
+    //   }
+    // }
 
-    // If all fields are filled, proceed to the next step
-    setMessage(null); // Clear the message
+    // // If all fields are filled, proceed to the next step
+    // setMessage(null); // Clear the message
     setCurrentStep(currentStep + 1);
   };
 
@@ -209,21 +209,21 @@ const Page = () => {
         behavior: "smooth",
       });
     }
-  }, [currentStep, steps.length]);
+  }, [currentStep]);
 
   return (
-    <div className="relative space-y-8 lg:mt-[13.3rem] pb-12 border-4">
+    <div className="relative space-y-8">
       {/* Stepper */}
       <div>
         <div
           ref={scrollRef}
-          className="w-full flex items-center space-x-2 text-sm sm:text-base font-medium text-center text-gray-500 bg-gray-200 p-3 sm:p-4 rtl:space-x-reverse overflow-hidden"
+          className="w-full flex items-center gap-4 md:gap-2 text-sm sm:text-base font-medium text-center text-gray-500 bg-gray-100 p-3 sm:p-4 rtl:space-x-reverse overflow-hidden"
         >
           {steps.map((step, index) => (
             <button
               key={index}
               onClick={handleNextStep}
-              className={`flex items-center text-lg ${
+              className={`flex items-center justify-center text-lg ${
                 index + 1 <= currentStep ? "text-red-700" : "text-gray-500"
               } ${index + 1 === currentStep && "animate-pulseCustom"}`}
               style={{ flex: "0 0 calc(100% / 6)", scrollSnapAlign: "center" }}
@@ -237,10 +237,10 @@ const Page = () => {
               >
                 {index + 1}
               </span>
-              {step}
+              <p className="text-sm md:text-base xl:text-lg text-nowrap">{step}</p>
               {index + 1 < steps.length && (
                 <svg
-                  className="w-4 h-4 ms-2 sm:ms-4 rtl:rotate-180"
+                  className="w-4 h-4 ms-2 rtl:rotate-180"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -271,7 +271,7 @@ const Page = () => {
         <button
           type="button"
           onClick={() => setCurrentStep(currentStep - 1)}
-          className="absolute top-1/3 left-2 hover:scale-105"
+          className="absolute md:top-1/3 left-[45%] md:left-2 hover:scale-105"
         >
           <MdArrowBackIos size={50} color="#6f1212" />
         </button>
@@ -287,8 +287,8 @@ const Page = () => {
             exit={{ x: 100 }}
             transition={{ type: "spring", stiffness: 300 }}
           >
-            <p className="text-4xl">
-              Let&apos;s get started!
+            <p className="text-4xl text-center leading-relaxed md:leading-none">
+              Let&apos;s get started!<br className="block sm:hidden"/>
               <span className="font-raleway"> What is Your Name?</span>
             </p>
 
@@ -299,7 +299,7 @@ const Page = () => {
                 value={formData.firstName}
                 onChange={handleInputChange}
                 placeholder="First Name"
-                className="h-20 w-full text-xl p-4 border-2 rounded-lg shadow-md focus:outline-none"
+                className="h-16 lg:h-20 w-full text-xl p-4 border-2 rounded-lg shadow-md focus:outline-none"
               />
             </div>
 
@@ -310,7 +310,7 @@ const Page = () => {
                 value={formData.lastName}
                 onChange={handleInputChange}
                 placeholder="Last Name"
-                className="h-20 w-full text-xl p-4 border-2 rounded-lg shadow-md focus:outline-none"
+                className="h-16 lg:h-20 w-full text-xl p-4 border-2 rounded-lg shadow-md focus:outline-none"
               />
             </div>
           </motion.div>
@@ -319,17 +319,17 @@ const Page = () => {
         {/* Step 2: Date of Birth */}
         {currentStep === 2 && (
           <motion.div
-            className="w-full flex flex-col items-center justify-center gap-12"
+            className="w-full flex flex-col items-center justify-center gap-12 mt-28 md:mt-0"
             initial={{ x: -100 }}
             animate={{ x: 0 }}
             exit={{ x: 100 }}
             transition={{ type: "spring", stiffness: 300 }}
           >
-            <p className="text-4xl font-raleway">What is Your Date of Birth?</p>
-            <div className="flex items-center gap-6">
+            <p className="text-4xl text-center font-raleway">What is Your Date of Birth?</p>
+            <div className="flex flex-col md:flex-row items-center gap-6">
               <FaGift size={36} color="#b91c1c" />
               <div className="bg-black/20 pr-1 pb-1 rounded-lg shadow-lg hover:bg-gray-400">
-                <div className="h-full w-full bg-white rounded-lg shadow-md focus:outline-none">
+                <div className="h-full w-full flex flex-col md:flex-row items-center bg-white rounded-lg shadow-md focus:outline-none">
                   {/* Month Input */}
                   <input
                     type="text"
@@ -340,7 +340,7 @@ const Page = () => {
                     maxLength={2}
                     className="h-16 max-w-72 text-xl text-center bg-transparent focus:outline-none"
                   />
-                  <span className="text-3xl text-red-700">/</span>
+                  <span className="hidden md:block text-3xl text-red-700">/</span>
 
                   {/* Day Input */}
                   <input
@@ -352,7 +352,7 @@ const Page = () => {
                     maxLength={2}
                     className="h-16 max-w-72 text-xl text-center bg-transparent focus:outline-none"
                   />
-                  <span className="text-3xl text-red-700">/</span>
+                  <span className="hidden md:block text-3xl text-red-700">/</span>
 
                   {/* Year Input */}
                   <input
@@ -373,7 +373,7 @@ const Page = () => {
         {/* Step 3: Gender */}
         {currentStep === 3 && (
           <motion.div
-            className="w-11/12 space-y-12 mx-auto"
+            className="w-11/12 space-y-12 mx-auto mt-28 md:mt-0"
             initial={{ x: -100 }}
             animate={{ x: 0 }}
             exit={{ x: 100 }}
@@ -383,16 +383,16 @@ const Page = () => {
               What is Your Gender?
             </p>
             {/* Male Button */}
-            <div className="flex justify-between">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-12 md:gap-0">
               <button
                 type="button"
                 onClick={() => {
                   setFormData({ ...formData, gender: "Male" });
                   setCurrentStep(currentStep + 1);
                 }}
-                className="h-20 w-96 bg-red-800/80 pr-1 pb-1 rounded-lg shadow-lg hover:scale-95"
+                className="h-20 w-80 md:w-96 bg-[#e91f29] pr-1 pb-1 rounded-lg shadow-lg hover:bg-[#a8292f] hover:scale-95"
               >
-                <div className="h-full flex items-center justify-center text-2xl font-semibold text-white bg-red-700 rounded-lg shadow-md focus:outline-none">
+                <div className="h-full flex items-center justify-center text-2xl font-semibold text-white bg-[#e91f29] rounded-lg shadow-md focus:outline-none hover:bg-[#a8292f]">
                   Male
                 </div>
               </button>
@@ -403,9 +403,9 @@ const Page = () => {
                   setFormData({ ...formData, gender: "Female" });
                   setCurrentStep(currentStep + 1);
                 }}
-                className="h-20 w-96 bg-red-800/80 pr-1 pb-1 rounded-lg shadow-lg hover:scale-95"
+                className="h-20 w-80 md:w-96 bg-[#e91f29] pr-1 pb-1 rounded-lg shadow-lg hover:bg-[#a8292f] hover:scale-95"
               >
-                <div className="h-full flex items-center justify-center text-2xl font-semibold text-white bg-red-700 rounded-lg shadow-md focus:outline-none">
+                <div className="h-full flex items-center justify-center text-2xl font-semibold text-white bg-[#e91f29] rounded-lg shadow-md focus:outline-none hover:bg-[#a8292f]">
                   Female
                 </div>
               </button>
@@ -416,14 +416,14 @@ const Page = () => {
         {/* Step 4: Email */}
         {currentStep === 4 && (
           <motion.div
-            className="w-full flex flex-col items-center justify-center gap-12"
+            className="w-full flex flex-col items-center justify-center gap-12 mt-28 md:mt-0"
             initial={{ x: -100 }}
             animate={{ x: 0 }}
             exit={{ x: 100 }}
             transition={{ type: "spring", stiffness: 300 }}
           >
             <p className="text-4xl font-raleway">What is Your Email?</p>
-            <div className="w-11/12 flex items-center gap-6 mx-auto ">
+            <div className="w-11/12 flex flex-col md:flex-row items-center gap-6 mx-auto ">
               <IoIosMail size={36} color="#b91c1c" />
               <div className="w-full bg-black/20 pr-1 pb-1 rounded-lg shadow-lg hover:bg-gray-400">
                 <input
@@ -443,7 +443,7 @@ const Page = () => {
                     }
                   }}
                   placeholder="Enter your email"
-                  className="h-20 w-full text-2xl text-center p-4 border-2 rounded-lg shadow-md focus:outline-none"
+                  className="h-16 lg:h-20 w-full text-2xl text-center p-4 border-2 rounded-lg shadow-md focus:outline-none"
                 />
               </div>
             </div>
@@ -453,14 +453,14 @@ const Page = () => {
         {/* Step 5: Phone Number */}
         {currentStep === 5 && (
           <motion.div
-            className="w-full flex flex-col items-center justify-center gap-12"
+            className="w-full flex flex-col items-center justify-center gap-12 mt-28 md:mt-0"
             initial={{ x: -100 }}
             animate={{ x: 0 }}
             exit={{ x: 100 }}
             transition={{ type: "spring", stiffness: 300 }}
           >
-            <p className="text-4xl font-raleway">What is Your Phone Number?</p>
-            <div className="w-11/12 flex items-center gap-6 mx-auto ">
+            <p className="text-4xl text-center font-raleway">What is Your Phone Number?</p>
+            <div className="w-11/12 flex flex-col md:flex-row items-center gap-6 mx-auto ">
               <FaPhone size={36} color="#b91c1c" />
               <div className="w-full bg-black/20 pr-1 pb-1 rounded-lg shadow-lg hover:bg-gray-400">
                 <input
@@ -477,7 +477,7 @@ const Page = () => {
                     }
                   }}
                   placeholder="(xxx) xxx-xxxx"
-                  className="h-20 w-full text-2xl text-center p-4 border-2 rounded-lg shadow-md focus:outline-none"
+                  className="h-16 lg:h-20 w-full text-2xl text-center p-4 border-2 rounded-lg shadow-md focus:outline-none"
                 />
               </div>
             </div>
@@ -487,7 +487,7 @@ const Page = () => {
         {/* Step 6: Height */}
         {currentStep === 6 && (
           <motion.div
-            className="w-full flex flex-col items-center justify-center gap-12"
+            className="w-full flex flex-col items-center justify-center gap-12 mt-28 md:mt-0"
             initial={{ x: -100 }}
             animate={{ x: 0 }}
             exit={{ x: 100 }}
@@ -501,20 +501,20 @@ const Page = () => {
                   name="feet"
                   value={formData.height.feet}
                   onChange={handleInputChange}
-                  className="h-20 w-full text-2xl text-center p-4 border-2 rounded-lg shadow-md focus:outline-none"
+                  className="h-16 lg:h-20 w-full text-2xl text-center p-4 border-2 rounded-lg shadow-md focus:outline-none"
                 />
               </div>
-              <span className="text-3xl text-red-700">ft.</span>
-              <div className="w-60 bg-black/20 pr-1 pb-1 rounded-lg shadow-lg hover:bg-gray-400">
+              <span className="text-3xl text-red-700 ml-1">ft.</span>
+              <div className="w-60 bg-black/20 pr-1 pb-1 rounded-lg shadow-lg hover:bg-gray-400 ml-4 md:ml-0">
                 <input
                   type="text"
                   name="inches"
                   value={formData.height.inches}
                   onChange={handleInputChange}
-                  className="h-20 w-full text-2xl text-center p-4 border-2 rounded-lg shadow-md focus:outline-none"
+                  className="h-16 lg:h-20 w-full text-2xl text-center p-4 border-2 rounded-lg shadow-md focus:outline-none"
                 />
               </div>
-              <span className="text-3xl text-red-700">in.</span>
+              <span className="text-3xl text-red-700 ml-1">in.</span>
             </div>
           </motion.div>
         )}
@@ -522,13 +522,13 @@ const Page = () => {
         {/* Step 7: Weight */}
         {currentStep === 7 && (
           <motion.div
-            className="w-full flex flex-col items-center justify-center gap-12"
+            className="w-full flex flex-col items-center justify-center gap-12 mt-28 md:mt-0"
             initial={{ x: -100 }}
             animate={{ x: 0 }}
             exit={{ x: 100 }}
             transition={{ type: "spring", stiffness: 300 }}
           >
-            <p className="text-4xl font-raleway">How Much Do you Weigh?</p>
+            <p className="text-4xl text-center font-raleway">How Much Do you Weigh?</p>
             <div className="flex items-center gap-2 mx-auto">
               <div className="w-40 bg-black/20 pr-1 pb-1 rounded-lg shadow-lg hover:bg-gray-400">
                 <input
@@ -544,7 +544,7 @@ const Page = () => {
                       setMessage("Weight values must be numeric");
                     }
                   }}
-                  className="h-20 w-full text-2xl text-center p-4 border-2 rounded-lg shadow-md focus:outline-none"
+                  className="h-16 lg:h-20 w-full text-2xl text-center p-4 border-2 rounded-lg shadow-md focus:outline-none"
                 />
               </div>
               <span className="text-3xl text-red-700">lbs.</span>
@@ -555,7 +555,7 @@ const Page = () => {
         {/* Step 8: Address */}
         {currentStep === 8 && (
           <motion.div
-            className="w-full flex flex-col items-center justify-center gap-12"
+            className="w-full flex flex-col items-center justify-center gap-12 mt-28 md:mt-0"
             initial={{ x: -100 }}
             animate={{ x: 0 }}
             exit={{ x: 100 }}
@@ -638,7 +638,7 @@ const Page = () => {
         {/* Step 9: Marriage status */}
         {currentStep === 9 && (
           <motion.div
-            className="w-11/12 space-y-12 mx-auto"
+            className="w-11/12 space-y-12 mx-auto mt-28 md:mt-0"
             initial={{ x: -100 }}
             animate={{ x: 0 }}
             exit={{ x: 100 }}
@@ -648,16 +648,16 @@ const Page = () => {
               Are You Married?
             </p>
             {/* Yes Button */}
-            <div className="flex justify-between">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-12 md:gap-0">
               <button
                 type="button"
                 onClick={() => {
                   setFormData({ ...formData, maritalStatus: "Yes" });
                   setCurrentStep(currentStep + 1);
                 }}
-                className="h-20 w-96 bg-red-800/80 pr-1 pb-1 rounded-lg shadow-lg hover:scale-95"
+                className="h-20 w-80 md:w-96 bg-[#e91f29] pr-1 pb-1 rounded-lg shadow-lg hover:bg-[#a8292f] hover:scale-95"
               >
-                <div className="h-full flex items-center justify-center text-2xl font-semibold text-white bg-red-700 rounded-lg shadow-md focus:outline-none">
+                <div className="h-full flex items-center justify-center text-2xl font-semibold text-white bg-[#e91f29] rounded-lg shadow-md focus:outline-none hover:bg-[#a8292f]">
                   Yes
                 </div>
               </button>
@@ -668,9 +668,9 @@ const Page = () => {
                   setFormData({ ...formData, maritalStatus: "No" });
                   setCurrentStep(currentStep + 1);
                 }}
-                className="h-20 w-96 bg-red-800/80 pr-1 pb-1 rounded-lg shadow-lg hover:scale-95"
+                className="h-20 w-80 md:w-96 bg-[#e91f29] pr-1 pb-1 rounded-lg shadow-lg hover:bg-[#a8292f] hover:scale-95"
               >
-                <div className="h-full flex items-center justify-center text-2xl font-semibold text-white bg-red-700 rounded-lg shadow-md focus:outline-none">
+                <div className="h-full flex items-center justify-center text-2xl font-semibold text-white bg-[#e91f29] rounded-lg shadow-md focus:outline-none hover:bg-[#a8292f]">
                   No
                 </div>
               </button>
@@ -681,7 +681,7 @@ const Page = () => {
         {/* Step 10: Tobacco Usage */}
         {currentStep === 10 && (
           <motion.div
-            className="w-11/12 space-y-12 mx-auto"
+            className="w-11/12 space-y-12 mx-auto mt-28 md:mt-0"
             initial={{ x: -100 }}
             animate={{ x: 0 }}
             exit={{ x: 100 }}
@@ -691,16 +691,16 @@ const Page = () => {
               Do You Use Tobacco?
             </p>
             {/* Yes Button */}
-            <div className="flex justify-between">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-12 md:gap-0">
               <button
                 type="button"
                 onClick={() => {
                   setFormData({ ...formData, tobaccoUse: "Yes" });
                   setCurrentStep(currentStep + 1);
                 }}
-                className="h-20 w-96 bg-red-800/80 pr-1 pb-1 rounded-lg shadow-lg hover:scale-95"
+                className="h-20 w-80 md:w-96 bg-[#e91f29] pr-1 pb-1 rounded-lg shadow-lg hover:bg-[#a8292f] hover:scale-95"
               >
-                <div className="h-full flex items-center justify-center text-2xl font-semibold text-white bg-red-700 rounded-lg shadow-md focus:outline-none">
+                <div className="h-full flex items-center justify-center text-2xl font-semibold text-white bg-[#e91f29] rounded-lg shadow-md focus:outline-none hover:bg-[#a8292f]">
                   Yes
                 </div>
               </button>
@@ -711,9 +711,9 @@ const Page = () => {
                   setFormData({ ...formData, tobaccoUse: "No" });
                   setCurrentStep(currentStep + 1);
                 }}
-                className="h-20 w-96 bg-red-800/80 pr-1 pb-1 rounded-lg shadow-lg hover:scale-95"
+                className="h-20 w-80 md:w-96 bg-[#e91f29] pr-1 pb-1 rounded-lg shadow-lg hover:bg-[#a8292f] hover:scale-95"
               >
-                <div className="h-full flex items-center justify-center text-2xl font-semibold text-white bg-red-700 rounded-lg shadow-md focus:outline-none">
+                <div className="h-full flex items-center justify-center text-2xl font-semibold text-white bg-[#e91f29] rounded-lg shadow-md focus:outline-none hover:bg-[#a8292f]">
                   No
                 </div>
               </button>
@@ -724,7 +724,7 @@ const Page = () => {
         {/* Step 11: Health Conditions */}
         {currentStep === 11 && (
           <motion.div
-            className="w-11/12 space-y-12 mx-auto"
+            className="w-11/12 space-y-12 mx-auto mt-28 md:mt-0"
             initial={{ x: -100 }}
             animate={{ x: 0 }}
             exit={{ x: 100 }}
@@ -734,23 +734,23 @@ const Page = () => {
               Do You Have Any of the Following Health Conditions?
             </p>
 
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {healthConditions.map((item, index) => (
                 <button
                   key={index}
                   type="button"
                   onClick={() => toggleHealthCondition(item)}
-                  className={`h-14 w-60 pr-1 pb-1 rounded-lg shadow-lg hover:scale-95 ${
+                  className={`h-14 sm:w-44 md:w-60 pr-1 pb-1 rounded-lg shadow-lg hover:scale-95 ${
                     formData.healthConditions.includes(item)
-                      ? "bg-red-800"
-                      : "bg-red-700"
+                      ? "bg-[#a8292f]"
+                      : "bg-[#e91f29]"
                   }`}
                 >
                   <div
-                    className={`h-full flex items-center justify-center text-lg font-semibold text-white ${
+                    className={`h-full flex items-center justify-center text-sm sm:text-base md:text-lg font-semibold text-white ${
                       formData.healthConditions.includes(item)
-                        ? "bg-red-800"
-                        : "bg-red-700"
+                        ? "bg-[#a8292f]"
+                        : "bg-[#e91f29]"
                     } rounded-lg shadow-md focus:outline-none`}
                   >
                     {item}
@@ -764,7 +764,7 @@ const Page = () => {
         {/* Step 12: Coverage Type */}
         {currentStep === 12 && (
           <motion.div
-            className="w-11/12 space-y-12 mx-auto"
+            className="w-11/12 space-y-12 mx-auto mt-28 md:mt-0"
             initial={{ x: -100 }}
             animate={{ x: 0 }}
             exit={{ x: 100 }}
@@ -786,9 +786,9 @@ const Page = () => {
                     setFormData({ ...formData, coverageType: item });
                     setCurrentStep(currentStep + 1);
                   }}
-                  className="h-16 w-96 bg-red-800/80 pr-1 pb-1 rounded-lg shadow-lg hover:scale-95"
+                  className="h-16 sm:w-44 md:w-96 bg-[#e91f29] pr-1 pb-1 rounded-lg shadow-lg hover:bg-[#a8292f] hover:scale-95"
                 >
-                  <div className="h-full flex items-center justify-center text-2xl font-semibold text-white bg-red-700 rounded-lg shadow-md focus:outline-none">
+                  <div className="h-full flex items-center justify-center sm:text-lg md:text-2xl font-semibold text-white bg-[#e91f29] rounded-lg shadow-md focus:outline-none hover:bg-[#a8292f]">
                     {item}
                   </div>
                 </button>
@@ -800,7 +800,7 @@ const Page = () => {
         {/* Step 13: Coverage Amount */}
         {currentStep === 13 && (
           <motion.div
-            className="w-11/12 space-y-12 mx-auto"
+            className="w-11/12 space-y-12 mx-auto mt-28 md:mt-0"
             initial={{ x: -100 }}
             animate={{ x: 0 }}
             exit={{ x: 100 }}
@@ -824,17 +824,17 @@ const Page = () => {
                   onClick={() =>
                     setFormData({ ...formData, coverageAmount: item })
                   }
-                  className={`h-16 w-96 ${
+                  className={`h-16 sm:w-44 md:w-96 ${
                     formData.coverageAmount.includes(item)
-                      ? "bg-red-800/80"
-                      : "bg-red-700"
+                      ? "bg-[#a8292f]"
+                      : "bg-[#e91f29]"
                   } pr-1 pb-1 rounded-lg shadow-lg hover:scale-95`}
                 >
                   <div
-                    className={`h-full flex items-center justify-center text-2xl font-semibold text-white ${
+                    className={`h-full flex items-center justify-center sm:text-lg md:text-2xl font-semibold text-white ${
                       formData.coverageAmount.includes(item)
-                        ? "bg-red-800/80"
-                        : "bg-red-700"
+                        ? "bg-[#a8292f]"
+                        : "bg-[#e91f29]"
                     } rounded-lg shadow-md focus:outline-none`}
                   >
                     {item}
@@ -853,9 +853,9 @@ const Page = () => {
             <button
               type="button"
               onClick={handleNextStep}
-              className="h-16 w-96 text-xl text-white font-semibold bg-[#459ce8]  pr-1 pb-1 rounded-lg shadow-xl hover:bg-[#368ee5] hover:scale-95"
+              className="h-16 w-72 sm:w-80 md:w-96 text-xl text-white font-semibold bg-[#e91f29] pr-1 pb-1 rounded-lg shadow-xl hover:bg-[#a8292f] hover:scale-95"
             >
-              <div className="h-full w-full flex items-center justify-center bg-[#459ce8] rounded-lg shadow-xl hover:bg-[#368ee5]">
+              <div className="h-full w-full flex items-center justify-center bg-[#e91f29] rounded-lg shadow-xl hover:bg-[#a8292f]">
                 Continue
               </div>
             </button>
@@ -863,9 +863,9 @@ const Page = () => {
           {currentStep === steps.length && (
             <button
               type="submit"
-              className="h-16 w-72 text-xl text-white font-semibold bg-[#459ce8] pr-1 pb-1 rounded-lg shadow-xl hover:bg-[#368ee5] hover:scale-95"
+              className="h-16 w-72 sm:w-80 md:w-96 text-xl text-white font-semibold bg-[#e91f29] pr-1 pb-1 rounded-lg shadow-xl hover:bg-[#a8292f] hover:scale-95"
             >
-              <div className="h-full w-full flex items-center justify-center bg-[#459ce8] rounded-lg shadow-xl hover:bg-[#368ee5]">
+              <div className="h-full w-full flex items-center justify-center bg-[#e91f29] rounded-lg shadow-xl hover:bg-[#a8292f]">
                 View Rates
               </div>
             </button>
@@ -873,15 +873,15 @@ const Page = () => {
         </div>
       </form>
       {[1, 4, 8, 12].includes(currentStep) && (
-        <div className="flex items-center justify-center gap-2">
+        <div className="w-3/4 md:w-full flex items-center justify-center gap-2 mx-auto">
           <Image
             src="/owner.jpeg"
             alt="owner"
             height={50}
             width={50}
-            className="rounded-full"
+            className="h-10 md:h-12 w-10 md:w-12 rounded-full"
           />
-          <span className="flex gap-1 text-gray-400">
+          <span className="flex gap-1 text-sm md:text-base text-gray-400">
             <IoIosCheckmarkCircle size={22} color="red" />
             {currentStep === 1 && "Your Information is safe & secure"}
             {currentStep === 4 && "No Spam Guaranteed"}

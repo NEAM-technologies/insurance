@@ -7,8 +7,10 @@ import Link from "next/link";
 
 const HeadSection = () => {
   return (
-    <div className="h-72 flex lg:hidden flex-col xl:flex-row items-center justify-between mx-auto mt-28">
-      <Image src="/lglogo.jpg" alt="logo" height={300} width={300} priority/>
+    <div className="h-72 flex lg:hidden flex-col xl:flex-row items-center justify-between mx-auto mt-24">
+      <Link href="/">
+        <Image src="/lglogo.jpg" alt="logo" height={300} width={300} priority />
+      </Link>
       <Link
         href="https://bit.ly/AutoQuoteForYou"
         target="blank"

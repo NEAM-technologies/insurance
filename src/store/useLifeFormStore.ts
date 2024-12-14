@@ -2,7 +2,7 @@
 import { create } from "zustand";
 import { persist, devtools } from "zustand/middleware";
 
-const useLifeFormStore = create<StoreState>()(
+const useLifeFormStore = create<useLifeInsuranceState>()(
   devtools(
     persist(
       (set) => ({
@@ -33,7 +33,7 @@ const useLifeFormStore = create<StoreState>()(
         setFormData: (data: LifeFormData) => set({ formData: data }),
 
         // Add a reset function to reset the state
-        reset: () =>
+        resetLifeForm: () =>
           set({
             currentStep: 1,
             formData: {
@@ -60,7 +60,7 @@ const useLifeFormStore = create<StoreState>()(
             },
           }),
       }),
-      { name: "life-form-storage" } // The key for storing data in localStorage
+      { name: "LifeInsuranceForm" }
     )
   )
 );

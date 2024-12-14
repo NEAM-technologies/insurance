@@ -4,15 +4,8 @@ type LoadingState = {
   text: string;
 };
 
-type AutoYear = {
-  id: number;
-  year: string;
-};
-
-type VechileData = {
-  id: number;
-  make: string;
-  model: string;
+type ValidationSchema = {
+  [key: number]: string[];
 };
 
 type LifeFormData = {
@@ -38,27 +31,92 @@ type LifeFormData = {
   coverageAmount: string;
 };
 
-type ValidationSchema = {
-  [key: number]: string[];
-};
-
-type StoreState = {
+type useLifeInsuranceState = {
   currentStep: number;
   setCurrentStep: (step: number) => void;
   formData: LifeFormData;
   setFormData: (data: LifeFormData) => void;
-  reset: () => void;
+  resetLifeForm: () => void;
 };
 
-type AutoInsuranceQuestion = {
-  question: string;
-  options: (string | number)[];
-  note?: string;
+type HomeFormData = {
+  homeType: string;
+  street: string;
+  city: string;
+  state: string;
+  unit: string;
+  zip: string;
+  yearBuilt: string;
+  squareFootage: string;
+  stories: string;
+  bedrooms: string;
+  bathrooms: string;
+  purchaseYear: string;
 };
 
-interface AutoFormData {
+type OwnerFormData = {
+  firstName: string;
+  lastName: string;
+  dobMonth: string;
+  dobDay: string;
+  dobYear: string;
+  gender: string;
+  maritalStatus: string;
+  educationLevel: string;
+  occupation: string;
+  creditScore: string;
+};
+
+type CoverageFormData = {
+  currentlyInsured: string;
+  insuredCompany: string;
+  yearsWithCompany: string;
+  policyExpires: string;
+  costToRebuildHome: string;
+};
+
+type useHomeInsuranceState ={
+  homeForm: HomeFormData;
+  setHomeForm: (data: HomeFormData) => void;
+  ownerForm: OwnerFormData;
+  setOwnerForm: (data: OwnerFormData) => void;
+  coverageForm: CoverageFormData;
+  setCoverageForm: (data: CoverageFormData) => void;
+  resetHomeForm: () => void;
+}
+
+type VehicleData = {
+  make: string;
+  model: string;
+};
+
+type AutoYear = {
+  id: number;
+  year: string;
+  vehicles: VehicleData[];
+};
+
+type VehicleFormData = {
   year: string;
   make: string;
   model: string;
-  [key: string]: string | number | undefined; // To handle dynamic question responses
+  vehicleUse: string;
+  dailyMiles: string;
+  vehicleOwnership: string;
+  coverageType: string;
+  collisionDeductible: string;
+  comprehensiveDeductible: string;
+  secondVehicle: string;
+};
+
+type useAutoInsuranceState ={
+  vehicleForm: VehicleFormData;
+  setVehicleForm: (data: VehicleFormData) => void;
+  driverForm: OwnerFormData;
+  setDriverForm: (data: OwnerFormData) => void;
+  finalDetailsForm: CoverageFormData;
+  setFinalDetailsForm: (data: CoverageFormData) => void;
+  resetAutoForm: () => void;
 }
+
+

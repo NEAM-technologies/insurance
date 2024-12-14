@@ -45,7 +45,7 @@ export default function Home() {
   };
 
   return (
-    <div className="mt-10 lg:mt-[13.3rem] mb-20">
+    <>
       <div className="relative h-28 lg:h-[370px] w-full">
         <div className="h-full w-3/6 hidden lg:flex items-center justify-center text-3xl text-[#ff3448b9] font-lulo font-extrabold uppercase">
           Your one stop <br /> solution for <br /> personalized <br /> insurance <br />
@@ -366,6 +366,6 @@ export default function Home() {
           </form>
         </div>
       </div>
-    </div>
+    </>
   );
 }

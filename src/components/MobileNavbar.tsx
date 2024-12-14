@@ -9,10 +9,29 @@ import { usePathname } from "next/navigation";
 const MobileNavbar = () => {
   const currentPathname = usePathname();
   const [showMenu, setShowMenu] = useState(false);
+  const [hasScrolled, setHasScrolled] = useState(false);
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setHasScrolled(true);
+      } else {
+        setHasScrolled(false);
+      }
+    };
+
+    // Add scroll event listener
+    window.addEventListener("scroll", handleScroll);
+
+    // Cleanup on component unmount
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   useEffect(() => {
     if (showMenu) {
@@ -36,12 +55,14 @@ const MobileNavbar = () => {
     <div
       className={`fixed top-0 left-0 w-screen flex-col lg:hidden items-center justify-center ${
         showMenu ? "h-fit overflow-hidden" : "h-24"
-      } z-[1000]`}
+      } ${hasScrolled ? "shadow-lg" : ""} z-[1000]`}
     >
-      <div className="relative h-24 w-full flex items-center justify-between bg-white py-4 pl-8 pr-12 shadow-lg z-50">
-        <Link href="/">
-          <Image src="/logobox.png" alt="logo" height={60} width={60} />
-        </Link>
+      <div className={`relative h-24 w-full flex items-center ${showMenu ? "justify-between" : "justify-end"} bg-white py-4 pl-8 pr-12 z-50`}>
+        {showMenu && (
+          <Link href="/">
+            <Image src="/logobox.png" alt="logo" height={60} width={60} />
+          </Link>
+        )}
         <button type="button" onClick={toggleMenu}>
           <svg
             className="w-8 h-8 text-red-600 hover:scale-95"
@@ -61,7 +82,7 @@ const MobileNavbar = () => {
         </button>
       </div>
       <div
-        className={`relative h-screen w-full bg-[#d22a30] ${
+        className={`relative h-screen w-full bg-[#631114] ${
           showMenu ? "translate-y-0" : "translate-y-[-150%]"
         } transition-all duration-700 ease-in-out z-40 overflow-clip`}
       >
