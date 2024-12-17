@@ -162,7 +162,7 @@ const Page = () => {
                     <p className="text-gray-600 font-light leading-7 tracking-wide">
                       When disaster strikes, you need fast and reliable support.
                       Our claims process is streamlined and efficient, so you
-                      can get the help you need quickly -whether it's repairing
+                      can get the help you need quickly -whether it&apos;s repairing
                       damage or replacing stolen property.
                     </p>
                   </div>
@@ -260,13 +260,13 @@ const Page = () => {
             </h2>
             <div className="space-y-3">
               <p className="text-gray-600">
-                Even if you don't own a home, protecting your belongings is
+                Even if you don&apos;t own a home, protecting your belongings is
                 important. Our renters insurance covers your personal property
                 from theft, fire, and other risks, while also offering liability
                 protection.
               </p>
               <p className="text-gray-600">
-                Whether you're renting an apartment or house, we provide
+                Whether you&apos;re renting an apartment or house, we provide
                 affordable plans that safeguard your possessions and offer peace
                 of mind. Get a FREE quote today and protect your lifestyle that
                 fits your budget.
@@ -295,7 +295,7 @@ const Page = () => {
         <div className="space-y-6">
           <p className="text-gray-600 font-light leading-7 tracking-wide">
             Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
+            industry. Lorem Ipsum has been the industry&apos;s standard dummy text
             ever since the 1500s, when an unknown printer took a galley of type
             and scrambled it to make a type specimen book. It has survived not
             only five centuries, but also the leap into electronic typesetting,
@@ -306,7 +306,7 @@ const Page = () => {
           </p>
           <p className="text-gray-600 font-light leading-7 tracking-wide">
             Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
+            industry. Lorem Ipsum has been the industry&apos;s standard dummy text
             ever since the 1500s, when an unknown printer took a galley of type
             and scrambled it to make a type specimen book. It has survived not
             only five centuries, but also the leap into electronic typesetting,
@@ -325,7 +325,7 @@ const Page = () => {
         <div className="space-y-6">
           <p className="text-gray-600 font-light leading-7 tracking-wide">
             Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
+            industry. Lorem Ipsum has been the industry&apos;s standard dummy text
             ever since the 1500s, when an unknown printer took a galley of type
             and scrambled it to make a type specimen book. It has survived not
             only five centuries, but also the leap into electronic typesetting,
@@ -336,7 +336,7 @@ const Page = () => {
           </p>
           <p className="text-gray-600 font-light leading-7 tracking-wide">
             Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
+            industry. Lorem Ipsum has been the industry&apos;s standard dummy text
             ever since the 1500s, when an unknown printer took a galley of type
             and scrambled it to make a type specimen book. It has survived not
             only five centuries, but also the leap into electronic typesetting,

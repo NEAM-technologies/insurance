@@ -79,7 +79,7 @@ const Page = () => {
             Selling his previous venture was both an end and a beginning. It
             provided a rare opportunity to reflect on what truly mattered in
             business and in life. The idea of starting You Insurance Agency
-            wasn't just about entering the home and auto insurance market; it
+            wasn&apos;t just about entering the home and auto insurance market; it
             was about revolutionizing it. The vision is to move away from the
             impersonal experiences often associated with insurance and build a
             company that prioritized the community and personalized service.
@@ -123,8 +123,8 @@ const Page = () => {
         </p>
         <p className="w-2/3 text-gray-600 font-light leading-7 tracking-wide">
           We are a dedicated team of professionals who genuinely care about
-          protecting what matters to you. At You Insurance Agency, you're not
-          just a client - you're part of this family, and we're here to support
+          protecting what matters to you. At You Insurance Agency, you&apos;re not
+          just a client - you&apos;re part of this family, and we&apos;re here to support
           you every step of the way.
         </p>
       </div>

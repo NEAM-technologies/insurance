@@ -217,7 +217,7 @@ const VechileQuestions: React.FC<VechileQuestionsProps> = ({
                   color="red"
                   className="hidden sm:flex mt-1"
                 />
-                Let's get started, what car do you drive?
+                Let&apos;s get started, what car do you drive?
               </p>
               {/* Car Year */}
               <div className="relative w-3/5 mx-auto">

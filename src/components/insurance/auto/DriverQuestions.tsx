@@ -806,7 +806,7 @@ const DriverQuestions: React.FC<DriverQuestionsProps> = ({
                       color="red"
                       className="hidden sm:flex mt-1"
                     />
-                    What is the status of your driver's license?
+                    What is the status of your driver&apos;s license?
                   </p>
                   <div
                     id="licenseStatus"

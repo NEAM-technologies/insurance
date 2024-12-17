@@ -74,7 +74,7 @@ const Page = () => {
         </h2>
         <p>
           Life insurance premiums vary based on age, health, lifestyle, and
-          coverage amount. By comparing quotes, you can ensure you're getting
+          coverage amount. By comparing quotes, you can ensure you&apos;re getting
           the best value while securing the financial future of your family.
           With You Insurance, finding the right policy is quick, easy, and
           hassle-free.
@@ -115,7 +115,7 @@ const Page = () => {
           <h2 className="text-5xl text-red-600 font-poppins mx-auto">
             Right Plan for Your
             <br />
-            Family's Secured Future
+            Family&apos;s Secured Future
           </h2>
           <p className="text-lg text-red-800">
             Coverage that protects what matters - Insure with You!
@@ -131,9 +131,9 @@ const Page = () => {
                       Tailored Policies
                     </h3>
                     <p className="text-gray-600 font-light leading-7 tracking-wide">
-                      We understand that no two lives are the same. That's why
+                      We understand that no two lives are the same. That&apos;s why
                       we work with you to customize a life insurance plan that
-                      fits your unique situation -whether you're a young
+                      fits your unique situation -whether you&apos;re a young
                       professional, a parent, or planning for retirement.
                     </p>
                   </div>
@@ -161,7 +161,7 @@ const Page = () => {
                       Easy Enrollment
                     </h3>
                     <p className="text-gray-600 font-light leading-7 tracking-wide">
-                      Getting life insurance shouldn't be complicated. Our
+                      Getting life insurance shouldn&apos;t be complicated. Our
                       streamlined process makes it quick and easy to apply, with
                       knowledgeable agents ready to guide you through every
                       step.
@@ -175,10 +175,10 @@ const Page = () => {
                       Dedicated Support
                     </h3>
                     <p className="text-gray-600 font-light leading-7 tracking-wide">
-                      We don't just sell policies - we build relationships. Our
+                      We don&apos;t just sell policies - we build relationships. Our
                       team is here to answer your questions, adjust your
                       coverage as your needs change, and ensure your policy
-                      works for you when it's most needed.
+                      works for you when it&apos;s most needed.
                     </p>
                   </div>
                 </div>
@@ -209,7 +209,7 @@ const Page = () => {
           <div className="w-full md:w-1/3">
             <h2 className="text-2xl text-red-500 mb-3">Term Life Insurance</h2>
             <p>
-              If you're looking for affordable coverage for a specific period
+              If you&apos;re looking for affordable coverage for a specific period
               (10, 20, or 30 years), term life insurance is a great option. It
               provides financial security for your loved ones during the years
               they need it the most.
@@ -247,7 +247,7 @@ const Page = () => {
         <div className="space-y-6">
           <p className="text-gray-600 font-light leading-7 tracking-wide">
             Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
+            industry. Lorem Ipsum has been the industry&apos;s standard dummy text
             ever since the 1500s, when an unknown printer took a galley of type
             and scrambled it to make a type specimen book. It has survived not
             only five centuries, but also the leap into electronic typesetting,
@@ -258,7 +258,7 @@ const Page = () => {
           </p>
           <p className="text-gray-600 font-light leading-7 tracking-wide">
             Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
+            industry. Lorem Ipsum has been the industry&apos;s standard dummy text
             ever since the 1500s, when an unknown printer took a galley of type
             and scrambled it to make a type specimen book. It has survived not
             only five centuries, but also the leap into electronic typesetting,
@@ -277,7 +277,7 @@ const Page = () => {
         <div className="space-y-6">
           <p className="text-gray-600 font-light leading-7 tracking-wide">
             Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
+            industry. Lorem Ipsum has been the industry&apos;s standard dummy text
             ever since the 1500s, when an unknown printer took a galley of type
             and scrambled it to make a type specimen book. It has survived not
             only five centuries, but also the leap into electronic typesetting,
@@ -288,7 +288,7 @@ const Page = () => {
           </p>
           <p className="text-gray-600 font-light leading-7 tracking-wide">
             Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
+            industry. Lorem Ipsum has been the industry&apos;s standard dummy text
             ever since the 1500s, when an unknown printer took a galley of type
             and scrambled it to make a type specimen book. It has survived not
             only five centuries, but also the leap into electronic typesetting,

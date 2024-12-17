@@ -74,8 +74,8 @@ const Page = () => {
         </h2>
         <p>
           Get Affordable Auto Insurance in Minutes! Your car is more than just a
-          way to get around -it's an essential part of your life. Protect your
-          ride with auto insurance that's designed to keep you, your loved ones,
+          way to get around it&apos;s an essential part of your life. Protect your
+          ride with auto insurance that&apos;s designed to keep you, your loved ones,
           and your vehicle safe on the road.
         </p>
         <p>Compare quotes, find the best coverage, and start saving today.</p>
@@ -131,7 +131,7 @@ const Page = () => {
                       Customized Coverage Plans
                     </h3>
                     <p className="text-gray-600 font-light leading-7 tracking-wide">
-                      We don't believe in one-size-fits-all insurance. Our
+                      We don&apos;t believe in one-size-fits-all insurance. Our
                       agents work with you to create a plan that fits your needs
                       and budget, ensuring you only pay for what matters most to
                       you.
@@ -161,7 +161,7 @@ const Page = () => {
                       Fast Claims Process
                     </h3>
                     <p className="text-gray-600 font-light leading-7 tracking-wide">
-                      Accidents happen, and when they do, we're here to help.
+                      Accidents happen, and when they do, we&apos;re here to help.
                       Our claims processes are quick and hassle-free, so you can
                       get back on the road in no time.
                     </p>
@@ -174,7 +174,7 @@ const Page = () => {
                       Superior Customer Service
                     </h3>
                     <p className="text-gray-600 font-light leading-7 tracking-wide">
-                      At YouInsuranceAgency, you're more than just a policy
+                      At YouInsuranceAgency, you&apos;re more than just a policy
                       number. Our dedicated team is always available to assist
                       you with any questions or concerns, making sure your
                       insurance experience is smooth from start to finish.
@@ -207,7 +207,7 @@ const Page = () => {
         <div className="space-y-6">
           <p className="text-gray-600 font-light leading-7 tracking-wide">
             Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
+            industry. Lorem Ipsum has been the industry&apos;s standard dummy text
             ever since the 1500s, when an unknown printer took a galley of type
             and scrambled it to make a type specimen book. It has survived not
             only five centuries, but also the leap into electronic typesetting,
@@ -218,7 +218,7 @@ const Page = () => {
           </p>
           <p className="text-gray-600 font-light leading-7 tracking-wide">
             Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
+            industry. Lorem Ipsum has been the industry&apos;s standard dummy text
             ever since the 1500s, when an unknown printer took a galley of type
             and scrambled it to make a type specimen book. It has survived not
             only five centuries, but also the leap into electronic typesetting,
@@ -237,7 +237,7 @@ const Page = () => {
         <div className="space-y-6">
           <p className="text-gray-600 font-light leading-7 tracking-wide">
             Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
+            industry. Lorem Ipsum has been the industry&apos;s standard dummy text
             ever since the 1500s, when an unknown printer took a galley of type
             and scrambled it to make a type specimen book. It has survived not
             only five centuries, but also the leap into electronic typesetting,
@@ -248,7 +248,7 @@ const Page = () => {
           </p>
           <p className="text-gray-600 font-light leading-7 tracking-wide">
             Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
+            industry. Lorem Ipsum has been the industry&apos;s standard dummy text
             ever since the 1500s, when an unknown printer took a galley of type
             and scrambled it to make a type specimen book. It has survived not
             only five centuries, but also the leap into electronic typesetting,
