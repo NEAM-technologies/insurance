@@ -3,8 +3,11 @@
 // react/nextjs components
 import React, { useEffect, useState } from "react";
 
+// firebase components
+import { getAutoDetails } from "@/lib/firebase";
+
 // framer motion components
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 
 // lottie components
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
@@ -22,7 +25,7 @@ import CompleteScreen from "@/components/insurance/CompleteScreen";
 import { FaCheck } from "react-icons/fa";
 
 const sections = [
-  { name: "Vechiles", id: "vechiles" },
+  { name: "Vehicle", id: "vehicle" },
   { name: "Drivers", id: "drivers" },
   { name: "Final Details", id: "finalDetails" },
   { name: "Complete", id: "complete" },
@@ -32,7 +35,7 @@ const AutoInsurancePage = () => {
   const { setLoading } = useLoadingStore();
   const storedCompletedSections = localStorage.getItem("completedSections");
   const storedCurrentSection = localStorage.getItem("currentSection");
-
+  const [vehicleDetails, setVehicleDetails] = useState<AutoYear[]>([]);
   const [currentSection, setCurrentSection] = useState(
     storedCurrentSection ? Number(storedCurrentSection) : 0
   );
@@ -42,7 +45,7 @@ const AutoInsurancePage = () => {
     storedCompletedSections
       ? JSON.parse(storedCompletedSections)
       : {
-          vechiles: "pending",
+          vehicle: "pending",
           drivers: "pending",
           finalDetails: "pending",
           complete: "pending",
@@ -100,8 +103,13 @@ const AutoInsurancePage = () => {
 
   const renderSectionContent = () => {
     switch (sections[currentSection].id) {
-      case "vechiles":
-        return <VechileQuestions completeSection={completeSection} />;
+      case "vehicle":
+        return (
+          <VechileQuestions
+            completeSection={completeSection}
+            vehicleDetails={vehicleDetails}
+          />
+        );
       case "drivers":
         return <DriverQuestions completeSection={completeSection} />;
       case "finalDetails":
@@ -114,21 +122,59 @@ const AutoInsurancePage = () => {
   };
 
   useEffect(() => {
-    setLoading(true);
     window.scrollTo({
       top: 0,
       left: 0,
       behavior: "smooth",
     });
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 1000);
+    const fetchAllData = async () => {
+      setLoading(true);
+      try {
+        // Check if data exists in localStorage
+        const cachedData = localStorage.getItem("vehicleDetails");
+        const cacheTimestamp = localStorage.getItem("vehicleDetailsTimestamp");
 
-    return () => clearTimeout(timer);
-  }, []);
+        if (cachedData && cacheTimestamp) {
+          const isCacheValid =
+            new Date().getTime() - Number(cacheTimestamp) < 24 * 60 * 60 * 1000; // 1 day
+
+          if (isCacheValid) {
+            setVehicleDetails(JSON.parse(cachedData));
+            return;
+          }
+        }
+
+        // Fetch fresh data if no valid cache exists
+        const yearResult = await getAutoDetails();
+        if (yearResult.success) {
+          setVehicleDetails(yearResult.data);
+
+          // Save fetched data to localStorage
+          localStorage.setItem(
+            "vehicleDetails",
+            JSON.stringify(yearResult.data)
+          );
+          localStorage.setItem(
+            "vehicleDetailsTimestamp",
+            new Date().getTime().toString()
+          );
+        }
+      } catch (error) {
+        return [];
+      } finally {
+        const timer = setTimeout(() => {
+          setLoading(false);
+        }, 1000);
+
+        return () => clearTimeout(timer);
+      }
+    };
+
+    fetchAllData();
+  }, [setLoading]);
 
   return (
-    <div className="mx-auto">
+    <>
       <div className="bg-[#f5f3f3ac] mt-12 py-5">
         <DotLottieReact
           src="https://lottie.host/f678cace-d7cd-432e-993c-604366bd2ab7/wxmJGyQ24V.lottie"
@@ -136,15 +182,15 @@ const AutoInsurancePage = () => {
           autoplay
           className="w-60 mx-auto"
         />
-        <h1 className="w-5/6 md:w-full text-2xl md:text-4xl text-center font-raleway mx-auto">
-          Hi there, let&apos;s help you find the best savings{" "}
-          <br className="hidden md:flex" /> on your car insurance, tailored
-          just for you!
+        <h1 className="w-5/6 md:w-full text-2xl md:text-3xl lg:text-4xl text-center font-raleway mx-auto">
+          Hi there, let&apos;s help you find the best savings
+          <br className="hidden md:flex" /> on your car insurance, tailored just
+          for you!
         </h1>
       </div>
 
       {/* Tabs Navigation */}
-      <div className="h-14 w-4/5 md:w-7/12 lg:w-4/12 flex items-center justify-between mx-auto px-6 md:px-0">
+      <div className="h-14 w-full sm:w-4/5 md:w-7/12 lg:w-6/12 xl:w-5/12 flex items-center justify-between mx-auto px-6 md:px-0">
         {sections.map((section, index) => (
           <button
             key={section.id}
@@ -157,7 +203,7 @@ const AutoInsurancePage = () => {
           >
             {/* Checkmark only for completed sections */}
             {completedSections[section.id] === "done" && (
-              <FaCheck className="text-sm sm:text-base md:text-xl text-red-700" />
+              <FaCheck className="text-sm sm:text-base md:text-lg xl:text-xl text-red-700" />
             )}
             <span
               className={`text-sm sm:text-base md:text-lg ${
@@ -185,20 +231,14 @@ const AutoInsurancePage = () => {
       </div>
 
       {/* Section Content with Transition */}
-      <div className="w-5/6 sm:w-9/12 md:w-4/6 bg-white mx-auto mt-10">
+      <div className="w-4/5 md:w-[45%] bg-white mx-auto mt-10">
         <AnimatePresence mode="wait">
-          <motion.div
-            key={sections[currentSection].id}
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -50 }}
-            transition={{ duration: 0.5 }}
-          >
+          <div key={sections[currentSection].id} className="h-full w-full">
             {renderSectionContent()}
-          </motion.div>
+          </div>
         </AnimatePresence>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -110,7 +110,7 @@ const HomeQuestions: React.FC<HomeQuestionsProps> = ({ completeSection }) => {
         exit={{ opacity: 0, y: -50 }}
         transition={{ duration: 0.5 }}
       >
-        <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center md:text-nowrap font-raleway mx-auto">
+        <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl md:text-center font-raleway mx-auto">
           <IoIosCheckmarkCircle
             size={28}
             color="red"
@@ -135,7 +135,7 @@ const HomeQuestions: React.FC<HomeQuestionsProps> = ({ completeSection }) => {
                 homeForm.homeType === option
                   ? "bg-red-500 text-white"
                   : "bg-[#ebebeb]"
-              } pl-4 rounded-lg hover:bg-red-500 hover:text-white cursor-pointer`}
+              } pl-4 rounded-lg hover:bg-red-500 hover:text-white shadow-md cursor-pointer`}
               onClick={() =>
                 handleInputChange({ field: "homeType", value: option })
               }
@@ -158,12 +158,12 @@ const HomeQuestions: React.FC<HomeQuestionsProps> = ({ completeSection }) => {
           exit={{ opacity: 0, y: -50 }}
           transition={{ duration: 0.5 }}
         >
-        <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center md:text-nowrap font-raleway mx-auto">
-          <IoIosCheckmarkCircle
-            size={28}
-            color="red"
-            className="hidden sm:flex mt-1"
-          />
+          <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl md:text-center font-raleway mx-auto">
+            <IoIosCheckmarkCircle
+              size={28}
+              color="red"
+              className="hidden sm:flex mt-1"
+            />
             What is your address?
           </p>
           <div id="homeType" className="space-y-5 mx-auto mt-8">
@@ -201,7 +201,7 @@ const HomeQuestions: React.FC<HomeQuestionsProps> = ({ completeSection }) => {
                     isOpen || homeForm.state ? "text-black" : "text-gray-400"
                   } p-4 bg-white border border-black/20 rounded-lg shadow-md`}
                 >
-                  {selectedOption}
+                  {homeForm.state ? homeForm.state : selectedOption}
                   <FaChevronDown
                     size={18}
                     className={`${
@@ -259,12 +259,12 @@ const HomeQuestions: React.FC<HomeQuestionsProps> = ({ completeSection }) => {
             exit={{ opacity: 0, y: -50 }}
             transition={{ duration: 0.5 }}
           >
-        <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center md:text-nowrap font-raleway mx-auto">
-          <IoIosCheckmarkCircle
-            size={28}
-            color="red"
-            className="hidden sm:flex mt-1"
-          />
+            <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl md:text-center font-raleway mx-auto">
+              <IoIosCheckmarkCircle
+                size={28}
+                color="red"
+                className="hidden sm:flex mt-1"
+              />
               What year was your home built?
             </p>
             {homeForm.yearBuilt &&
@@ -298,7 +298,7 @@ const HomeQuestions: React.FC<HomeQuestionsProps> = ({ completeSection }) => {
                 inputMode="numeric"
                 maxLength={4}
                 pattern="\d*"
-                className="h-14 w-5/6 md:w-2/3 text-sm md:text-lg p-4 border border-black/20 rounded-lg shadow-md focus:outline-none"
+                className="h-14 w-3/5 text-sm md:text-lg p-4 border border-black/20 rounded-lg shadow-md focus:outline-none"
               />
             </div>
           </motion.div>
@@ -315,12 +315,12 @@ const HomeQuestions: React.FC<HomeQuestionsProps> = ({ completeSection }) => {
             exit={{ opacity: 0, y: -50 }}
             transition={{ duration: 0.5 }}
           >
-        <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center md:text-nowrap font-raleway mx-auto">
-          <IoIosCheckmarkCircle
-            size={28}
-            color="red"
-            className="hidden sm:flex mt-1"
-          />
+            <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl md:text-center font-raleway mx-auto">
+              <IoIosCheckmarkCircle
+                size={28}
+                color="red"
+                className="hidden sm:flex mt-1"
+              />
               What is the square footage?
             </p>
             {homeForm.squareFootage &&
@@ -343,7 +343,7 @@ const HomeQuestions: React.FC<HomeQuestionsProps> = ({ completeSection }) => {
                   }
                 }}
                 placeholder="Square Footage"
-                className="h-14 w-5/6 md:w-2/3 text-sm md:text-lg p-4 border border-black/20 rounded-lg shadow-md focus:outline-none"
+                className="h-14 w-3/5 text-sm md:text-lg p-4 border border-black/20 rounded-lg shadow-md focus:outline-none"
               />
             </div>
           </motion.div>
@@ -362,17 +362,17 @@ const HomeQuestions: React.FC<HomeQuestionsProps> = ({ completeSection }) => {
             transition={{ duration: 0.5 }}
           >
             {/* Number of Stories Question */}
-            <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center md:text-nowrap font-raleway mx-auto">
-          <IoIosCheckmarkCircle
-            size={28}
-            color="red"
-            className="hidden sm:flex mt-1"
-          />
+            <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl md:text-center font-raleway mx-auto">
+              <IoIosCheckmarkCircle
+                size={28}
+                color="red"
+                className="hidden sm:flex mt-1"
+              />
               How many stories is your home?
             </p>
             <div
               id="squareFootage"
-              className="grid grid-cols-2 gap-4 w-full mx-auto mt-8"
+              className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full mx-auto mt-8"
             >
               {["1", "2", "3", "4+"].map((option, index) => (
                 <div
@@ -381,7 +381,7 @@ const HomeQuestions: React.FC<HomeQuestionsProps> = ({ completeSection }) => {
                     homeForm.stories === option
                       ? "bg-red-500 text-white"
                       : "bg-[#ebebeb]"
-                  } pl-4 rounded-lg hover:bg-red-500 hover:text-white cursor-pointer`}
+                  } pl-4 rounded-lg hover:bg-red-500 hover:text-white shadow-md cursor-pointer`}
                   onClick={() =>
                     handleInputChange({ field: "stories", value: option })
                   }
@@ -412,17 +412,17 @@ const HomeQuestions: React.FC<HomeQuestionsProps> = ({ completeSection }) => {
             transition={{ duration: 0.5 }}
           >
             {/* Number of Bedrooms Question */}
-            <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center md:text-nowrap font-raleway mx-auto">
-          <IoIosCheckmarkCircle
-            size={28}
-            color="red"
-            className="hidden sm:flex mt-1"
-          />
+            <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl md:text-center font-raleway mx-auto">
+              <IoIosCheckmarkCircle
+                size={28}
+                color="red"
+                className="hidden sm:flex mt-1"
+              />
               How many bedrooms?
             </p>
             <div
               id="stories"
-              className="grid grid-cols-2 gap-4 w-full mx-auto mt-8"
+              className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full mx-auto mt-8"
             >
               {Array.from({ length: 10 }, (_, index) => index + 1).map(
                 (option, index) => (
@@ -432,7 +432,7 @@ const HomeQuestions: React.FC<HomeQuestionsProps> = ({ completeSection }) => {
                       homeForm.bedrooms === option.toString()
                         ? "bg-red-500 text-white"
                         : "bg-[#ebebeb]"
-                    } pl-4 rounded-lg hover:bg-red-500 hover:text-white cursor-pointer`}
+                    } pl-4 rounded-lg hover:bg-red-500 hover:text-white shadow-md cursor-pointer`}
                     onClick={() =>
                       handleInputChange({
                         field: "bedrooms",
@@ -468,17 +468,17 @@ const HomeQuestions: React.FC<HomeQuestionsProps> = ({ completeSection }) => {
             transition={{ duration: 0.5 }}
           >
             {/* Number of Bathrooms Question */}
-            <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center md:text-nowrap font-raleway mx-auto">
-          <IoIosCheckmarkCircle
-            size={28}
-            color="red"
-            className="hidden sm:flex mt-1"
-          />
+            <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl md:text-center font-raleway mx-auto">
+              <IoIosCheckmarkCircle
+                size={28}
+                color="red"
+                className="hidden sm:flex mt-1"
+              />
               How many bathrooms?
             </p>
             <div
               id="bedrooms"
-              className="grid grid-cols-2 gap-4 w-full mx-auto mt-8"
+              className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full mx-auto mt-8"
             >
               {Array.from({ length: 10 }, (_, index) => index + 1).map(
                 (option, index) => (
@@ -488,7 +488,7 @@ const HomeQuestions: React.FC<HomeQuestionsProps> = ({ completeSection }) => {
                       homeForm.bathrooms === option.toString()
                         ? "bg-red-500 text-white"
                         : "bg-[#ebebeb]"
-                    } pl-4 rounded-lg hover:bg-red-500 hover:text-white cursor-pointer`}
+                    } pl-4 rounded-lg hover:bg-red-500 hover:text-white shadow-md cursor-pointer`}
                     onClick={() =>
                       handleInputChange({
                         field: "bathrooms",
@@ -524,12 +524,12 @@ const HomeQuestions: React.FC<HomeQuestionsProps> = ({ completeSection }) => {
             exit={{ opacity: 0, y: -50 }}
             transition={{ duration: 0.5 }}
           >
-        <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center md:text-nowrap font-raleway mx-auto">
-          <IoIosCheckmarkCircle
-            size={28}
-            color="red"
-            className="hidden sm:flex mt-1"
-          />
+            <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl md:text-center font-raleway mx-auto">
+              <IoIosCheckmarkCircle
+                size={28}
+                color="red"
+                className="hidden sm:flex mt-1"
+              />
               What year did you purchase your home?
             </p>
             {homeForm.purchaseYear &&
@@ -567,7 +567,7 @@ const HomeQuestions: React.FC<HomeQuestionsProps> = ({ completeSection }) => {
                   }
                 }}
                 placeholder="YYYY"
-                className="h-14 w-5/6 md:w-2/3 text-sm md:text-lg p-4 border border-black/20 rounded-lg shadow-md focus:outline-none"
+                className="h-14 w-3/5 text-sm md:text-lg p-4 border border-black/20 rounded-lg shadow-md focus:outline-none"
               />
             </div>
           </motion.div>
@@ -592,7 +592,7 @@ const HomeQuestions: React.FC<HomeQuestionsProps> = ({ completeSection }) => {
               exit={{ opacity: 0, y: 50 }}
               transition={{ duration: 0.5 }}
               onClick={() => completeSection("home")}
-              className="w-3/4 md:w-1/2 text-lg md:text-xl font-semibold text-white bg-red-500 p-4 rounded-lg hover:bg-red-700 hover:scale-95"
+              className="w-3/4 sm:w-1/2 text-lg md:text-xl font-semibold text-white bg-red-500 p-4 rounded-lg hover:bg-red-700 hover:scale-95 shadow-md"
             >
               Next Step
             </motion.button>

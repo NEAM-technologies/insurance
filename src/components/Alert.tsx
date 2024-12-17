@@ -30,7 +30,7 @@ const Alert = () => {
             right: "0",
           }}
           animate={{
-            right: "2rem",
+            right: "1rem",
           }}
           exit={{
             right: "-50rem",
@@ -40,7 +40,7 @@ const Alert = () => {
             stiffness: 100,
             damping: 10,
           }}
-          className={`fixed top-28 flex h-fit w-64 md:w-96 bg-white mr-6 md:mr-0 p-2 rounded-md shadow-xl border-t-4
+          className={`fixed top-28 xl:top-60 flex h-fit w-64 sm:w-80 md:w-96 bg-white mr-6 md:mr-0 p-2 rounded-md shadow-xl border-t-4
             ${
               type === "success"
                 ? "border-emerald-500 text-emerald-500"

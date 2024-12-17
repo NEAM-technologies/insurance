@@ -15,7 +15,7 @@ const HeadSection = () => {
         href="https://bit.ly/AutoQuoteForYou"
         target="blank"
         rel="noopener noreferrer"
-        className="h-16 xl:h-[50px] w-[17rem] xl:w-64 flex items-center justify-center text-white text-xl xl:text-base xl:font-bold font-sans tracking-[0.2rem] uppercase bg-[#ff3941] rounded-full"
+        className="h-14 xl:h-[50px] w-[17rem] xl:w-64 flex items-center justify-center text-white text-xl xl:text-base xl:font-bold font-sans tracking-[0.2rem] uppercase bg-[#ff3941] rounded-full"
       >
         <span>Request a Quote</span>
       </Link>

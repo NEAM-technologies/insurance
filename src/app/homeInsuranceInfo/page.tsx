@@ -69,19 +69,17 @@ const Page = () => {
   return (
     <div className="flex flex-col items-center gap-12 pt-16 pb-8">
       <div className="w-5/6 md:w-4/6 space-y-10 mt-10">
-        <h2 className="text-3xl lg:text-5xl text-[#ff3447] text-center lg:text-left font-extrabold italic px-1">
-          Get Affordable Auto Insurance in Minutes!
+        <h2 className="text-3xl lg:text-5xl text-[#ff3447] text-center lg:text-left xl:text-nowrap font-extrabold italic px-1">
+          Compare Home Insurance Quotes in Minutes!
         </h2>
         <p>
-          Get Affordable Auto Insurance in Minutes! Your car is more than just a
-          way to get around -it's an essential part of your life. Protect your
-          ride with auto insurance that's designed to keep you, your loved ones,
-          and your vehicle safe on the road.
+          Get the best rates by comparing home insurance quotes quickly. Protect
+          your property, belongings, and family from unexpected events with
+          coverage tailored to your needs.
         </p>
-        <p>Compare quotes, find the best coverage, and start saving today.</p>
 
         <Link
-          href="/autoInsurance"
+          href="/homeInsurance"
           target="blank"
           rel="noopener noreferrer"
           className="h-20 w-80 flex items-center justify-center bg-red-800/90 pb-2 pr-1 rounded-full hover:scale-95"
@@ -91,7 +89,7 @@ const Page = () => {
               duration-200 hover:bg-red-500
               hover:border-[#e87a85ef]"
           >
-            Auto Insurance Quote
+            Home Insurance Quote
           </span>
         </Link>
       </div>
@@ -101,83 +99,85 @@ const Page = () => {
           20 YEARS OF COMBINED EXPERTISE 15 PARTNERS ACROSS NORTH CAROLINA
         </p>
       </div>
-      <div className="w-full flex flex-col md:flex-row md:gap-40 -mt-12">
+      <div className="w-full flex flex-col md:flex-row gap-12 md:gap-40 -mt-12">
         <div className="w-full md:w-2/5">
           <Image
-            src="/autoPhoto.webp"
+            src="/homePhoto.webp"
             height={2000}
             width={2000}
-            alt="Photo of Van"
-            className="h-60 md:h-[1100px] w-full object-fill"
+            alt="Photo of a House"
+            className="h-80 md:h-[1100px] w-full object-fill"
           />
         </div>
-        <div className="w-5/6 md:w-2/5 space-y-8 mx-auto pt-14">
+        <div className="w-5/6 md:w-4/6 space-y-8 mx-auto md:pt-14">
           <h2 className="text-5xl text-red-600 font-poppins mx-auto">
-            Protect Your Ride,
-            <br /> Your Family, and <br />
-            Your Wallet
+            Secure Your Home,
+            <br />
+            Secure Your Future
           </h2>
           <p className="text-lg text-red-800">
-            Drive with confidence - Insure with You!
+            Protect Your Biggest Investment - Insure with You!
           </p>
 
-          <div className="pt-4 pb-5 md:pb-16">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-12">
-              <div className="flex flex-col space-y-4">
-                <div className="md:h-72 flex flex-col gap-4">
+          <div className="pt-4 pb-16">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+              <div className="flex flex-col space-y-8 md:space-y-4">
+                <div className="md:h-72 flex flex-col gap-8 md:gap-4">
                   <span className="text-4xl text-red-500">01</span>
                   <div>
                     <h3 className="text-lg text-red-500 mb-4">
-                      Customized Coverage Plans
+                      Tailored Coverage Plans
                     </h3>
                     <p className="text-gray-600 font-light leading-7 tracking-wide">
-                      We don't believe in one-size-fits-all insurance. Our
-                      agents work with you to create a plan that fits your needs
-                      and budget, ensuring you only pay for what matters most to
-                      you.
+                      Every home is unique, and so are your insurance needs.
+                      Whether you own a single-family home, a condo, or a rental
+                      property, we offer customizable insurance policies to
+                      ensure you have the right coverage.
                     </p>
                   </div>
                 </div>
-                <div className="md:h-72 flex flex-col gap-4">
+                <div className="md:h-72 flex flex-col gap-8 md:gap-4">
                   <span className="text-4xl text-red-500">02</span>
                   <div>
                     <h3 className="text-lg text-red-500 mb-4">
-                      Competitive Rates
+                      Affordable & Competitive Rates
                     </h3>
                     <p className="text-gray-600 font-light leading-7 tracking-wide">
-                      We offer affordable rates without compromising on
-                      coverage. Get the protection that you need and that peace
-                      of mind at a price you can afford.
+                      We work with top-tier insurance providers to offer
+                      competitive pricing without sacrificing protection. Our
+                      agents will help you find the best rates and coverage for
+                      your budget.
                     </p>
                   </div>
                 </div>
               </div>
 
-              <div className="flex flex-col space-y-4">
-                <div className="md:h-72 flex flex-col gap-4">
+              <div className="flex flex-col space-y-8 md:space-y-4">
+                <div className="md:h-72 flex flex-col gap-8 md:gap-4">
                   <span className="text-4xl text-red-500">03</span>
                   <div>
                     <h3 className="text-lg text-red-500 mb-4">
-                      Fast Claims Process
+                      Reliable Claims Support
                     </h3>
                     <p className="text-gray-600 font-light leading-7 tracking-wide">
-                      Accidents happen, and when they do, we're here to help.
-                      Our claims processes are quick and hassle-free, so you can
-                      get back on the road in no time.
+                      When disaster strikes, you need fast and reliable support.
+                      Our claims process is streamlined and efficient, so you
+                      can get the help you need quickly -whether it's repairing
+                      damage or replacing stolen property.
                     </p>
                   </div>
                 </div>
-                <div className="md:h-72 flex flex-col gap-4">
+                <div className="md:h-72 flex flex-col gap-8 md:gap-4">
                   <span className="text-4xl text-red-500">04</span>
                   <div>
                     <h3 className="text-lg text-red-500 mb-4">
-                      Superior Customer Service
+                      Dedicated Customer Service
                     </h3>
                     <p className="text-gray-600 font-light leading-7 tracking-wide">
-                      At YouInsuranceAgency, you're more than just a policy
-                      number. Our dedicated team is always available to assist
-                      you with any questions or concerns, making sure your
-                      insurance experience is smooth from start to finish.
+                      At You Insurance Agency, we are with you every step of the
+                      way. From selecting your policy to filing a claim, our
+                      team is available to answer your questions and provide
+                      support whenever you need it.
                     </p>
                   </div>
                 </div>
@@ -188,7 +188,7 @@ const Page = () => {
             href="https://app.usecanopy.com/c/you-insurance-agency"
             target="blank"
             rel="noopener noreferrer"
-            className="h-16 w-80 flex items-center justify-center bg-red-800/90 mx-auto pb-2 pr-1 rounded-full hover:scale-95"
+            className="h-20 w-80 flex items-center justify-center bg-red-800/90 mx-auto pb-2 pr-1 rounded-full hover:scale-95"
           >
             <span
               className="h-full w-full flex items-center justify-center lg:text-xl text-white text-center font-medium uppercase bg-[#ff3448dc] border-2 border-transparent rounded-full transition
@@ -200,9 +200,97 @@ const Page = () => {
           </Link>
         </div>
       </div>
+      <div className="w-5/6 md:w-4/6 space-y-28 mt-10">
+        <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
+          <div className="flex-1 flex flex-col space-y-8">
+            <h2 className="text-5xl text-red-600 font-poppins">
+              Condo Insurance
+            </h2>
+            <div className="space-y-3">
+              <p className="text-gray-600">
+                Owning a condo is a major investment, and you need the right
+                coverage to protect your unit and personal property. We offer
+                personal property coverage, liability protection, and flexible
+                policy options.
+              </p>
+              <p className="text-gray-600">
+                With customizable plans and affordable rates, You Insurance
+                Agency ensures that your condo is protected from unexpected
+                events like fire, theft, or water damage. Get a FREE quote today
+                and secure peace of mind in your condo living.
+              </p>
+            </div>
+            <Link
+              href="https://app.usecanopy.com/c/you-insurance-agency"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="h-16 w-72 flex items-center justify-center bg-red-800/90 pb-2 pr-1 rounded-full hover:scale-95"
+            >
+              <span
+                className="h-full w-full flex items-center justify-center lg:text-xl text-white text-center font-medium uppercase bg-[#ff3448dc] border-2 border-transparent rounded-full transition
+              duration-200 hover:bg-red-500 hover:border-[#e87a85ef]"
+              >
+                Get A Quote Today!
+              </span>
+            </Link>
+          </div>
+          <div className="h-[22rem] w-full md:w-1/3">
+            <Image
+              src="/CondoImage.webp"
+              alt="Condo Insurance"
+              width={400}
+              height={300}
+              className="h-full rounded-lg shadow-lg"
+            />
+          </div>
+        </div>
+        <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
+          <div className="h-[22rem] w-full md:w-1/3">
+            <Image
+              src="/FamilyHome.webp"
+              alt="Renters Insurance"
+              width={400}
+              height={300}
+              className="h-full rounded-lg shadow-lg"
+            />
+          </div>
+          <div className="flex-1 flex flex-col space-y-8">
+            <h2 className="text-5xl text-red-600 font-poppins">
+              Renters Insurance
+            </h2>
+            <div className="space-y-3">
+              <p className="text-gray-600">
+                Even if you don't own a home, protecting your belongings is
+                important. Our renters insurance covers your personal property
+                from theft, fire, and other risks, while also offering liability
+                protection.
+              </p>
+              <p className="text-gray-600">
+                Whether you're renting an apartment or house, we provide
+                affordable plans that safeguard your possessions and offer peace
+                of mind. Get a FREE quote today and protect your lifestyle that
+                fits your budget.
+              </p>
+            </div>
+            <Link
+              href="https://app.usecanopy.com/c/you-insurance-agency"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="h-16 w-72 flex items-center justify-center bg-red-800/90 pb-2 pr-1 rounded-full hover:scale-95"
+            >
+              <span
+                className="h-full w-full flex items-center justify-center lg:text-xl text-white text-center font-medium uppercase bg-[#ff3448dc] border-2 border-transparent rounded-full transition
+              duration-200 hover:bg-red-500 hover:border-[#e87a85ef]"
+              >
+                Get A Quote Today!
+              </span>
+            </Link>
+          </div>
+        </div>
+      </div>
       <div className="w-5/6 md:w-4/6 space-y-10 mt-10">
         <h2 className="text-5xl text-red-600 text-center font-poppins mx-auto">
-          How to Lower Your Auto Insurance Premium
+          How Much Home Insurance Do I Need?
         </h2>
         <div className="space-y-6">
           <p className="text-gray-600 font-light leading-7 tracking-wide">
@@ -232,7 +320,7 @@ const Page = () => {
 
       <div className="w-5/6 md:w-4/6 space-y-10 mt-10">
         <h2 className="text-5xl text-red-600 text-center font-poppins mx-auto">
-          Auto Insurance Coverage Types Explained
+          Homeowners Insurance Basics
         </h2>
         <div className="space-y-6">
           <p className="text-gray-600 font-light leading-7 tracking-wide">

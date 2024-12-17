@@ -57,12 +57,16 @@ const MobileNavbar = () => {
         showMenu ? "h-fit overflow-hidden" : "h-24"
       } ${hasScrolled ? "shadow-lg" : ""} z-[1000]`}
     >
-      <div className={`relative h-24 w-full flex items-center ${showMenu ? "justify-between" : "justify-end"} bg-white py-4 pl-8 pr-12 z-50`}>
-        {showMenu && (
+      <div
+        className={`relative h-24 w-full flex items-center ${
+          showMenu || hasScrolled ? "justify-between" : "justify-end"
+        } bg-white py-4 pl-8 pr-12 z-50`}
+      >
+        {showMenu || hasScrolled ? (
           <Link href="/">
             <Image src="/logobox.png" alt="logo" height={60} width={60} />
           </Link>
-        )}
+        ) : null}
         <button type="button" onClick={toggleMenu}>
           <svg
             className="w-8 h-8 text-red-600 hover:scale-95"
@@ -122,7 +126,7 @@ const MobileNavbar = () => {
               Auto Insurance
             </Link>
             <Link
-              href="/homeInsurance"
+              href="/homeInsuranceInfo"
               onClick={() => setShowMenu(!showMenu)}
               className={`${
                 currentPathname === "/life"

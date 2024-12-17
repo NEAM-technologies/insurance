@@ -46,8 +46,8 @@ export default function Home() {
 
   return (
     <>
-      <div className="relative h-28 lg:h-[370px] w-full">
-        <div className="h-full w-3/6 hidden lg:flex items-center justify-center text-3xl text-[#ff3448b9] font-lulo font-extrabold uppercase">
+      <div className="relative h-60 xl:h-[370px] w-full">
+        <div className="h-full w-3/6 hidden xl:flex items-center justify-center text-3xl text-[#ff3448b9] font-lulo font-extrabold uppercase">
           Your one stop <br /> solution for <br /> personalized <br /> insurance <br />
           coverage.
         </div>
@@ -59,7 +59,7 @@ export default function Home() {
           className="absolute top-0 left-0 -z-10"
         />
       </div>
-      <h2 className="block lg:hidden text-xl text-gray-700 text-center font-extrabold tracking-wide uppercase px-1">
+      <h2 className="md:w-2/3 flex xl:hidden text-xl md:text-3xl text-gray-700 text-center font-extrabold tracking-wide uppercase mx-auto">
         Your one stop solution for personalized insurance <br />
         coverage.
       </h2>
@@ -90,11 +90,11 @@ export default function Home() {
             href="https://app.usecanopy.com/c/you-insurance-agency"
             target="blank"
             rel="noopener noreferrer"
-            className="h-14 w-fit flex items-center justify-center bg-red-800/90 pb-2 pr-1 rounded-3xl hover:scale-95"
+            className="h-14 w-fit flex items-center justify-center bg-red-800/90 pb-2 pr-1 rounded-full hover:scale-95"
           >
             <span
               className="text-sm lg:text-xs text-white font-medium uppercase bg-[#ff3448dc]
-              px-6 py-4 border-2 border-transparent rounded-3xl transition
+              px-6 py-4 border-2 border-transparent rounded-full transition
               duration-200 hover:bg-red-500
               hover:border-[#e87a85ef]"
             >

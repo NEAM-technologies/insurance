@@ -82,7 +82,7 @@ const DesktopNavbar = () => {
             Auto Insurance
           </Link>
           <Link
-            href="/homeInsurance"
+            href="/homeInsuranceInfo"
             className={`${
               currentPathname === "/life"
                 ? "text-red-600 font-semibold"

@@ -65,11 +65,20 @@ const CompleteScreen = () => {
         </div>
       ) : (
         <div className="relative w-full h-full">
-          <div className="">
+          <div className="relative">
             <Lottie options={defaultOptions} height={300} width={300} />
+            <Image
+              src="/logobox.png"
+              alt="logo"
+              height={50}
+              width={50}
+              className="absolute top-[43%] left-[47%] animate-pulse"
+            />
           </div>
           <div className="flex flex-col items-center justify-center gap-8">
-            <span className="text-4xl md:text-5xl font-raleway">Thank you!</span>
+            <span className="text-4xl md:text-5xl font-raleway">
+              Thank you!
+            </span>
             <h2 className="text-lg md:text-xl font-medium text-gray-500">
               An agent will send your quotes to the email address you provided.
             </h2>

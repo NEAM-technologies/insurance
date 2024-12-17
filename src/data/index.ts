@@ -1,3 +1,96 @@
+export const teamMembers = [
+  {
+    id: 1,
+    role: "Agency Principal / Owner",
+    name: "Anthony You",
+    image: "/AnthonyHeadshot.webp",
+    description:
+      "Anthony brings his extensive experience as a serial entrepreneur to the table, dedicated to creating a local insurance agency that prioritizes customer-focused service. His entrepreneurial journey has spanned various industries, each endeavor reflecting his passion for innovation and community engagement. His goal is to offer personalized insurance solutions that cater to the unique needs of the North Carolina community, ensuring exceptional service and peace of mind for clients. He is committed to building strong, lasting relationships, and providing a level of care that goes beyond traditional insurance offerings.",
+    link: "https://www.linkedin.com/in/anthony-you/",
+  },
+  {
+    id: 2,
+    role: "Licensed Agent",
+    name: "Joe Meseti",
+    image: "/JoeMeseti.webp",
+    description:
+      "With over a decade of experience in the insurance industry, Joe has honed his expertise across various insurance products and developed a passion for helping clients secure their futures. His career has equipped him with a comprehensive understanding of the nuances in insurance policies and regulations, allowing him to provide insightful, tailored advice to meet diverse client needs. He is dedicated to building genuine, lasting relationships and prides himself on delivering personalized service that ensures clients feel confident and protected in their insurance decisions. His goal is to leverage his extensive knowledge to offer the most effective insurance solutions, providing peace of mind and exceptional value.",
+    link: "https://www.linkedin.com/in/joseph-mesiti-6575b14/",
+  },
+  {
+    id: 3,
+    role: "Licensed Agent",
+    name: "Tabatha Radaker",
+    image: "/TabathaRadaker.webp",
+    description:
+      "Before transitioning into the insurance industry, Tabatha enjoyed a fulfilling career as a teacher, which allowed her to develop strong communication skills and a genuine desire to help others. Fluent in both English and Spanish, she is passionate about serving the diverse community by providing clear and accessible insurance advice. Her background in education has equipped her with the ability to explain complex insurance concepts in a way that's easy to understand, making sure her clients feel confident and well-informed. She strives to build meaningful relationships and is dedicated to offering personalized solutions that cater to each client's unique needs and preferences.",
+    link: "https://www.linkedin.com/in/tabatha-pennington-07389a26a/",
+  },
+  {
+    id: 4,
+    role: "Licensed Agent",
+    name: "Zachary Mirabile",
+    image: "/ZacharyMirabile.webp",
+    description:
+      "Zachary began his career in IT as a help desk professional, where he developed strong problem-solving skills and a knack for assisting people with their technical needs. This background has given him a unique perspective on understanding and addressing client concerns. Transitioning into the insurance industry, he brings this analytical mindset and dedication to customer service to help clients navigate their insurance options. He is committed to providing clear, comprehensive guidance and building trust through effective, personalized solutions. His goal is to leverage his IT experience to enhance client interactions, ensuring that their insurance needs are met with precision and care.",
+    link: "https://www.linkedin.com/in/zachary-mirabile-65610b319/",
+  },
+];
+
+export const phoneCodes = [
+  { code: '+1', country: 'United States', shortName: 'US' },
+  { code: '+44', country: 'United Kingdom', shortName: 'UK' },
+  { code: '+91', country: 'India', shortName: 'IN' },
+  { code: '+61', country: 'Australia', shortName: 'AU' },
+  { code: '+81', country: 'Japan', shortName: 'JP' },
+  { code: '+33', country: 'France', shortName: 'FR' },
+  { code: '+49', country: 'Germany', shortName: 'DE' },
+  { code: '+39', country: 'Italy', shortName: 'IT' },
+  { code: '+55', country: 'Brazil', shortName: 'BR' },
+  { code: '+52', country: 'Mexico', shortName: 'MX' },
+  { code: '+34', country: 'Spain', shortName: 'ES' },
+  { code: '+86', country: 'China', shortName: 'CN' },
+  { code: '+7', country: 'Russia', shortName: 'RU' },
+  { code: '+27', country: 'South Africa', shortName: 'ZA' },
+  { code: '+63', country: 'Philippines', shortName: 'PH' },
+  { code: '+971', country: 'United Arab Emirates', shortName: 'AE' },
+  { code: '+64', country: 'New Zealand', shortName: 'NZ' },
+  { code: '+43', country: 'Austria', shortName: 'AT' },
+  { code: '+20', country: 'Egypt', shortName: 'EG' },
+  { code: '+66', country: 'Thailand', shortName: 'TH' },
+  { code: '+234', country: 'Nigeria', shortName: 'NG' },
+  { code: '+82', country: 'South Korea', shortName: 'KR' },
+  { code: '+32', country: 'Belgium', shortName: 'BE' },
+  { code: '+47', country: 'Norway', shortName: 'NO' },
+  { code: '+54', country: 'Argentina', shortName: 'AR' },
+  { code: '+90', country: 'Turkey', shortName: 'TR' },
+  { code: '+92', country: 'Pakistan', shortName: 'PK' },
+  { code: '+370', country: 'Lithuania', shortName: 'LT' },
+  { code: '+351', country: 'Portugal', shortName: 'PT' },
+  { code: '+56', country: 'Chile', shortName: 'CL' },
+  { code: '+968', country: 'Oman', shortName: 'OM' },
+  { code: '+886', country: 'Taiwan', shortName: 'TW' },
+  { code: '+60', country: 'Malaysia', shortName: 'MY' },
+  { code: '+1', country: 'Canada', shortName: 'CA' },
+  { code: '+354', country: 'Iceland', shortName: 'IS' },
+  { code: '+420', country: 'Czech Republic', shortName: 'CZ' },
+  { code: '+380', country: 'Ukraine', shortName: 'UA' },
+  { code: '+358', country: 'Finland', shortName: 'FI' },
+  { code: '+373', country: 'Moldova', shortName: 'MD' },
+  { code: '+972', country: 'Israel', shortName: 'IL' },
+  { code: '+354', country: 'Iceland', shortName: 'IS' },
+  { code: '+41', country: 'Switzerland', shortName: 'CH' },
+  { code: '+46', country: 'Sweden', shortName: 'SE' },
+  { code: '+48', country: 'Poland', shortName: 'PL' },
+  { code: '+358', country: 'Finland', shortName: 'FI' },
+  { code: '+31', country: 'Netherlands', shortName: 'NL' },
+  { code: '+356', country: 'Malta', shortName: 'MT' },
+  { code: '+353', country: 'Ireland', shortName: 'IE' },
+  { code: '+385', country: 'Croatia', shortName: 'HR' },
+  { code: '+39', country: 'Italy', shortName: 'IT' },
+  { code: '+64', country: 'New Zealand', shortName: 'NZ' },
+];
+
 export const projects = [
   {
     title: "Auto",
@@ -274,17 +367,12 @@ export const coverageAmount = [
 export const autoInsuranceQuestions = [
   {
     question: "What do you use your Chevrolet for?",
-    options: [
-      "Getting to Work",
-      "Running Errands",
-      "Pleasure",
-      "Uber / Lyft",
-    ],
+    options: ["Getting to Work", "Running Errands", "Pleasure", "Uber / Lyft"],
   },
   {
     question: "How many miles per day do you drive?",
     options: [5, 10, 20, "30+"],
-    note: "Most drivers average 30 per day"
+    note: "Most drivers average 30 per day",
   },
   {
     question: "Do you own your Chevrolet 4500HD?",
@@ -293,10 +381,7 @@ export const autoInsuranceQuestions = [
   },
   {
     question: "Would You Like Full Coverage or Liability Only?",
-    options: [
-      "Full Coverage",
-      "Liability Only",
-    ],
+    options: ["Full Coverage", "Liability Only"],
     note: "Liability covers damage you cause other drivers or their property. Full coverage applies to damage to your vehicle.",
   },
   {
@@ -315,7 +400,6 @@ export const autoInsuranceQuestions = [
     note: "You can save up to 25% by having multiple vehicles on the same policy",
   },
 ];
-
 
 export const occupationOptions = [
   "Full-time Employee",
@@ -381,9 +465,18 @@ export const insuranceCompanies = [
   { title: "AAA Insurance Co.", imgUrl: "/insuranceCompanies/AAA.png" },
   { title: "Aflac", imgUrl: "/insuranceCompanies/Aflac.png" },
   { title: "Allstate", imgUrl: "/insuranceCompanies/Allstate.png" },
-  { title: "American Family Insurance", imgUrl: "/insuranceCompanies/AmericanFamily.png" },
-  { title: "Country Financial", imgUrl: "/insuranceCompanies/CountryFinancial.png" },
-  { title: "Farmers Insurance", imgUrl: "/insuranceCompanies/FarmersInsurance.png" },
+  {
+    title: "American Family Insurance",
+    imgUrl: "/insuranceCompanies/AmericanFamily.png",
+  },
+  {
+    title: "Country Financial",
+    imgUrl: "/insuranceCompanies/CountryFinancial.png",
+  },
+  {
+    title: "Farmers Insurance",
+    imgUrl: "/insuranceCompanies/FarmersInsurance.png",
+  },
   { title: "Geico", imgUrl: "/insuranceCompanies/Geico.png" },
   { title: "Liberty Mutual", imgUrl: "/insuranceCompanies/LibertyMutual.png" },
   { title: "Mercury", imgUrl: "/insuranceCompanies/Mercury.png" },
@@ -396,4 +489,49 @@ export const insuranceCompanies = [
   { title: "Travelers Insurance", imgUrl: "/insuranceCompanies/Travelers.png" },
   { title: "USAA", imgUrl: "/insuranceCompanies/USAA.png" },
   { title: "Other", imgUrl: "/insuranceCompanies/Other.png" },
+];
+
+export const ticketDetails = [
+  "Speeding less than 10 mph over",
+  "Speeding more than 10 mph over",
+  "Speeding more than 20 mph over",
+  "Drug possession",
+  "Minor in possession",
+  "Open Container",
+  "DUI/DWI",
+];
+
+export const ancidentDetails = [
+  "Collided with another car",
+  "Hit while stopped",
+  "Hit by another person",
+  "Rear-ended by another person",
+  "Single car accident",
+];
+
+export const homeInsuranceCoverage = [
+  {
+    name: "State Minimum",
+    rating: "★",
+    bodilyInjury: "Minimum",
+    propertyDamage: "Minimum",
+  },
+  {
+    name: "Basic",
+    rating: "★★",
+    bodilyInjury: "$50K / $100K",
+    propertyDamage: "$50K",
+  },
+  {
+    name: "Standard",
+    rating: "★★★",
+    bodilyInjury: "$100K / $300K",
+    propertyDamage: "$100K",
+  },
+  {
+    name: "Superior",
+    rating: "★★★★",
+    bodilyInjury: "$250K / $500K",
+    propertyDamage: "$250K",
+  },
 ];

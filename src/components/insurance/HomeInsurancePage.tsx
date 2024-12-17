@@ -128,7 +128,7 @@ const HomeInsurancePage = () => {
   }, []);
 
   return (
-    <div className="mx-auto">
+    <>
       <div className="bg-[#f5f3f3ac] mt-12 py-5">
         <DotLottieReact
           src="https://lottie.host/e01068ed-3f7e-4924-a818-c16e7ddd507c/akYIFiUVuA.lottie"
@@ -144,7 +144,7 @@ const HomeInsurancePage = () => {
       </div>
 
       {/* Tabs Navigation */}
-      <div className="h-14 w-4/5 md:w-7/12 lg:w-4/12 flex items-center justify-between mx-auto px-6 md:px-0">
+      <div className="h-14 w-full sm:w-4/5 md:w-7/12 lg:w-6/12 xl:w-5/12 flex items-center justify-between mx-auto px-6 md:px-0">
         {sections.map((section, index) => (
           <button
             key={section.id}
@@ -157,7 +157,7 @@ const HomeInsurancePage = () => {
           >
             {/* Checkmark only for completed sections */}
             {completedSections[section.id] === "done" && (
-              <FaCheck className="text-sm sm:text-base md:text-xl text-red-700" />
+              <FaCheck className="text-sm sm:text-base md:text-lg xl:text-xl text-red-700" />
             )}
             <span
               className={`text-sm sm:text-base md:text-lg ${
@@ -185,20 +185,14 @@ const HomeInsurancePage = () => {
       </div>
 
       {/* Section Content with Transition */}
-      <div className="w-5/6 sm:w-9/12 md:w-4/6 bg-white mx-auto mt-10">
+      <div className="w-4/5 md:w-[45%] bg-white mx-auto mt-10">
         <AnimatePresence mode="wait">
-          <motion.div
-            key={sections[currentSection].id}
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -50 }}
-            transition={{ duration: 0.5 }}
-          >
+          <div key={sections[currentSection].id} className="h-full w-full">
             {renderSectionContent()}
-          </motion.div>
+          </div>
         </AnimatePresence>
       </div>
-    </div>
+    </>
   );
 };
 

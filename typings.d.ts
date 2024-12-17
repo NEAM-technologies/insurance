@@ -57,9 +57,7 @@ type HomeFormData = {
 type OwnerFormData = {
   firstName: string;
   lastName: string;
-  dobMonth: string;
-  dobDay: string;
-  dobYear: string;
+  dobDate: string;
   gender: string;
   maritalStatus: string;
   educationLevel: string;
@@ -75,7 +73,7 @@ type CoverageFormData = {
   costToRebuildHome: string;
 };
 
-type useHomeInsuranceState ={
+type useHomeInsuranceState = {
   homeForm: HomeFormData;
   setHomeForm: (data: HomeFormData) => void;
   ownerForm: OwnerFormData;
@@ -83,7 +81,7 @@ type useHomeInsuranceState ={
   coverageForm: CoverageFormData;
   setCoverageForm: (data: CoverageFormData) => void;
   resetHomeForm: () => void;
-}
+};
 
 type VehicleData = {
   make: string;
@@ -97,26 +95,81 @@ type AutoYear = {
 };
 
 type VehicleFormData = {
-  year: string;
-  make: string;
-  model: string;
-  vehicleUse: string;
-  dailyMiles: string;
-  vehicleOwnership: string;
-  coverageType: string;
-  collisionDeductible: string;
-  comprehensiveDeductible: string;
+  v1Year: string;
+  v1Make: string;
+  v1Model: string;
+  v1Use: string;
+  v1Miles: string;
+  v1Ownership: string;
+  v1Coverage: string;
+  v1CollisionDeductible: string;
+  v1ComprehensiveDeductible: string;
   secondVehicle: string;
+  v2Year: string;
+  v2Make: string;
+  v2Model: string;
+  v2Use: string;
+  v2Miles: string;
+  v2Ownership: string;
+  v2Coverage: string;
+  v2CollisionDeductible: string;
+  v2ComprehensiveDeductible: string;
 };
 
-type useAutoInsuranceState ={
+type Incident = {
+  hasIncident: string;
+  type: string;
+  incidentDate: string;
+  details: string;
+  setNewIncident: string;
+};
+
+type DriversFormData = {
+  d1FirstName: string;
+  d1LastName: string;
+  d1DobDate: string;
+  d1Gender: string;
+  d1MaritalStatus: string;
+  d1EducationLevel: string;
+  d1Occupation: string;
+  d1CreditScore: string;
+  d1LicenseStatus: string;
+  d1SR22Cert: string;
+  d1Last3YAccidents: Incident[];
+  d2FirstName: string;
+  d2LastName: string;
+  d2DobDate: string;
+  d2Gender: string;
+  d2MaritalStatus: string;
+  d2EducationLevel: string;
+  d2Occupation: string;
+  d2CreditScore: string;
+  d2LicenseStatus: string;
+  d2SR22Cert: string;
+  d2Last3YAccidents: Incident[];
+  secondDriver: string;
+};
+
+type FinalDetailsFormData = {
+  currentlyCarInsured: string;
+  insuredCompany: string;
+  coverageNeed: string;
+  militaryService: string;
+  homeOwnership: string;
+  homeType: string;
+  street: string;
+  city: string;
+  state: string;
+  unit: string;
+  zip: string;
+};
+
+type useAutoInsuranceState = {
   vehicleForm: VehicleFormData;
   setVehicleForm: (data: VehicleFormData) => void;
-  driverForm: OwnerFormData;
-  setDriverForm: (data: OwnerFormData) => void;
-  finalDetailsForm: CoverageFormData;
-  setFinalDetailsForm: (data: CoverageFormData) => void;
+  driverForm: DriversFormData;
+  setDriverForm: (data: DriversFormData) => void;
+  finalDetailsForm: FinalDetailsFormData;
+  setFinalDetailsForm: (data: FinalDetailsFormData) => void;
   resetAutoForm: () => void;
-}
-
-
+};

@@ -1,4 +1,7 @@
+// react/nextjs components
 import type { Metadata } from "next";
+
+// styling
 import "./globals.css";
 
 // custom components

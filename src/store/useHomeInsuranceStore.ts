@@ -27,9 +27,7 @@ const useHomeInsuranceStore = create<useHomeInsuranceState>()(
         ownerForm: {
           firstName: "",
           lastName: "",
-          dobMonth: "",
-          dobDay: "",
-          dobYear: "",
+          dobDate: "",
           gender: "",
           maritalStatus: "",
           educationLevel: "",
@@ -68,9 +66,7 @@ const useHomeInsuranceStore = create<useHomeInsuranceState>()(
             ownerForm: {
               firstName: "",
               lastName: "",
-              dobMonth: "",
-              dobDay: "",
-              dobYear: "",
+              dobDate: "",
               gender: "",
               maritalStatus: "",
               educationLevel: "",

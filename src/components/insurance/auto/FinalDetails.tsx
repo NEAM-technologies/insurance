@@ -6,50 +6,93 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 
 // global stores
-import useHomeOwnerStore from "@/store/useHomeInsuranceStore";
+import useAutoInsuranceStore from "@/store/useAutoInsuranceStore";
 import { useAlertStore } from "@/store/useAlertStore";
 
 // icons
 import { IoIosCheckmarkCircle } from "react-icons/io";
-import { FaChevronDown, FaCheckCircle, FaRegCircle } from "react-icons/fa";
-import { MdShield } from "react-icons/md";
-import { MdCalculate } from "react-icons/md";
+import {
+  FaChevronDown,
+  FaCheckCircle,
+  FaHome,
+  FaRegCircle,
+} from "react-icons/fa";
+import { MdMilitaryTech, MdShield } from "react-icons/md";
 
 // data
-import { insuranceCompanies } from "@/data";
+import { homeInsuranceCoverage, insuranceCompanies, usStates } from "@/data";
 
 type FinalDetailsProps = {
   completeSection: (section: string) => void;
 };
 
-const FinalDetails: React.FC<FinalDetailsProps> = ({
-  completeSection,
-}) => {
-  const { homeForm, ownerForm, coverageForm, setCoverageForm } =
-    useHomeOwnerStore();
+const FinalDetails: React.FC<FinalDetailsProps> = ({ completeSection }) => {
+  const { driverForm, finalDetailsForm, setFinalDetailsForm } =
+    useAutoInsuranceStore();
   const { icon: Icon, setAlert } = useAlertStore();
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(
-    "Select your insurance company"
-  );
+  const [dropdownState, setDropdownState] = useState({
+    state: {
+      isOpen: false,
+      selectedOption: "Select a State",
+    },
+    insuredCompany: {
+      isOpen: false,
+      selectedOption: "Select Company",
+    },
+  });
 
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
+  const toggleDropdown = (field: "state" | "insuredCompany") => {
+    setDropdownState((prev) => {
+      const newState = {
+        state: { ...prev.state, isOpen: false },
+        insuredCompany: { ...prev.insuredCompany, isOpen: false },
+      };
+
+      newState[field] = {
+        isOpen: !prev[field].isOpen,
+        selectedOption: prev[field].selectedOption,
+      };
+
+      return newState;
+    });
   };
 
-  const handleOptionClick = (option: string) => {
-    setSelectedOption(option);
-    handleInputChange({ field: "insuredCompany", value: option });
-    setIsOpen(false);
+  const handleOptionClick = (
+    field: "state" | "insuredCompany",
+    option: string
+  ) => {
+    setDropdownState((prev) => ({
+      ...prev,
+      [field]: { isOpen: false, selectedOption: option },
+    }));
+    handleInputChange({ field, value: option });
+  };
+
+  const validateNoInsurance = () => {
+    const requiredFields: (keyof FinalDetailsFormData)[] = [
+      "coverageNeed",
+      "militaryService",
+      "homeOwnership",
+      "homeType",
+      "street",
+      "city",
+      "state",
+      "zip",
+    ];
+
+    return requiredFields.every(
+      (field) => finalDetailsForm[field]?.trim() !== ""
+    );
   };
 
   const handleInputChange = (
     e:
       | React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-      | { field: keyof CoverageFormData; value: string }
+      | { field: keyof FinalDetailsFormData; value: string }
   ) => {
-    let field: keyof CoverageFormData;
+    let field: keyof FinalDetailsFormData;
     let value: string;
 
     if ("field" in e) {
@@ -58,24 +101,12 @@ const FinalDetails: React.FC<FinalDetailsProps> = ({
       value = e.value;
     } else {
       // Event-based update
-      field = e.target.name as keyof CoverageFormData;
+      field = e.target.name as keyof FinalDetailsFormData;
       value = e.target.value;
     }
 
     // Update the form state
-    setCoverageForm({ ...coverageForm, [field]: value });
-
-    if (field === "currentlyInsured") {
-      if (value === "No") {
-        if (window.scrollY < 500) {
-          window.scrollBy({
-            top: 400,
-            behavior: "smooth",
-          });
-        }
-        return;
-      }
-    }
+    setFinalDetailsForm({ ...finalDetailsForm, [field]: value });
 
     const scrollToElement = () => {
       const element = document.getElementById(field);
@@ -115,18 +146,29 @@ const FinalDetails: React.FC<FinalDetailsProps> = ({
   useEffect(() => {
     const closePopupsOnOutsideClick = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
-      if (!target.closest(".selectDropdown")) {
-        setIsOpen(false);
+
+      // Check if the target click is outside of any of the dropdowns
+      if (
+        !target.closest(".dropdownCompany") &&
+        !target.closest(".dropdownState")
+      ) {
+        // Close the dropdowns by setting all `isOpen` states to false
+        setDropdownState((prev) => ({
+          state: { ...prev.state, isOpen: false },
+          insuredCompany: { ...prev.insuredCompany, isOpen: false },
+        }));
       }
     };
+
     document.addEventListener("click", closePopupsOnOutsideClick);
+
     return () => {
       document.removeEventListener("click", closePopupsOnOutsideClick);
     };
-  }, [setIsOpen]);
+  }, [setDropdownState]);
 
   return (
-    <div className="w-full space-y-12">
+    <div className="space-y-12">
       {/* Currently Insured Question */}
       <motion.div
         initial={{ opacity: 0, y: 50 }}
@@ -134,31 +176,34 @@ const FinalDetails: React.FC<FinalDetailsProps> = ({
         exit={{ opacity: 0, y: -50 }}
         transition={{ duration: 0.5 }}
       >
-        <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center md:text-nowrap font-raleway mx-auto">
+        <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center font-raleway mx-auto">
           <IoIosCheckmarkCircle
             size={28}
             color="red"
             className="hidden sm:flex mt-1"
           />
-          Are you currently insured?
+          Do you currently have car insurance?
         </p>
-        <div className="grid grid-cols-2 gap-4 w-full mx-auto mt-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full mx-auto mt-8">
           {["Yes", "No"].map((option, index) => (
             <div
               key={index}
               className={`h-14 md:h-16 w-full flex items-center gap-3 md:text-lg font-semibold ${
-                coverageForm.currentlyInsured === option
+                finalDetailsForm.currentlyCarInsured === option
                   ? "bg-red-500 text-white"
-                  : "bg-[#ebebeb]"
-              } pl-4 rounded-lg hover:bg-red-500 hover:text-white cursor-pointer`}
+                  : "bg-[#edededac]"
+              } pl-4 rounded-lg hover:bg-red-500 hover:text-white shadow-md cursor-pointer`}
               onClick={() => {
-                handleInputChange({ field: "currentlyInsured", value: option });
-                if (option === "Yes") {
+                handleInputChange({
+                  field: "currentlyCarInsured",
+                  value: option,
+                });
+                if (finalDetailsForm.currentlyCarInsured !== "Yes") {
                   setAlert("info", "Insured discount applied", MdShield);
                 }
               }}
             >
-              {coverageForm.currentlyInsured === option ? (
+              {finalDetailsForm.currentlyCarInsured === option ? (
                 <FaCheckCircle size={20} />
               ) : (
                 <FaRegCircle size={20} />
@@ -169,7 +214,8 @@ const FinalDetails: React.FC<FinalDetailsProps> = ({
         </div>
       </motion.div>
 
-      {coverageForm.currentlyInsured === "Yes" && (
+      {/* Insured Company */}
+      {finalDetailsForm.currentlyCarInsured === "Yes" && (
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
@@ -177,7 +223,7 @@ const FinalDetails: React.FC<FinalDetailsProps> = ({
           transition={{ duration: 0.5 }}
           className="relative"
         >
-          <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center md:text-nowrap font-raleway mx-auto">
+          <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center font-raleway mx-auto">
             <IoIosCheckmarkCircle
               size={28}
               color="red"
@@ -186,31 +232,37 @@ const FinalDetails: React.FC<FinalDetailsProps> = ({
             What company are you insured with?
           </p>
           {/* Selected Option Display */}
-          <div id="currentlyInsured" className="relative w-80 md:w-96">
+          <div id="currentlyInsured" className="relative w-3/5 mx-auto">
             <button
-              onClick={toggleDropdown}
-              className={`selectDropdown h-16 w-full flex items-center justify-between md:text-lg ${
-                isOpen || coverageForm.insuredCompany
+              onClick={() => toggleDropdown("insuredCompany")}
+              className={`dropdownCompany h-16 w-full flex items-center justify-between md:text-lg ${
+                dropdownState["insuredCompany"].isOpen ||
+                finalDetailsForm.insuredCompany
                   ? "text-black"
                   : "text-gray-400"
               } font-semibold text-left bg-white mx-auto mt-8 px-4 border border-black/20 rounded-lg shadow-md`}
             >
-              {selectedOption}
+              {finalDetailsForm.insuredCompany
+                ? finalDetailsForm.insuredCompany
+                : dropdownState["insuredCompany"].selectedOption}
               <FaChevronDown
                 size={18}
                 className={`${
-                  isOpen || coverageForm.insuredCompany
+                  dropdownState["insuredCompany"].isOpen ||
+                  finalDetailsForm.insuredCompany
                     ? "text-black"
                     : "text-gray-400"
                 }`}
               />
             </button>
-            {isOpen && (
-              <div className="selectDropdown custom-scrollbar absolute left-1/2 transform -translate-x-1/2 h-64 w-full bg-white border border-black/20 rounded-lg shadow-lg overflow-y-scroll">
+            {dropdownState["insuredCompany"].isOpen && (
+              <div className="dropdownCompany custom-scrollbar absolute left-1/2 transform -translate-x-1/2 h-64 w-full bg-white border border-black/20 rounded-lg shadow-lg overflow-y-scroll">
                 {insuranceCompanies.map((option, index) => (
                   <button
                     key={index}
-                    onClick={() => handleOptionClick(option.title)}
+                    onClick={() =>
+                      handleOptionClick("insuredCompany", option.title)
+                    }
                     className="h-12 w-full px-4 py-2 text-sm md:text-base text-left font-semibold flex items-center gap-4 hover:bg-red-100"
                   >
                     <Image
@@ -229,247 +281,382 @@ const FinalDetails: React.FC<FinalDetailsProps> = ({
         </motion.div>
       )}
 
-      {coverageForm.insuredCompany &&
-        coverageForm.currentlyInsured === "Yes" && (
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -50 }}
-            transition={{ duration: 0.5 }}
-          >
-            {/* Number of Stories Question */}
-            <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center md:text-nowrap font-raleway mx-auto">
-              <IoIosCheckmarkCircle
-                size={28}
-                color="red"
-                className="hidden sm:flex mt-1"
-              />
-              How long have you been with Allstate?
-            </p>
-            <div
-              id="insuredCompany"
-              className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full mx-auto mt-8"
-            >
-              {[
-                "Less than a year",
-                "1-2 years",
-                "2-3 years",
-                "3-5 years",
-                "5-10 years",
-                "10+ years",
-              ].map((option, index) => (
-                <div
-                  key={index}
-                  className={`h-16 w-full flex items-center gap-3 md:text-lg font-semibold ${
-                    coverageForm.yearsWithCompany === option
-                      ? "bg-red-500 text-white"
-                      : "bg-[#ebebeb]"
-                  } pl-4 rounded-lg hover:bg-red-500 hover:text-white cursor-pointer`}
-                  onClick={() =>
-                    handleInputChange({
-                      field: "yearsWithCompany",
-                      value: option,
-                    })
-                  }
-                >
-                  {coverageForm.yearsWithCompany === option ? (
-                    <FaCheckCircle size={20} />
-                  ) : (
-                    <FaRegCircle size={20} />
-                  )}
-                  {option}
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        )}
-
-      {coverageForm.yearsWithCompany &&
-        coverageForm.insuredCompany &&
-        coverageForm.currentlyInsured === "Yes" && (
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -50 }}
-            transition={{ duration: 0.5 }}
-          >
-            {/* Number of Stories Question */}
-            <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center md:text-nowrap font-raleway mx-auto">
-              <IoIosCheckmarkCircle
-                size={28}
-                color="red"
-                className="hidden sm:flex mt-1"
-              />
-              When does your policy expire?
-            </p>
-            <p className="text-gray-500 text-center mt-4">
-              It&apos;s ok to guess if you aren&apos;t sure.
-            </p>
-            <div
-              id="yearsWithCompany"
-              className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full mx-auto mt-8"
-            >
-              {[
-                "Not Sure",
-                "A Few Days",
-                "2 weeks",
-                "1 Month",
-                "2 Months",
-                "3 Months",
-                "4-5 Months",
-                "5 Months +",
-              ].map((option, index) => (
-                <div
-                  key={index}
-                  className={`h-16 w-full flex items-center gap-3 md:text-lg font-semibold ${
-                    coverageForm.policyExpires === option
-                      ? "bg-red-500 text-white"
-                      : "bg-[#ebebeb]"
-                  } pl-4 rounded-lg hover:bg-red-500 hover:text-white cursor-pointer`}
-                  onClick={() =>
-                    handleInputChange({
-                      field: "policyExpires",
-                      value: option,
-                    })
-                  }
-                >
-                  {coverageForm.policyExpires === option ? (
-                    <FaCheckCircle size={20} />
-                  ) : (
-                    <FaRegCircle size={20} />
-                  )}
-                  {option}
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        )}
-
-      {/* Rebuild Cost Question */}
-      {(coverageForm.currentlyInsured === "No" ||
-        (coverageForm.policyExpires &&
-          coverageForm.yearsWithCompany &&
-          coverageForm.insuredCompany &&
-          coverageForm.currentlyInsured === "Yes")) && (
+      {/* Coverage Need */}
+      {finalDetailsForm.currentlyCarInsured === "No" && (
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -50 }}
           transition={{ duration: 0.5 }}
         >
-          <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl md:text-center md:text-nowrap font-raleway mx-auto">
+          <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center font-raleway mx-auto">
             <IoIosCheckmarkCircle
               size={28}
               color="red"
               className="hidden sm:flex mt-1"
             />
-            Last question {ownerForm.firstName}, how much would it cost to
-            rebuild your home?
-          </p>
-          <p className="w-10/12 text-gray-500 md:text-center md:mx-auto mt-4">
-            Rebuild cost is different from market value. If you&nbsp;re not sure
-            we recommend using $150 per sq ft.
+            How much coverage do you need?
           </p>
 
-          {errorMessage && (
-            <p className="text-red-500 text-sm text-center mt-6">
-              {errorMessage}
-            </p>
-          )}
-          <div
-            id="policyExpires"
-            className="relative h-14 w-5/6 md:w-2/3 flex items-center gap-1 font-bold mx-auto mt-8 text-xl p-4 border border-black/20 rounded-lg shadow-md"
-          >
-            $
-            <input
-              type="text"
-              name="costToRebuildHome"
-              value={
-                coverageForm.costToRebuildHome
-                  ? new Intl.NumberFormat("en-US").format(
-                      Number(coverageForm.costToRebuildHome.replace(/,/g, ""))
-                    )
-                  : ""
-              }
-              onChange={(e) => {
-                const input = e.target.value.replace(/,/g, ""); // Remove commas for validation
-                if (/^\d*$/.test(input)) {
-                  // Validate that input is only numbers
-                  setCoverageForm({
-                    ...coverageForm,
-                    costToRebuildHome: input,
-                  });
-                  setErrorMessage(""); // Clear error message if input is valid
-                } else {
-                  setErrorMessage("Input must be numeric");
-                }
-              }}
-              placeholder="Rebuilt Cost"
-              className="h-full w-full text-base md:text-xl font-semibold tracking-wider placeholder:text-base md:placeholder:text-lg placeholder:font-normal focus:outline-none"
-            />
-            {!coverageForm.costToRebuildHome && (
+          <p className="text-gray-500 text-center mt-4">
+            Most drivers select Standard, You can change it later if you want.
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full mx-auto mt-8">
+            {homeInsuranceCoverage.map((option, index) => (
               <button
+                type="button"
+                key={index}
                 onClick={() => {
-                  const rebuildCost = new Intl.NumberFormat("en-US").format(
-                    Number(homeForm.squareFootage) * 150
-                  );
-                  setCoverageForm({
-                    ...coverageForm,
-                    costToRebuildHome: rebuildCost,
+                  handleInputChange({
+                    field: "coverageNeed",
+                    value: option.name,
                   });
                 }}
-                className="absolute group right-4 md:right-10 text-gray-400 font-medium hover:scale-[98%]"
+                className={`group w-full flex items-start justify-center ${
+                  finalDetailsForm.coverageNeed === option.name
+                    ? "bg-red-500 text-white"
+                    : "bg-[#edededac]"
+                } border border-slate-200 rounded-lg shadow-md hover:bg-red-500 hover:text-white`}
               >
-                <MdCalculate
-                  size={32}
-                  color="#9ca3af"
-                  className="animate-pulse"
-                />
-                <div className="absolute -top-8 right-0 w-40 hidden group-hover:flex bg-gray-600 text-sm text-white font-medium px-3 py-1 rounded shadow-md">
-                  Calculate rebuild cost
+                <div className="pl-2 py-5">
+                  {finalDetailsForm.coverageNeed === option.name ? (
+                    <FaCheckCircle size={20} />
+                  ) : (
+                    <FaRegCircle size={20} />
+                  )}
+                </div>
+                <div>
+                  <div className="flex items-center gap-3 mx-2 pt-3 pb-2 px-1 border-b border-gray-400">
+                    <div className="text-lg sm:text-xl font-raleway">
+                      {option.name}
+                      <span
+                        className={`group text-xl sm:text-2xl ${
+                          finalDetailsForm.coverageNeed === option.name
+                            ? "text-white"
+                            : "text-red-700"
+                        }  group-hover:text-white ml-2`}
+                      >
+                        {option.rating}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="flex flex-col items-start px-2 py-4">
+                    <h5 className="md:text-lg font-semibold mb-2">
+                      Bodily Injury:{" "}
+                      <span className="font-normal">{option.bodilyInjury}</span>
+                    </h5>
+                    <p className="md:text-lg font-semibold">
+                      Property Damage:{" "}
+                      <span className="font-normal">
+                        {option.propertyDamage}
+                      </span>
+                    </p>
+                  </div>
                 </div>
               </button>
-            )}
+            ))}
           </div>
         </motion.div>
       )}
 
-      {coverageForm.costToRebuildHome.length > 2 &&
-        coverageForm.policyExpires &&
-        coverageForm.yearsWithCompany &&
-        coverageForm.insuredCompany &&
-        coverageForm.currentlyInsured === "Yes" && (
-          <div id="costToRebuildHome" className="w-full flex justify-center">
-            {/* Next Button */}
-            <motion.button
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -50 }}
-              transition={{ duration: 0.5 }}
-              onClick={() => completeSection("coverage")}
-              className="w-3/4 md:w-1/2 text-lg md:text-xl font-semibold text-white bg-red-500 p-4 rounded-lg hover:bg-red-700 hover:scale-95"
-            >
-              Submit
-            </motion.button>
+      {/* Military Status */}
+      {(finalDetailsForm.currentlyCarInsured === "No" &&
+        finalDetailsForm.coverageNeed) ||
+      (finalDetailsForm.currentlyCarInsured === "Yes" &&
+        finalDetailsForm.insuredCompany) ? (
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -50 }}
+          transition={{ duration: 0.5 }}
+        >
+          <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center font-raleway mx-auto">
+            <IoIosCheckmarkCircle
+              size={28}
+              color="red"
+              className="hidden sm:flex mt-1"
+            />
+            Have you or anyone in your family served in the military?
+          </p>
+          <p className="text-gray-500 text-center mt-4">
+            Some insurance companies offer military discounts
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full mx-auto mt-8">
+            {["Yes", "No"].map((option, index) => (
+              <div
+                key={index}
+                className={`h-14 md:h-16 w-full flex items-center gap-3 md:text-lg font-semibold ${
+                  finalDetailsForm.militaryService === option
+                    ? "bg-red-500 text-white"
+                    : "bg-[#edededac]"
+                } pl-4 rounded-lg hover:bg-red-500 hover:text-white shadow-md cursor-pointer`}
+                onClick={() => {
+                  handleInputChange({
+                    field: "militaryService",
+                    value: option,
+                  });
+                  if (finalDetailsForm.militaryService !== "Yes") {
+                    setAlert(
+                      "info",
+                      "icon Military discount is applied",
+                      MdMilitaryTech
+                    );
+                  }
+                }}
+              >
+                {finalDetailsForm.militaryService === option ? (
+                  <FaCheckCircle size={20} />
+                ) : (
+                  <FaRegCircle size={20} />
+                )}
+                {option}
+              </div>
+            ))}
           </div>
-        )}
+        </motion.div>
+      ) : null}
 
-      {coverageForm.costToRebuildHome.length > 2 &&
-        coverageForm.currentlyInsured === "No" && (
-          <div id="costToRebuildHome" className="w-full flex justify-center">
-            {/* Next Button */}
-            <motion.button
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -50 }}
-              transition={{ duration: 0.5 }}
-              onClick={() => completeSection("coverage")}
-              className="w-3/4 md:w-1/2 text-lg md:text-xl font-semibold text-white bg-red-500 p-4 rounded-lg hover:bg-red-700 hover:scale-95"
-            >
-              Submit
-            </motion.button>
+      {/* Home Ownership */}
+      {(finalDetailsForm.currentlyCarInsured === "No" &&
+        finalDetailsForm.coverageNeed) ||
+      (finalDetailsForm.currentlyCarInsured === "Yes" &&
+        finalDetailsForm.insuredCompany &&
+        finalDetailsForm.militaryService) ? (
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -50 }}
+          transition={{ duration: 0.5 }}
+        >
+          <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center font-raleway mx-auto">
+            <IoIosCheckmarkCircle
+              size={28}
+              color="red"
+              className="hidden sm:flex mt-1"
+            />
+            Do you own or rent your home?
+          </p>
+          <p className="text-gray-500 text-center mt-4">
+            Home owners usually need more coverage than renters
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full mx-auto mt-8">
+            {["Own", "Rent"].map((option, index) => (
+              <div
+                key={index}
+                className={`h-14 md:h-16 w-full flex items-center gap-3 md:text-lg font-semibold ${
+                  finalDetailsForm.homeOwnership === option
+                    ? "bg-red-500 text-white"
+                    : "bg-[#edededac]"
+                } pl-4 rounded-lg hover:bg-red-500 hover:text-white shadow-md cursor-pointer`}
+                onClick={() => {
+                  handleInputChange({
+                    field: "homeOwnership",
+                    value: option,
+                  });
+                  if (finalDetailsForm.homeOwnership !== "Own") {
+                    setAlert("info", "Homeowner discount applied", FaHome);
+                  }
+                }}
+              >
+                {finalDetailsForm.homeOwnership === option ? (
+                  <FaCheckCircle size={20} />
+                ) : (
+                  <FaRegCircle size={20} />
+                )}
+                {option}
+              </div>
+            ))}
           </div>
-        )}
+        </motion.div>
+      ) : null}
+
+      {(finalDetailsForm.currentlyCarInsured === "No" &&
+        finalDetailsForm.coverageNeed) ||
+      (finalDetailsForm.currentlyCarInsured === "Yes" &&
+        finalDetailsForm.insuredCompany &&
+        finalDetailsForm.militaryService &&
+        finalDetailsForm.homeOwnership) ? (
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -50 }}
+          transition={{ duration: 0.5 }}
+        >
+          <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center font-raleway mx-auto">
+            <IoIosCheckmarkCircle
+              size={28}
+              color="red"
+              className="hidden sm:flex mt-1"
+            />
+            What type of home do you live in?
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full mx-auto mt-8">
+            {[
+              "Single Family Home",
+              "Townhome",
+              "Multi Family Home",
+              "Condominium",
+              "Duplex",
+              "Mobile Home",
+              "Apartment",
+              "Tiny Homes",
+            ].map((option, index) => (
+              <div
+                key={index}
+                className={`h-14 md:h-16 w-full flex items-center gap-3 md:text-lg font-semibold ${
+                  finalDetailsForm.homeType === option
+                    ? "bg-red-500 text-white"
+                    : "bg-[#edededac]"
+                } pl-4 rounded-lg hover:bg-red-500 hover:text-white shadow-md cursor-pointer`}
+                onClick={() =>
+                  handleInputChange({ field: "homeType", value: option })
+                }
+              >
+                {finalDetailsForm.homeType === option ? (
+                  <FaCheckCircle size={20} />
+                ) : (
+                  <FaRegCircle size={20} />
+                )}
+                {option}
+              </div>
+            ))}
+          </div>
+        </motion.div>
+      ) : null}
+
+      {(finalDetailsForm.currentlyCarInsured === "No" &&
+        finalDetailsForm.coverageNeed) ||
+      (finalDetailsForm.currentlyCarInsured === "Yes" &&
+        finalDetailsForm.insuredCompany &&
+        finalDetailsForm.militaryService &&
+        finalDetailsForm.homeOwnership &&
+        finalDetailsForm.homeType) ? (
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -50 }}
+          transition={{ duration: 0.5 }}
+        >
+          <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center font-raleway mx-auto">
+            <IoIosCheckmarkCircle
+              size={28}
+              color="red"
+              className="hidden sm:flex mt-1"
+            />
+            Last question {driverForm.d1FirstName}, what is your address?
+          </p>
+          <p className="text-gray-500 text-center mt-4">
+            Insurance rates vary depending on where you live.
+          </p>
+          <div id="homeType" className="space-y-5 mx-auto mt-8">
+            <div className="flex flex-col md:flex-row items-center gap-5 md:gap-10">
+              <input
+                type="text"
+                name="street"
+                value={finalDetailsForm.street}
+                onChange={handleInputChange}
+                placeholder="Street"
+                className="h-14 w-full text-sm md:text-lg p-4 border border-black/20 rounded-lg shadow-md focus:outline-none"
+              />
+              <input
+                type="text"
+                name="unit"
+                value={finalDetailsForm.unit}
+                onChange={handleInputChange}
+                placeholder="Unit #"
+                className="h-14 w-full text-sm md:text-lg p-4 border border-black/20 rounded-lg shadow-md focus:outline-none"
+              />
+            </div>
+            <input
+              type="text"
+              name="city"
+              value={finalDetailsForm.city}
+              onChange={handleInputChange}
+              placeholder="City"
+              className="h-14 w-full text-sm md:text-lg p-4 border border-black/20 rounded-lg shadow-md focus:outline-none"
+            />
+            <div className="flex items-center gap-8">
+              <div className="relative w-1/2">
+                <button
+                  onClick={() => toggleDropdown("state")}
+                  className={`dropdownState h-14 w-full flex items-center justify-between text-sm md:text-lg ${
+                    dropdownState["state"].isOpen || finalDetailsForm.state
+                      ? "text-black"
+                      : "text-gray-400"
+                  } p-4 bg-white border border-black/20 rounded-lg shadow-md`}
+                >
+                  {finalDetailsForm.state
+                    ? finalDetailsForm.state
+                    : dropdownState["state"].selectedOption}
+                  <FaChevronDown
+                    size={18}
+                    className={`${
+                      dropdownState["state"].isOpen || finalDetailsForm.state
+                        ? "text-black"
+                        : "text-gray-400"
+                    }`}
+                  />
+                </button>
+                {dropdownState["state"].isOpen && (
+                  <div className="dropdownState custom-scrollbar absolute left-1/2 transform -translate-x-1/2 h-64 w-full bg-white border border-black/20 rounded-lg overflow-y-scroll">
+                    {usStates
+                      .sort((a, b) =>
+                        a.toLowerCase().localeCompare(b.toLowerCase())
+                      )
+                      .map((option, index) => (
+                        <button
+                          key={index}
+                          onClick={() => handleOptionClick("state", option)}
+                          className="w-full px-4 py-2 text-sm md:text-base text-left font-semibold hover:bg-red-100"
+                        >
+                          {option}
+                        </button>
+                      ))}
+                  </div>
+                )}
+              </div>
+              <input
+                type="text"
+                name="zip"
+                value={finalDetailsForm.zip}
+                onChange={(e) => {
+                  const { value } = e.target;
+                  // Ensure only numbers and limit to 5 characters
+                  if (/^\d{0,5}$/.test(value)) {
+                    handleInputChange(e); // Call your existing handleInputChange function
+                  }
+                }}
+                placeholder="Zip Code"
+                inputMode="numeric" // Show numeric keypad on mobile
+                maxLength={5} // Limit to 5 characters
+                pattern="\d*" // Accept only digits
+                className="h-14 w-1/2 text-sm md:text-lg p-4 border border-black/20 rounded-lg shadow-md focus:outline-none"
+              />
+            </div>
+          </div>
+        </motion.div>
+      ) : null}
+
+      {(finalDetailsForm.currentlyCarInsured === "No" &&
+        validateNoInsurance()) ||
+      (finalDetailsForm.currentlyCarInsured === "Yes" &&
+        validateNoInsurance() &&
+        finalDetailsForm.insuredCompany) ? (
+        <div id="costToRebuildHome" className="w-full flex justify-center">
+          {/* Next Button */}
+          <motion.button
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -50 }}
+            transition={{ duration: 0.5 }}
+            onClick={() => completeSection("finalDetails")}
+            className="w-3/4 sm:w-1/2 text-lg md:text-xl font-semibold text-white bg-red-500 p-4 rounded-lg shadow-md hover:bg-red-700 hover:scale-95"
+          >
+            Submit
+          </motion.button>
+        </div>
+      ) : null}
     </div>
   );
 };

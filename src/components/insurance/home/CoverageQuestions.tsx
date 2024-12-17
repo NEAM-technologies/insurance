@@ -134,7 +134,7 @@ const CoverageQuestions: React.FC<CoverageQuestionsProps> = ({
         exit={{ opacity: 0, y: -50 }}
         transition={{ duration: 0.5 }}
       >
-        <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center md:text-nowrap font-raleway mx-auto">
+        <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl md:text-center font-raleway mx-auto">
           <IoIosCheckmarkCircle
             size={28}
             color="red"
@@ -142,7 +142,7 @@ const CoverageQuestions: React.FC<CoverageQuestionsProps> = ({
           />
           Are you currently insured?
         </p>
-        <div className="grid grid-cols-2 gap-4 w-full mx-auto mt-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full mx-auto mt-8">
           {["Yes", "No"].map((option, index) => (
             <div
               key={index}
@@ -150,7 +150,7 @@ const CoverageQuestions: React.FC<CoverageQuestionsProps> = ({
                 coverageForm.currentlyInsured === option
                   ? "bg-red-500 text-white"
                   : "bg-[#ebebeb]"
-              } pl-4 rounded-lg hover:bg-red-500 hover:text-white cursor-pointer`}
+              } pl-4 rounded-lg hover:bg-red-500 hover:text-white shadow-md cursor-pointer`}
               onClick={() => {
                 handleInputChange({ field: "currentlyInsured", value: option });
                 if (option === "Yes") {
@@ -177,7 +177,7 @@ const CoverageQuestions: React.FC<CoverageQuestionsProps> = ({
           transition={{ duration: 0.5 }}
           className="relative"
         >
-          <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center md:text-nowrap font-raleway mx-auto">
+          <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl md:text-center font-raleway mx-auto">
             <IoIosCheckmarkCircle
               size={28}
               color="red"
@@ -186,7 +186,7 @@ const CoverageQuestions: React.FC<CoverageQuestionsProps> = ({
             What company are you insured with?
           </p>
           {/* Selected Option Display */}
-          <div id="currentlyInsured" className="relative w-80 md:w-96">
+          <div id="currentlyInsured" className="relative w-3/5 mx-auto">
             <button
               onClick={toggleDropdown}
               className={`selectDropdown h-16 w-full flex items-center justify-between md:text-lg ${
@@ -238,7 +238,7 @@ const CoverageQuestions: React.FC<CoverageQuestionsProps> = ({
             transition={{ duration: 0.5 }}
           >
             {/* Number of Stories Question */}
-            <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center md:text-nowrap font-raleway mx-auto">
+            <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl md:text-center font-raleway mx-auto">
               <IoIosCheckmarkCircle
                 size={28}
                 color="red"
@@ -248,7 +248,7 @@ const CoverageQuestions: React.FC<CoverageQuestionsProps> = ({
             </p>
             <div
               id="insuredCompany"
-              className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full mx-auto mt-8"
+              className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full mx-auto mt-8"
             >
               {[
                 "Less than a year",
@@ -264,7 +264,7 @@ const CoverageQuestions: React.FC<CoverageQuestionsProps> = ({
                     coverageForm.yearsWithCompany === option
                       ? "bg-red-500 text-white"
                       : "bg-[#ebebeb]"
-                  } pl-4 rounded-lg hover:bg-red-500 hover:text-white cursor-pointer`}
+                  } pl-4 rounded-lg hover:bg-red-500 hover:text-white shadow-md cursor-pointer`}
                   onClick={() =>
                     handleInputChange({
                       field: "yearsWithCompany",
@@ -294,7 +294,7 @@ const CoverageQuestions: React.FC<CoverageQuestionsProps> = ({
             transition={{ duration: 0.5 }}
           >
             {/* Number of Stories Question */}
-            <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center md:text-nowrap font-raleway mx-auto">
+            <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl md:text-center font-raleway mx-auto">
               <IoIosCheckmarkCircle
                 size={28}
                 color="red"
@@ -307,7 +307,7 @@ const CoverageQuestions: React.FC<CoverageQuestionsProps> = ({
             </p>
             <div
               id="yearsWithCompany"
-              className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full mx-auto mt-8"
+              className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full mx-auto mt-8"
             >
               {[
                 "Not Sure",
@@ -325,7 +325,7 @@ const CoverageQuestions: React.FC<CoverageQuestionsProps> = ({
                     coverageForm.policyExpires === option
                       ? "bg-red-500 text-white"
                       : "bg-[#ebebeb]"
-                  } pl-4 rounded-lg hover:bg-red-500 hover:text-white cursor-pointer`}
+                  } pl-4 rounded-lg hover:bg-red-500 hover:text-white shadow-md cursor-pointer`}
                   onClick={() =>
                     handleInputChange({
                       field: "policyExpires",
@@ -357,7 +357,7 @@ const CoverageQuestions: React.FC<CoverageQuestionsProps> = ({
           exit={{ opacity: 0, y: -50 }}
           transition={{ duration: 0.5 }}
         >
-          <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl md:text-center md:text-nowrap font-raleway mx-auto">
+          <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl md:text-center font-raleway mx-auto">
             <IoIosCheckmarkCircle
               size={28}
               color="red"
@@ -378,7 +378,7 @@ const CoverageQuestions: React.FC<CoverageQuestionsProps> = ({
           )}
           <div
             id="policyExpires"
-            className="relative h-14 w-5/6 md:w-2/3 flex items-center gap-1 font-bold mx-auto mt-8 text-xl p-4 border border-black/20 rounded-lg shadow-md"
+            className="relative h-14 w-3/5 flex items-center gap-1 font-bold mx-auto mt-8 text-xl p-4 border border-black/20 rounded-lg shadow-md"
           >
             $
             <input
@@ -418,7 +418,7 @@ const CoverageQuestions: React.FC<CoverageQuestionsProps> = ({
                     costToRebuildHome: rebuildCost,
                   });
                 }}
-                className="absolute group right-4 md:right-10 text-gray-400 font-medium hover:scale-[98%]"
+                className="absolute group right-4 md:right-10 xl:right-6 text-gray-400 font-medium hover:scale-[98%]"
               >
                 <MdCalculate
                   size={32}
@@ -447,7 +447,7 @@ const CoverageQuestions: React.FC<CoverageQuestionsProps> = ({
               exit={{ opacity: 0, y: -50 }}
               transition={{ duration: 0.5 }}
               onClick={() => completeSection("coverage")}
-              className="w-3/4 md:w-1/2 text-lg md:text-xl font-semibold text-white bg-red-500 p-4 rounded-lg hover:bg-red-700 hover:scale-95"
+              className="w-3/4 sm:w-1/2 text-lg md:text-xl font-semibold text-white bg-red-500 p-4 rounded-lg hover:bg-red-700 hover:scale-95"
             >
               Submit
             </motion.button>
@@ -464,7 +464,7 @@ const CoverageQuestions: React.FC<CoverageQuestionsProps> = ({
               exit={{ opacity: 0, y: -50 }}
               transition={{ duration: 0.5 }}
               onClick={() => completeSection("coverage")}
-              className="w-3/4 md:w-1/2 text-lg md:text-xl font-semibold text-white bg-red-500 p-4 rounded-lg hover:bg-red-700 hover:scale-95"
+              className="w-3/4 sm:w-1/2 text-lg md:text-xl font-semibold text-white bg-red-500 p-4 rounded-lg hover:bg-red-700 hover:scale-95"
             >
               Submit
             </motion.button>

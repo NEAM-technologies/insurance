@@ -6,8 +6,8 @@ const Footer = () => {
   return (
     <div className="w-full py-5">
       {/* Contact Info */}
-      <div className="max-w-6xl flex flex-col lg:flex-row mx-auto mt-10 p-4">
-        <div className="flex-1 flex flex-col justify-center">
+      <div className="h-96 max-w-6xl flex flex-col lg:flex-row mx-auto mt-10 p-8">
+        <div className="h-full w-1/2 flex flex-col justify-center">
           <h2 className="text-xl font-bold">You Insurance Agency</h2>
           <p className="text-lg">
             257 Timber Dr <br />
@@ -33,8 +33,8 @@ const Footer = () => {
         </div>
 
         {/* Map */}
-        <div className="flex-1">
-          <div className="h-20 w-full flex items-center lg:justify-end gap-3 mb-8 lg:mb-0">
+        <div className="h-full w-1/2 flex flex-col justify-end mt-14 md:mt-0">
+          <div className="w-full flex items-center lg:justify-end gap-3 mb-4">
             <Link
               href="https://www.facebook.com/youinsuranceagency"
               target="blank"
@@ -63,13 +63,11 @@ const Footer = () => {
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3306.671208999865!2d-78.60746068497464!3d35.70346918018957!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89ac597576317ccf%3A0xf1688db2c903007c!2s257%20Timber%20Dr%2C%20Garner%2C%20NC%2027529!5e0!3m2!1sen!2sus!4v1697808512955!5m2!1sen!2sus"
             title="Location Map"
-            width="100%"
-            height="400"
             style={{ border: 0 }}
             allowFullScreen={true}
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
-            className="rounded-lg"
+            className="h-full w-full rounded-lg"
           ></iframe>
         </div>
       </div>
