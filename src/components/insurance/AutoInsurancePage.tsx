@@ -132,73 +132,73 @@ const AutoInsurancePage = () => {
   100;
 
 
-  useEffect(() => {
-    const fetchAutoYear = async () => {
-      setLoading(true);
-      try {
-        const result = await getAutoYear();
-        if (result.success) {
-          const dataToStore = {
-            data: result.data,
-            timestamp: new Date().getTime(), // Current time in milliseconds
-          };
-          localStorage.setItem("autoYear", JSON.stringify(dataToStore)); // Save to local storage
-          setYear(result.data);
-        }
-      } catch (e) {
-        console.error("Error fetching auto year:", e);
-        setYear([]); // Set an empty array in case of an error
-      } finally {
-        setLoading(false);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchAutoYear = async () => {
+  //     setLoading(true);
+  //     try {
+  //       const result = await getAutoYear();
+  //       if (result.success) {
+  //         const dataToStore = {
+  //           data: result.data,
+  //           timestamp: new Date().getTime(), // Current time in milliseconds
+  //         };
+  //         localStorage.setItem("autoYear", JSON.stringify(dataToStore)); // Save to local storage
+  //         setYear(result.data);
+  //       }
+  //     } catch (e) {
+  //       console.error("Error fetching auto year:", e);
+  //       setYear([]); // Set an empty array in case of an error
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
 
-    const checkAndFetchData = () => {
-      const storedData = localStorage.getItem("autoYear");
-      const now = new Date().getTime();
+  //   const checkAndFetchData = () => {
+  //     const storedData = localStorage.getItem("autoYear");
+  //     const now = new Date().getTime();
 
-      if (storedData) {
-        const { data, timestamp } = JSON.parse(storedData);
+  //     if (storedData) {
+  //       const { data, timestamp } = JSON.parse(storedData);
 
-        // Check if one day (24 hours) has passed
-        if (now - timestamp < 24 * 60 * 60 * 1000) {
-          setYear(data); // Use the cached data
-          setLoading(false);
-          return;
-        }
-      }
+  //       // Check if one day (24 hours) has passed
+  //       if (now - timestamp < 24 * 60 * 60 * 1000) {
+  //         setYear(data); // Use the cached data
+  //         setLoading(false);
+  //         return;
+  //       }
+  //     }
 
-      // Fetch new data if no data or it's expired
-      fetchAutoYear();
-    };
+  //     // Fetch new data if no data or it's expired
+  //     fetchAutoYear();
+  //   };
 
-    checkAndFetchData();
-  }, []);
+  //   checkAndFetchData();
+  // }, []);
 
-  useEffect(() => {
-    const fetchInsuranceData = async () => {
-      const { v1Year, v2Year } = vehicleForm;
+  // useEffect(() => {
+  //   const fetchInsuranceData = async () => {
+  //     const { v1Year, v2Year } = vehicleForm;
 
-      // Ensure at least one year is specified before fetching
-      if (v1Year || v2Year) {
-        setLoading(true);
+  //     // Ensure at least one year is specified before fetching
+  //     if (v1Year || v2Year) {
+  //       setLoading(true);
 
-        try {
-          // Fetch data for v1Year or v2Year
-          const result = await getAutoInsuranceCollection(v1Year || v2Year);
-          if (result.success) {
-            setVehicleDetails(result.data);
-          }
-        } catch (error) {
-          return [];
-        } finally {
-          setLoading(false);
-        }
-      }
-    };
+  //       try {
+  //         // Fetch data for v1Year or v2Year
+  //         const result = await getAutoInsuranceCollection(v1Year || v2Year);
+  //         if (result.success) {
+  //           setVehicleDetails(result.data);
+  //         }
+  //       } catch (error) {
+  //         return [];
+  //       } finally {
+  //         setLoading(false);
+  //       }
+  //     }
+  //   };
 
-    fetchInsuranceData();
-  }, [vehicleForm.v1Year, vehicleForm.v2Year]);
+  //   fetchInsuranceData();
+  // }, [vehicleForm.v1Year, vehicleForm.v2Year]);
 
   return (
     <>
