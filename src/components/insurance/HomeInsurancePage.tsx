@@ -4,7 +4,7 @@
 import React, { useEffect, useState } from "react";
 
 // framer motion components
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 
 // lottie components
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
@@ -113,6 +113,12 @@ const HomeInsurancePage = () => {
     }
   };
 
+  const completedPercentage =
+    (Object.values(completedSections).filter((status) => status === "done")
+      .length /
+      Object.keys(completedSections).length) *
+    100;
+
   useEffect(() => {
     setLoading(true);
     window.scrollTo({
@@ -136,7 +142,7 @@ const HomeInsurancePage = () => {
           autoplay
           className="w-60 mx-auto"
         />
-        <h1 className="w-5/6 md:w-full text-2xl md:text-4xl text-center font-raleway mx-auto">
+        <h1 className="w-5/6 md:w-full text-2xl md:text-3xl lg:text-4xl text-center font-raleway mx-auto">
           Hi there, let&apos;s help you find the best savings{" "}
           <br className="hidden md:flex" /> on your home insurance, tailored
           just for you!
@@ -160,7 +166,7 @@ const HomeInsurancePage = () => {
               <FaCheck className="text-sm sm:text-base md:text-lg xl:text-xl text-red-700" />
             )}
             <span
-              className={`text-sm sm:text-base md:text-lg ${
+              className={`text-xs sm:text-base md:text-lg ${
                 index === currentSection ||
                 completedSections[section.id] === "in-progress"
                   ? "text-black"
@@ -179,13 +185,13 @@ const HomeInsurancePage = () => {
         <div
           className="h-1 bg-red-500 transition-all"
           style={{
-            width: `${((currentSection + 1) / sections.length) * 100}%`,
+            width: `${completedPercentage}%`,
           }}
-        ></div>
+        />
       </div>
 
       {/* Section Content with Transition */}
-      <div className="w-4/5 md:w-[45%] bg-white mx-auto mt-10">
+      <div className="w-4/5 xl:w-[45%] bg-white mx-auto mt-10">
         <AnimatePresence mode="wait">
           <div key={sections[currentSection].id} className="h-full w-full">
             {renderSectionContent()}

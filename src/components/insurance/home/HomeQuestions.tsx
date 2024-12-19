@@ -298,7 +298,7 @@ const HomeQuestions: React.FC<HomeQuestionsProps> = ({ completeSection }) => {
                 inputMode="numeric"
                 maxLength={4}
                 pattern="\d*"
-                className="h-14 w-3/5 text-sm md:text-lg p-4 border border-black/20 rounded-lg shadow-md focus:outline-none"
+                className="h-14 w-full md:w-3/5 text-sm md:text-lg p-4 border border-black/20 rounded-lg shadow-md focus:outline-none"
               />
             </div>
           </motion.div>
@@ -343,7 +343,7 @@ const HomeQuestions: React.FC<HomeQuestionsProps> = ({ completeSection }) => {
                   }
                 }}
                 placeholder="Square Footage"
-                className="h-14 w-3/5 text-sm md:text-lg p-4 border border-black/20 rounded-lg shadow-md focus:outline-none"
+                className="h-14 w-full md:w-3/5 text-sm md:text-lg p-4 border border-black/20 rounded-lg shadow-md focus:outline-none"
               />
             </div>
           </motion.div>
@@ -567,7 +567,7 @@ const HomeQuestions: React.FC<HomeQuestionsProps> = ({ completeSection }) => {
                   }
                 }}
                 placeholder="YYYY"
-                className="h-14 w-3/5 text-sm md:text-lg p-4 border border-black/20 rounded-lg shadow-md focus:outline-none"
+                className="h-14 w-full md:w-3/5 text-sm md:text-lg p-4 border border-black/20 rounded-lg shadow-md focus:outline-none"
               />
             </div>
           </motion.div>

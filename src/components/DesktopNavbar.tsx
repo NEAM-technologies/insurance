@@ -39,6 +39,7 @@ const DesktopNavbar = () => {
             height={280}
             width={280}
             priority
+            className="h-36 w-full"
           />
         </Link>
         <p className="text-2xl xl:text-4xl text-[#f15e63] font-lulo">

@@ -17,11 +17,13 @@ import { AiFillCar } from "react-icons/ai";
 
 type VechileQuestionsProps = {
   completeSection: (section: string) => void;
-  vehicleDetails: AutoYear[];
+  year: AutoYear[];
+  vehicleDetails: VehicleData[];
 };
 
 const VechileQuestions: React.FC<VechileQuestionsProps> = ({
   completeSection,
+  year,
   vehicleDetails,
 }) => {
   const { icon: Icon, setAlert } = useAlertStore();
@@ -35,8 +37,13 @@ const VechileQuestions: React.FC<VechileQuestionsProps> = ({
     v2Model: { isOpen: false, selectedOption: "Select Vechile model" },
   });
 
-  const hasEmptyFields = Object.values(vehicleForm).some(
-    (value) => value === "" || value === null || value === undefined
+  const hasEmptyFields = Object.entries(vehicleForm).some(
+    ([key, value]) =>
+      (value === "" || value === null || value === undefined) &&
+      key !== "v1CollisionDeductible" &&
+      key !== "v1ComprehensiveDeductible" &&
+      key !== "v2CollisionDeductible" &&
+      key !== "v2ComprehensiveDeductible"
   );
 
   const toggleDropdown = (
@@ -143,6 +150,13 @@ const VechileQuestions: React.FC<VechileQuestionsProps> = ({
   };
 
   useEffect(() => {
+
+    if (vehicleForm.v1Coverage === "Full Coverage" || vehicleForm.v2Coverage === "Full Coverage") {
+      setVehicleForm({ ...vehicleForm, secondVehicle: "" });
+    }
+  }, [vehicleForm.v1Coverage, vehicleForm.v2Coverage]);
+
+  useEffect(() => {
     const closePopupsOnOutsideClick = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
 
@@ -150,10 +164,10 @@ const VechileQuestions: React.FC<VechileQuestionsProps> = ({
       if (
         !target.closest(".dropdownYear1") &&
         !target.closest(".dropdownMake1") &&
-        !target.closest(".dropdownModel") &&
+        !target.closest(".dropdownModel1") &&
         !target.closest(".dropdownYear2") &&
         !target.closest(".dropdownMake2") &&
-        !target.closest(".dropdownMode2")
+        !target.closest(".dropdownModel2")
       ) {
         // Close the dropdowns by setting all `isOpen` states to false
         setDropdownState((prev) => ({
@@ -211,16 +225,19 @@ const VechileQuestions: React.FC<VechileQuestionsProps> = ({
               exit={{ opacity: 0, y: -50 }}
               transition={{ duration: 0.5 }}
             >
-                <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center font-raleway mx-auto">
+              <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center font-raleway mx-auto">
                 <IoIosCheckmarkCircle
                   size={28}
                   color="red"
                   className="hidden sm:flex mt-1"
                 />
-                Let&apos;s get started, what car do you drive?
+                {sectionIndex === 0
+                  ? "Let's get started, w"
+                  : "Second Vehicle: W"}
+                hat car do you drive?
               </p>
               {/* Car Year */}
-              <div className="relative w-3/5 mx-auto">
+              <div className="relative w-full md:w-3/5 mx-auto">
                 <button
                   onClick={() => toggleDropdown(yearKey)}
                   className={`${
@@ -249,7 +266,7 @@ const VechileQuestions: React.FC<VechileQuestionsProps> = ({
                       sectionIndex === 0 ? "dropdownYear1" : "dropdownYear2"
                     } custom-scrollbar absolute left-1/2 transform -translate-x-1/2 h-64 w-full bg-white border border-black/20 rounded-lg shadow-lg z-10 overflow-y-scroll`}
                   >
-                    {vehicleDetails.map((item, index) => (
+                    {year.map((item, index) => (
                       <button
                         key={index}
                         onClick={() => handleOptionClick(yearKey, item.year)}
@@ -270,7 +287,7 @@ const VechileQuestions: React.FC<VechileQuestionsProps> = ({
                   exit={{ opacity: 0, y: -50 }}
                   transition={{ duration: 0.5 }}
                 >
-                  <div className="relative w-3/5 mx-auto">
+                  <div className="relative w-full md:w-3/5 mx-auto">
                     <button
                       onClick={() => toggleDropdown(makeKey)}
                       className={`${
@@ -299,25 +316,15 @@ const VechileQuestions: React.FC<VechileQuestionsProps> = ({
                           sectionIndex === 0 ? "dropdownMake1" : "dropdownMake2"
                         } custom-scrollbar absolute left-1/2 transform -translate-x-1/2 h-64 w-full bg-white border border-black/20 rounded-lg shadow-lg z-10 overflow-y-scroll`}
                       >
-                        {[
-                          ...new Set(
-                            vehicleDetails
-                              .find(
-                                (item) => item.year === vehicleForm[yearKey]
-                              )
-                              ?.vehicles.map((vehicle) => vehicle.make) || []
-                          ),
-                        ]
+                        {[...new Set(vehicleDetails.map((data) => data.make))]
                           .sort()
-                          .map((uniqueMake, index) => (
+                          .map((make, index) => (
                             <button
                               key={index}
-                              onClick={() =>
-                                handleOptionClick(makeKey, uniqueMake)
-                              }
+                              onClick={() => handleOptionClick(makeKey, make)}
                               className="w-full px-4 py-2 text-sm md:text-base text-left font-semibold hover:bg-red-100"
                             >
-                              {uniqueMake}
+                              {make}
                             </button>
                           ))}
                       </div>
@@ -334,7 +341,7 @@ const VechileQuestions: React.FC<VechileQuestionsProps> = ({
                   exit={{ opacity: 0, y: -50 }}
                   transition={{ duration: 0.5 }}
                 >
-                  <div className="relative w-3/5 mx-auto">
+                  <div className="relative w-full md:w-3/5 mx-auto">
                     <button
                       onClick={() => toggleDropdown(modelKey)}
                       className={`${
@@ -366,35 +373,15 @@ const VechileQuestions: React.FC<VechileQuestionsProps> = ({
                             : "dropdownModel2"
                         } custom-scrollbar absolute left-1/2 transform -translate-x-1/2 max-h-64 w-full bg-white border border-black/20 rounded-lg shadow-lg z-10 overflow-y-scroll`}
                       >
-                        {vehicleDetails
-                          .find((item) => item.year === vehicleForm[yearKey])
-                          ?.vehicles.filter(
-                            (vehicle) => vehicle.make === vehicleForm[makeKey]
-                          )
-                          .sort((a, b) => {
-                            const modelA = String(a.model || "");
-                            const modelB = String(b.model || "");
-                            return modelA.localeCompare(modelB);
-                          })
-                          .map((uniqueModel, index) => (
+                        {[...new Set(vehicleDetails.map((data) => data.model))]
+                          .sort()
+                          .map((model, index) => (
                             <button
                               key={index}
-                              onClick={() => {
-                                handleOptionClick(modelKey, uniqueModel.model);
-                                if (
-                                  vehicleForm[yearKey] &&
-                                  vehicleForm[makeKey]
-                                ) {
-                                  setAlert(
-                                    "info",
-                                    "New car discount applied",
-                                    AiFillCar
-                                  );
-                                }
-                              }}
+                              onClick={() => handleOptionClick(modelKey, model)}
                               className="w-full px-4 py-2 text-sm md:text-base text-left font-semibold hover:bg-red-100"
                             >
-                              {uniqueModel.model}
+                              {model}
                             </button>
                           ))}
                       </div>
@@ -414,17 +401,17 @@ const VechileQuestions: React.FC<VechileQuestionsProps> = ({
                   exit={{ opacity: 0, y: -50 }}
                   transition={{ duration: 0.5 }}
                 >
-                <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center font-raleway mx-auto">
+                  <p className="border flex items-start justify-center gap-2 text-2xl md:text-3xl text-center font-raleway mx-auto">
                     <IoIosCheckmarkCircle
                       size={28}
                       color="red"
                       className="hidden sm:flex mt-1"
                     />
-                    What do you use your {vehicleForm[makeKey]}{" "}
-                    {vehicleForm[modelKey]} for?
+                    {sectionIndex === 0 ? "" : "Second Vehicle: "} What do you
+                    use your {vehicleForm[makeKey]} {vehicleForm[modelKey]} for?
                   </p>
                   <div
-                    id="model"
+                    id={sectionIndex === 0 ? "v1Model" : "v2Model"}
                     className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full mx-auto mt-8"
                   >
                     {[
@@ -470,19 +457,20 @@ const VechileQuestions: React.FC<VechileQuestionsProps> = ({
                   exit={{ opacity: 0, y: -50 }}
                   transition={{ duration: 0.5 }}
                 >
-                <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center font-raleway mx-auto">
+                  <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center font-raleway mx-auto">
                     <IoIosCheckmarkCircle
                       size={28}
                       color="red"
                       className="hidden sm:flex mt-1"
                     />
-                    How many miles per day do you drive?
+                    {sectionIndex === 0 ? "" : "Second Vehicle: "}How many miles
+                    per day do you drive?
                   </p>
                   <p className="text-gray-500 text-center mt-4">
                     Most drivers average around 30 miles per day
                   </p>
                   <div
-                    id="vehicleUse"
+                    id={sectionIndex === 0 ? "v1Use" : "v2Use"}
                     className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full mx-auto mt-8"
                   >
                     {["5", "10", "20", "30+"].map((option, index) => (
@@ -498,7 +486,10 @@ const VechileQuestions: React.FC<VechileQuestionsProps> = ({
                             field: dailyMilesKey,
                             value: option,
                           });
-                          if (["5", "10"].includes(option)) {
+                          if (
+                            ["5", "10"].includes(option) &&
+                            vehicleForm[dailyMilesKey] !== option
+                          ) {
                             setAlert(
                               "info",
                               "Low mileage discount applied",
@@ -531,20 +522,20 @@ const VechileQuestions: React.FC<VechileQuestionsProps> = ({
                   exit={{ opacity: 0, y: -50 }}
                   transition={{ duration: 0.5 }}
                 >
-                <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center font-raleway mx-auto">
+                  <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center font-raleway mx-auto">
                     <IoIosCheckmarkCircle
                       size={28}
                       color="red"
                       className="hidden sm:flex mt-1"
                     />
-                    Do you own your {vehicleForm[makeKey]}{" "}
-                    {vehicleForm[modelKey]}?
+                    {sectionIndex === 0 ? "" : "Second Vehicle: "}Do you own
+                    your {vehicleForm[makeKey]} {vehicleForm[modelKey]}?
                   </p>
                   <p className="text-gray-500 text-center mt-4">
                     Drivers who lease or finance may need more coverage
                   </p>
                   <div
-                    id="dailyMiles"
+                    id={sectionIndex === 0 ? "v1Miles" : "v2Miles"}
                     className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full mx-auto mt-8"
                   >
                     {["Own", "Lease", "Finance", "Other"].map(
@@ -589,20 +580,21 @@ const VechileQuestions: React.FC<VechileQuestionsProps> = ({
                   exit={{ opacity: 0, y: -50 }}
                   transition={{ duration: 0.5 }}
                 >
-                <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center font-raleway mx-auto">
+                  <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center font-raleway mx-auto">
                     <IoIosCheckmarkCircle
                       size={28}
                       color="red"
                       className="hidden sm:flex mt-1"
                     />
-                    Would You Like Full Coverage or Liability Only?
+                    {sectionIndex === 0 ? "" : "Second Vehicle: "}Would You Like
+                    Full Coverage or Liability Only?
                   </p>
                   <p className="text-gray-500 text-center mt-4">
                     Liability covers damage you cause other drivers or their
                     property. Full coverage applies to damage to your vehicle.
                   </p>
                   <div
-                    id="vehicleOwnership"
+                    id={sectionIndex === 0 ? "v1Ownership" : "v2Ownership"}
                     className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full mx-auto mt-8"
                   >
                     {["Full Coverage", "Liability Only"].map(
@@ -647,16 +639,17 @@ const VechileQuestions: React.FC<VechileQuestionsProps> = ({
                   exit={{ opacity: 0, y: -50 }}
                   transition={{ duration: 0.5 }}
                 >
-                <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center font-raleway mx-auto">
+                  <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center font-raleway mx-auto">
                     <IoIosCheckmarkCircle
                       size={28}
                       color="red"
                       className="hidden sm:flex mt-1"
                     />
-                    Select Deductible for Collision
+                    {sectionIndex === 0 ? "" : "Second Vehicle: "}Select
+                    Deductible for Collision
                   </p>
                   <div
-                    id="coverageType"
+                    id={sectionIndex === 0 ? "v1Coverage" : "v2Coverage"}
                     className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full mx-auto mt-8"
                   >
                     {[
@@ -709,16 +702,21 @@ const VechileQuestions: React.FC<VechileQuestionsProps> = ({
                   exit={{ opacity: 0, y: -50 }}
                   transition={{ duration: 0.5 }}
                 >
-                <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center font-raleway mx-auto">
+                  <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center font-raleway mx-auto">
                     <IoIosCheckmarkCircle
                       size={28}
                       color="red"
                       className="hidden sm:flex mt-1"
                     />
-                    Select Deductible for Comprehensive
+                    {sectionIndex === 0 ? "" : "Second Vehicle: "}Select
+                    Deductible for Comprehensive
                   </p>
                   <div
-                    id="collisionDeductible"
+                    id={
+                      sectionIndex === 0
+                        ? "v1CollisionDeductible"
+                        : "v2CollisionDeductible"
+                    }
                     className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full mx-auto mt-8"
                   >
                     {[
@@ -775,7 +773,7 @@ const VechileQuestions: React.FC<VechileQuestionsProps> = ({
                   exit={{ opacity: 0, y: -50 }}
                   transition={{ duration: 0.5 }}
                 >
-                <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center font-raleway mx-auto">
+                  <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center font-raleway mx-auto">
                     <IoIosCheckmarkCircle
                       size={28}
                       color="red"
@@ -788,7 +786,11 @@ const VechileQuestions: React.FC<VechileQuestionsProps> = ({
                     same policy
                   </p>
                   <div
-                    id="secondVehicle"
+                    id={
+                      sectionIndex === 0
+                        ? "v1ComprehensiveDeductible"
+                        : "v2ComprehensiveDeductible"
+                    }
                     className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full mx-auto mt-8"
                   >
                     {["Yes", "No"].map((option, idx) => (
@@ -804,7 +806,10 @@ const VechileQuestions: React.FC<VechileQuestionsProps> = ({
                             field: "secondVehicle",
                             value: option,
                           });
-                          if (option === "Yes") {
+                          if (
+                            option === "Yes" &&
+                            vehicleForm.secondVehicle !== "Yes"
+                          ) {
                             setAlert(
                               "info",
                               "Multi-car discount applied",
@@ -833,7 +838,11 @@ const VechileQuestions: React.FC<VechileQuestionsProps> = ({
       (vehicleForm.secondVehicle === "Yes" && !hasEmptyFields) ? (
         <div id="secondVehicle" className="flex justify-center">
           <motion.button
-            id="purchaseYear"
+            id={
+              vehicleForm.secondVehicle === "No"
+                ? "secondVehicle"
+                : "v2ComprehensiveDeductible"
+            }
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 50 }}

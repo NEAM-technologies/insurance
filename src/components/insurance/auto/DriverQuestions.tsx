@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 
 // date components
 import { DatePicker } from "@nextui-org/react";
-import { parseDate, getLocalTimeZone } from "@internationalized/date";
+import { parseDate } from "@internationalized/date";
 
 // framer-motion import
 import { motion } from "framer-motion";
@@ -69,6 +69,44 @@ const DriverQuestions: React.FC<DriverQuestionsProps> = ({
     },
   });
 
+  const handleScroll = (id: string) => {
+    const scrollToElement = (element: HTMLElement) => {
+      if (!element) {
+        return;
+      }
+
+      // Get the element's bounding rectangle
+      const rect = element.getBoundingClientRect();
+
+      // Calculate the element's center position relative to the viewport
+      const elementCenterY = rect.top + window.scrollY + rect.height / 2;
+
+      // Calculate the viewport's center position
+      const viewportCenterY = window.innerHeight / 2;
+
+      // Calculate the scroll position to center the element
+      const scrollToY = elementCenterY - viewportCenterY;
+
+      // Scroll to the calculated position smoothly
+      window.scrollTo({
+        top: scrollToY,
+        behavior: "smooth",
+      });
+    };
+
+    // Create an observer to detect when the element is rendered
+    const observer = new MutationObserver(() => {
+      const element = document.getElementById(id);
+      if (element) {
+        observer.disconnect(); // Stop observing once the element is found
+        scrollToElement(element); // Pass the DOM element to the function
+      }
+    });
+
+    // Observe the DOM for changes in the body or parent element
+    observer.observe(document.body, { childList: true, subtree: true });
+  };
+
   const toggleDropdown = (
     field:
       | "d1Occupation"
@@ -93,6 +131,30 @@ const DriverQuestions: React.FC<DriverQuestionsProps> = ({
     });
   };
 
+  const resetSecondVehicleFields = () => {
+    setDriverForm({
+      ...driverForm,
+      d2FirstName: "",
+      d2LastName: "",
+      d2DobDate: "",
+      d2Gender: "",
+      d2MaritalStatus: "",
+      d2EducationLevel: "",
+      d2Occupation: "",
+      d2CreditScore: "",
+      d2LicenseStatus: "",
+      d2SR22Cert: "",
+      d2Last3YAccidents: [
+        {
+          hasIncident: "",
+          type: "",
+          incidentDate: "",
+          details: "",
+          setNewIncident: "",
+        },
+      ],
+    });
+  };
   const handleOptionClick = (
     field:
       | "d1Occupation"
@@ -147,11 +209,12 @@ const DriverQuestions: React.FC<DriverQuestionsProps> = ({
     const currentYear = new Date().getFullYear();
     const currentDate = new Date();
 
+    // Ensure selectedDate is a valid Date object
     const selected =
       selectedDate && selectedDate instanceof Date
         ? selectedDate
         : selectedDate
-        ? selectedDate.toDate(getLocalTimeZone())
+        ? new Date(selectedDate) // Convert to Date object if not already
         : null;
 
     // For Date of Birth validation (must be at least 18 years ago)
@@ -159,24 +222,42 @@ const DriverQuestions: React.FC<DriverQuestionsProps> = ({
       const eighteenYearsAgo = new Date();
       eighteenYearsAgo.setFullYear(currentYear - 18, 0, 1);
 
+      // Ensure the selectedDate is a valid Date object before extracting the year
+      const selectedYear =
+        selected && !isNaN(selected.getTime()) ? selected.getFullYear() : null;
+
+      // Ensure that the year part has at least 3 characters
+      if (selectedYear && selectedYear.toString().length < 4) {
+        return null; // Don't trigger validation yet if the year is less than 3 characters
+      }
+
+      // Check if the selected date is valid
       if (!selected || isNaN(selected.getTime())) {
         return "Please select a valid date.";
       }
 
+      // Check if the selected date is at least 18 years ago
       if (selected > eighteenYearsAgo) {
         return "Date must be at least 18 years ago";
       }
+
+      // Check if the selected year is greater than 1900
+      if (selectedYear !== null && selectedYear <= 1900) {
+        return "Date must be after the year 1900.";
+      }
     }
 
-    // For Date of Ticket validation (must be within the last 3 years)
+    // For Date of Incident validation (must be within the last 3 years)
     if (type !== "dob") {
       const threeYearsAgo = new Date();
       threeYearsAgo.setFullYear(currentYear - 3, 0, 1);
 
+      // Check if the selected date is valid
       if (!selected || isNaN(selected.getTime())) {
         return "Please select a valid date.";
       }
 
+      // Check if the selected date is within the last 3 years
       if (selected < threeYearsAgo || selected > currentDate) {
         return "Date must be within the last 3 years";
       }
@@ -224,6 +305,8 @@ const DriverQuestions: React.FC<DriverQuestionsProps> = ({
         top: window.scrollY + 200,
         behavior: "smooth",
       });
+
+      handleScroll("accidentDetails");
     }
   };
 
@@ -246,16 +329,6 @@ const DriverQuestions: React.FC<DriverQuestionsProps> = ({
     }
     // Update the form state
     setDriverForm({ ...driverForm, [field]: value });
-
-    if (field === "d1LastName") {
-      if (window.scrollY < 500) {
-        window.scrollBy({
-          top: 300,
-          behavior: "smooth",
-        });
-      }
-      return;
-    }
 
     const scrollToElement = () => {
       const element = document.getElementById(field);
@@ -291,6 +364,25 @@ const DriverQuestions: React.FC<DriverQuestionsProps> = ({
     // Observe the DOM for changes in the body or parent element
     observer.observe(document.body, { childList: true, subtree: true });
   };
+
+  useEffect(() => {
+    // Check for incidents with "Yes" in d1Last3YAccidents or d2Last3YAccidents
+    const d1HasIncident = driverForm.d1Last3YAccidents.some(
+      (incident) =>
+        incident.hasIncident === "Yes" || incident.setNewIncident === "Yes"
+    );
+
+    // If either d1 or d2 has incidents with "Yes", clear the second driver
+    if (d1HasIncident) {
+      setDriverForm({ ...driverForm, secondDriver: "" });
+    }
+  }, [driverForm.d1Last3YAccidents, driverForm.d2Last3YAccidents]);
+
+  useEffect(() => {
+    if (driverForm.secondDriver === "No") {
+      resetSecondVehicleFields();
+    }
+  }, [driverForm.secondDriver]);
 
   useEffect(() => {
     if (addNewIncident) {
@@ -383,13 +475,14 @@ const DriverQuestions: React.FC<DriverQuestionsProps> = ({
                     color="red"
                     className="hidden sm:flex mt-1"
                   />
-                  What is your name?
+                  {sectionIndex === 0 ? "" : "Second Vehicle: "}What is your
+                  name?
                 </p>
                 <p className="text-gray-500 text-center mt-4">
                   The more information we have, the more tailored your quotes
                   can be
                 </p>
-                <div className="w-3/5 flex flex-col items-center gap-6 mt-8 mx-auto">
+                <div className="w-full md:w-3/5 flex flex-col items-center gap-6 mt-8 mx-auto">
                   <input
                     type="text"
                     name={firstNameKey}
@@ -423,7 +516,8 @@ const DriverQuestions: React.FC<DriverQuestionsProps> = ({
                     color="red"
                     className="hidden sm:flex mt-1"
                   />
-                  What is your date of birth?
+                  {sectionIndex === 0 ? "" : "Second Vehicle: "}What is your
+                  date of birth?
                 </p>
 
                 {errorMessage && (
@@ -434,7 +528,7 @@ const DriverQuestions: React.FC<DriverQuestionsProps> = ({
 
                 <div
                   id={lastNameKey}
-                  className="h-full w-3/5 text-xl mx-auto mt-8 pb-1 rounded-xl shadow-md"
+                  className="h-full w-full md:w-3/5 text-xl mx-auto mt-8 pb-1 rounded-xl shadow-md"
                 >
                   <DatePicker
                     className="h-full w-full text-xl mx-auto"
@@ -463,7 +557,7 @@ const DriverQuestions: React.FC<DriverQuestionsProps> = ({
             )}
             {/* Gender */}
             {driverForm[dobDateKey] &&
-              validateDate(parseDate(driverForm[dobDateKey]), "dob") === null &&
+              driverForm[dobDateKey].length > 9 &&
               driverForm[firstNameKey] &&
               driverForm[lastNameKey] && (
                 <motion.div
@@ -472,13 +566,14 @@ const DriverQuestions: React.FC<DriverQuestionsProps> = ({
                   exit={{ opacity: 0, y: -50 }}
                   transition={{ duration: 0.5 }}
                 >
-                <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center font-raleway mx-auto">
+                  <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center font-raleway mx-auto">
                     <IoIosCheckmarkCircle
                       size={28}
                       color="red"
                       className="hidden sm:flex mt-1"
                     />
-                    What is your gender?
+                    {sectionIndex === 0 ? "" : "Second Vehicle: "}What is your
+                    gender?
                   </p>
                   <div
                     id={dobDateKey}
@@ -525,13 +620,14 @@ const DriverQuestions: React.FC<DriverQuestionsProps> = ({
                   exit={{ opacity: 0, y: -50 }}
                   transition={{ duration: 0.5 }}
                 >
-                <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center font-raleway mx-auto">
+                  <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center font-raleway mx-auto">
                     <IoIosCheckmarkCircle
                       size={28}
                       color="red"
                       className="hidden sm:flex mt-1"
                     />
-                    Are you married?
+                    {sectionIndex === 0 ? "" : "Second Vehicle: "}Are you
+                    married?
                   </p>
                   <div
                     id={genderKey}
@@ -550,7 +646,10 @@ const DriverQuestions: React.FC<DriverQuestionsProps> = ({
                             field: maritalStatusKey,
                             value: option,
                           });
-                          if (option === "Yes") {
+                          if (
+                            option === "Yes" &&
+                            driverForm[maritalStatusKey] !== "Yes"
+                          ) {
                             setAlert(
                               "info",
                               "Marriage discount applied",
@@ -583,13 +682,14 @@ const DriverQuestions: React.FC<DriverQuestionsProps> = ({
                   exit={{ opacity: 0, y: -50 }}
                   transition={{ duration: 0.5 }}
                 >
-                <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center font-raleway mx-auto">
+                  <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center font-raleway mx-auto">
                     <IoIosCheckmarkCircle
                       size={28}
                       color="red"
                       className="hidden sm:flex mt-1"
                     />
-                    What is your education level?
+                    {sectionIndex === 0 ? "" : "Second Vehicle: "}What is your
+                    education level?
                   </p>
                   <div
                     id={maritalStatusKey}
@@ -617,7 +717,10 @@ const DriverQuestions: React.FC<DriverQuestionsProps> = ({
                             field: educationLevelKey,
                             value: option,
                           });
-                          if (degreeOptions.includes(option)) {
+                          if (
+                            degreeOptions.includes(option) &&
+                            driverForm[educationLevelKey] !== option
+                          ) {
                             setAlert(
                               "info",
                               "College degree discount applied",
@@ -651,17 +754,18 @@ const DriverQuestions: React.FC<DriverQuestionsProps> = ({
                   exit={{ opacity: 0, y: -50 }}
                   transition={{ duration: 0.5 }}
                 >
-                <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center font-raleway mx-auto">
+                  <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center font-raleway mx-auto">
                     <IoIosCheckmarkCircle
                       size={28}
                       color="red"
                       className="hidden sm:flex mt-1"
                     />
-                    What is your occupation?
+                    {sectionIndex === 0 ? "" : "Second Vehicle: "}What is your
+                    occupation?
                   </p>
                   <div
                     id={educationLevelKey}
-                    className="relative w-3/5 mx-auto"
+                    className="relative w-full md:w-3/5 mx-auto"
                   >
                     <button
                       onClick={() => toggleDropdown(occupationKey)}
@@ -733,16 +837,17 @@ const DriverQuestions: React.FC<DriverQuestionsProps> = ({
                   exit={{ opacity: 0, y: -50 }}
                   transition={{ duration: 0.5 }}
                 >
-                <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center font-raleway mx-auto">
+                  <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center font-raleway mx-auto">
                     <IoIosCheckmarkCircle
                       size={28}
                       color="red"
                       className="hidden sm:flex mt-1"
                     />
-                    What is your credit score?
+                    {sectionIndex === 0 ? "" : "Second Vehicle: "}What is your
+                    credit score?
                   </p>
                   <div
-                    id="creditScore"
+                    id={occupationKey}
                     className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full mx-auto mt-8"
                   >
                     {[
@@ -763,7 +868,10 @@ const DriverQuestions: React.FC<DriverQuestionsProps> = ({
                             field: creditScoreKey,
                             value: option,
                           });
-                          if (goodCreditScore.includes(option)) {
+                          if (
+                            goodCreditScore.includes(option) &&
+                            driverForm[creditScoreKey] !== option
+                          ) {
                             setAlert(
                               "info",
                               "Good credit discount applied",
@@ -800,16 +908,17 @@ const DriverQuestions: React.FC<DriverQuestionsProps> = ({
                   exit={{ opacity: 0, y: -50 }}
                   transition={{ duration: 0.5 }}
                 >
-                <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center font-raleway mx-auto">
+                  <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center font-raleway mx-auto">
                     <IoIosCheckmarkCircle
                       size={28}
                       color="red"
                       className="hidden sm:flex mt-1"
                     />
-                    What is the status of your driver&apos;s license?
+                    {sectionIndex === 0 ? "" : "Second Vehicle: "}What is the
+                    status of your driver&apos;s license?
                   </p>
                   <div
-                    id="licenseStatus"
+                    id={creditScoreKey}
                     className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full mx-auto mt-8"
                   >
                     {[
@@ -863,13 +972,14 @@ const DriverQuestions: React.FC<DriverQuestionsProps> = ({
                   exit={{ opacity: 0, y: -50 }}
                   transition={{ duration: 0.5 }}
                 >
-                <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center font-raleway mx-auto">
+                  <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center font-raleway mx-auto">
                     <IoIosCheckmarkCircle
                       size={28}
                       color="red"
                       className="hidden sm:flex mt-1"
                     />
-                    Do you require SR-22?
+                    {sectionIndex === 0 ? "" : "Second Vehicle: "}Do you require
+                    SR-22?
                   </p>
 
                   <p className="text-gray-500 text-center mt-4">
@@ -877,7 +987,7 @@ const DriverQuestions: React.FC<DriverQuestionsProps> = ({
                     required for drivers that have a DUI or multiple incidents.
                   </p>
                   <div
-                    id="sr22Cert"
+                    id={licenseStatusKey}
                     className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full mx-auto mt-8"
                   >
                     {["Yes", "No"].map((option, index) => (
@@ -932,11 +1042,7 @@ const DriverQuestions: React.FC<DriverQuestionsProps> = ({
                       }
 
                       return (
-                        <div
-                          key={accidentIndex}
-                          id="d1SR22Cert"
-                          className="space-y-12"
-                        >
+                        <div key={accidentIndex} className="space-y-12">
                           {accidentIndex < 1 && (
                             <motion.div
                               initial={{ opacity: 0, y: 50 }}
@@ -944,12 +1050,13 @@ const DriverQuestions: React.FC<DriverQuestionsProps> = ({
                               exit={{ opacity: 0, y: -50 }}
                               transition={{ duration: 0.5 }}
                             >
-                            <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center font-raleway mx-auto">
+                              <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center font-raleway mx-auto">
                                 <IoIosCheckmarkCircle
                                   size={28}
                                   color="red"
                                   className="hidden sm:flex mt-1"
                                 />
+                                {sectionIndex === 0 ? "" : "Second Vehicle: "}
                                 Any Incidents in the last 3 years?
                               </p>
 
@@ -958,7 +1065,10 @@ const DriverQuestions: React.FC<DriverQuestionsProps> = ({
                                 license suspension
                               </p>
 
-                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full mx-auto mt-8">
+                              <div
+                                id={sr22CertKey}
+                                className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full mx-auto mt-8"
+                              >
                                 {["Yes", "No"].map((option, idx) => (
                                   <div
                                     key={idx}
@@ -1007,7 +1117,9 @@ const DriverQuestions: React.FC<DriverQuestionsProps> = ({
                                         if (
                                           accidentIndex < 1 &&
                                           driverForm[last3YAccidentsKey][0]
-                                            .hasIncident !== "No"
+                                            .hasIncident !== "No" &&
+                                          driverForm[last3YAccidentsKey][0]
+                                            .hasIncident !== option
                                         ) {
                                           setAlert(
                                             "info",
@@ -1016,6 +1128,12 @@ const DriverQuestions: React.FC<DriverQuestionsProps> = ({
                                           );
                                         }
                                       }
+
+                                      handleScroll(
+                                        option === "Yes"
+                                          ? "AccidentsType"
+                                          : "anotherDriver"
+                                      );
                                     }}
                                   >
                                     {incident.hasIncident === option ? (
@@ -1042,12 +1160,13 @@ const DriverQuestions: React.FC<DriverQuestionsProps> = ({
                               exit={{ opacity: 0, y: -50 }}
                               transition={{ duration: 0.5 }}
                             >
-                            <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center font-raleway mx-auto">
+                              <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center font-raleway mx-auto">
                                 <IoIosCheckmarkCircle
                                   size={28}
                                   color="red"
                                   className="hidden sm:flex mt-1"
                                 />
+                                {sectionIndex === 0 ? "" : "Second Vehicle: "}
                                 Type of Incident
                               </p>
                               <div
@@ -1083,6 +1202,7 @@ const DriverQuestions: React.FC<DriverQuestionsProps> = ({
                                         field: last3YAccidentsKey,
                                         value: updatedIncidents,
                                       });
+                                      handleScroll("incidentDate");
                                     }}
                                   >
                                     {incident.type === option ? (
@@ -1112,12 +1232,13 @@ const DriverQuestions: React.FC<DriverQuestionsProps> = ({
                                 exit={{ opacity: 0, y: -50 }}
                                 transition={{ duration: 0.5 }}
                               >
-                              <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center font-raleway mx-auto">
+                                <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center font-raleway mx-auto">
                                   <IoIosCheckmarkCircle
                                     size={28}
                                     color="red"
                                     className="hidden sm:flex mt-1"
                                   />
+                                  {sectionIndex === 0 ? "" : "Second Vehicle: "}
                                   Date of {incident.type} Incident
                                 </p>
 
@@ -1126,7 +1247,10 @@ const DriverQuestions: React.FC<DriverQuestionsProps> = ({
                                     {errorMessage}
                                   </p>
                                 )}
-                                <div className="relative h-full w-3/5 text-xl mx-auto mt-8 pb-1 rounded-xl shadow-md">
+                                <div
+                                  id="incidentDate"
+                                  className="relative h-full w-full md:w-3/5 text-xl mx-auto mt-8 pb-1 rounded-xl shadow-md"
+                                >
                                   <DatePicker
                                     className="h-full w-full text-xl mx-auto"
                                     label={`Date of ${incident.type}`}
@@ -1179,12 +1303,13 @@ const DriverQuestions: React.FC<DriverQuestionsProps> = ({
                                 transition={{ duration: 0.5 }}
                                 className="relative"
                               >
-                              <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center font-raleway mx-auto">
+                                <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center font-raleway mx-auto">
                                   <IoIosCheckmarkCircle
                                     size={28}
                                     color="red"
                                     className="hidden sm:flex mt-1"
                                   />
+                                  {sectionIndex === 0 ? "" : "Second Vehicle: "}
                                   {incident.type === "Ticket" ||
                                   incident.type === "Claim"
                                     ? `Type of ${incident.type}`
@@ -1195,7 +1320,10 @@ const DriverQuestions: React.FC<DriverQuestionsProps> = ({
                                     : null}
                                 </p>
                                 {/* Selected Option Display */}
-                                <div className="relative w-3/5 mx-auto">
+                                <div
+                                  id="accidentDetails"
+                                  className="relative w-full md:w-3/5 mx-auto"
+                                >
                                   <button
                                     onClick={() =>
                                       toggleDropdown(last3YAccidentsKey)
@@ -1275,10 +1403,7 @@ const DriverQuestions: React.FC<DriverQuestionsProps> = ({
                                                   option,
                                                   accidentIndex
                                                 );
-                                                window.scrollTo({
-                                                  top: window.scrollY + 200,
-                                                  behavior: "smooth",
-                                                });
+                                                handleScroll("otherIncidents");
                                               }}
                                               className="w-full px-4 py-2 text-sm md:text-base text-left font-semibold hover:bg-red-100"
                                             >
@@ -1299,6 +1424,8 @@ const DriverQuestions: React.FC<DriverQuestionsProps> = ({
                               driverForm[last3YAccidentsKey][accidentIndex - 1]
                                 ?.setNewIncident === "Yes")) &&
                             driverForm[last3YAccidentsKey][accidentIndex]
+                              .details &&
+                            driverForm[last3YAccidentsKey][accidentIndex]
                               .type &&
                             driverForm[last3YAccidentsKey][accidentIndex]
                               .incidentDate &&
@@ -1315,16 +1442,20 @@ const DriverQuestions: React.FC<DriverQuestionsProps> = ({
                                 exit={{ opacity: 0, y: -50 }}
                                 transition={{ duration: 0.5 }}
                               >
-                              <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center font-raleway mx-auto">
+                                <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center font-raleway mx-auto">
                                   <IoIosCheckmarkCircle
                                     size={28}
                                     color="red"
                                     className="hidden sm:flex mt-1"
                                   />
+                                  {sectionIndex === 0 ? "" : "Second Vehicle: "}
                                   Any other incidents in the last 3 years?
                                 </p>
 
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full mx-auto mt-8">
+                                <div
+                                  id="otherIncidents"
+                                  className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full mx-auto mt-8"
+                                >
                                   {["Yes", "No"].map((option, idx) => (
                                     <div
                                       key={idx}
@@ -1374,6 +1505,7 @@ const DriverQuestions: React.FC<DriverQuestionsProps> = ({
                                             value: updatedIncidents,
                                           });
                                         }
+                                        handleScroll("anotherDriver");
                                       }}
                                     >
                                       {incident.setNewIncident === option ? (
@@ -1422,7 +1554,7 @@ const DriverQuestions: React.FC<DriverQuestionsProps> = ({
                   exit={{ opacity: 0, y: -50 }}
                   transition={{ duration: 0.5 }}
                 >
-                <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center font-raleway mx-auto">
+                  <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl text-center font-raleway mx-auto">
                     <IoIosCheckmarkCircle
                       size={28}
                       color="red"
@@ -1435,7 +1567,7 @@ const DriverQuestions: React.FC<DriverQuestionsProps> = ({
                     same policy
                   </p>
                   <div
-                    id="SecondDriver"
+                    id="anotherDriver"
                     className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full mx-auto mt-8"
                   >
                     {["Yes", "No"].map((option, idx) => (
@@ -1485,7 +1617,7 @@ const DriverQuestions: React.FC<DriverQuestionsProps> = ({
             incident.hasIncident === "No" || incident.setNewIncident === "No"
         )) ? (
         /* Next Button */
-        <div className="flex justify-center">
+        <div id="secondDriver" className="flex justify-center">
           <motion.button
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}

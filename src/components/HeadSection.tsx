@@ -9,7 +9,14 @@ const HeadSection = () => {
   return (
     <div className="h-72 flex lg:hidden flex-col xl:flex-row items-center justify-between mx-auto mt-24">
       <Link href="/">
-        <Image src="/lglogo.jpg" alt="logo" height={300} width={300} priority />
+        <Image
+          src="/lglogo.jpg"
+          alt="logo"
+          height={300}
+          width={300}
+          priority
+          className="h-36 w-full"
+        />
       </Link>
       <Link
         href="https://bit.ly/AutoQuoteForYou"

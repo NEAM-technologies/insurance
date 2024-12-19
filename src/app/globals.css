@@ -35,6 +35,17 @@ body {
   border-radius: 1rem;
 }
 
+/* For the parent container */
+.scroll-container {
+  overflow-x: auto; /* Allows horizontal scrolling */
+  scrollbar-width: none; /* Firefox */
+}
+
+.scroll-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, and Opera */
+}
+
+
 /* In your global CSS or a dedicated stylesheet */
 @layer utilities {
   .animate-pulseCustom {

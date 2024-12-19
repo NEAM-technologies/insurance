@@ -44,7 +44,7 @@ const OwnerQuestions: React.FC<OwnerQuestionsProps> = ({ completeSection }) => {
   const [selectedOption, setSelectedOption] = useState(
     "Select your occupation"
   );
-  
+
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
@@ -196,7 +196,7 @@ const OwnerQuestions: React.FC<OwnerQuestionsProps> = ({ completeSection }) => {
           <p className="text-gray-500 text-center mt-4">
             The more information we have, the more tailored your quotes can be
           </p>
-          <div className="w-3/5 flex flex-col items-center gap-6 mx-auto mt-8">
+          <div className="w-full md:w-3/5 flex flex-col items-center gap-6 mx-auto mt-8">
             <input
               type="text"
               name="firstName"
@@ -241,8 +241,8 @@ const OwnerQuestions: React.FC<OwnerQuestionsProps> = ({ completeSection }) => {
           )}
 
           <div
-            id="dateofBirth"
-            className="h-full w-3/5 text-xl mx-auto mt-8 pb-1 rounded-xl shadow-md"
+            id="lastName"
+            className="h-full w-full md:w-3/5 text-xl mx-auto mt-8 pb-1 rounded-xl shadow-md"
           >
             <DatePicker
               className="h-full w-full text-xl mx-auto"
@@ -279,7 +279,7 @@ const OwnerQuestions: React.FC<OwnerQuestionsProps> = ({ completeSection }) => {
               What is your gender?
             </p>
             <div
-              id="dobYear"
+              id="dobDate"
               className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full mx-auto mt-8"
             >
               {["Male", "Female", "Non-binary", "Prefer not to say"].map(
@@ -320,7 +320,7 @@ const OwnerQuestions: React.FC<OwnerQuestionsProps> = ({ completeSection }) => {
             exit={{ opacity: 0, y: -50 }}
             transition={{ duration: 0.5 }}
           >
-          <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl md:text-center font-raleway mx-auto">
+            <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl md:text-center font-raleway mx-auto">
               <IoIosCheckmarkCircle
                 size={28}
                 color="red"
@@ -328,7 +328,10 @@ const OwnerQuestions: React.FC<OwnerQuestionsProps> = ({ completeSection }) => {
               />
               Are you married?
             </p>
-            <div className="grid grid-cols-2 gap-4 w-full mx-auto mt-8">
+            <div
+              id="gender"
+              className="grid grid-cols-2 gap-4 w-full mx-auto mt-8"
+            >
               {["Yes", "No"].map((option, index) => (
                 <div
                   key={index}
@@ -342,7 +345,7 @@ const OwnerQuestions: React.FC<OwnerQuestionsProps> = ({ completeSection }) => {
                       field: "maritalStatus",
                       value: option,
                     });
-                    if (option === "Yes") {
+                    if (option === "Yes" && ownerForm.maritalStatus !== "Yes") {
                       setAlert("info", "Marriage discount applied", GiLovers);
                     }
                   }}
@@ -372,7 +375,7 @@ const OwnerQuestions: React.FC<OwnerQuestionsProps> = ({ completeSection }) => {
             exit={{ opacity: 0, y: -50 }}
             transition={{ duration: 0.5 }}
           >
-          <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl md:text-center font-raleway mx-auto">
+            <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl md:text-center font-raleway mx-auto">
               <IoIosCheckmarkCircle
                 size={28}
                 color="red"
@@ -406,7 +409,10 @@ const OwnerQuestions: React.FC<OwnerQuestionsProps> = ({ completeSection }) => {
                       field: "educationLevel",
                       value: option,
                     });
-                    if (degreeOptions.includes(option)) {
+                    if (
+                      degreeOptions.includes(option) &&
+                      ownerForm.educationLevel !== option
+                    ) {
                       setAlert(
                         "info",
                         "College degree discount applied",
@@ -440,7 +446,7 @@ const OwnerQuestions: React.FC<OwnerQuestionsProps> = ({ completeSection }) => {
             exit={{ opacity: 0, y: -50 }}
             transition={{ duration: 0.5 }}
           >
-          <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl md:text-center font-raleway mx-auto">
+            <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl md:text-center font-raleway mx-auto">
               <IoIosCheckmarkCircle
                 size={28}
                 color="red"
@@ -449,7 +455,7 @@ const OwnerQuestions: React.FC<OwnerQuestionsProps> = ({ completeSection }) => {
               What is your occupation?
             </p>
             {/* Selected Option Display */}
-            <div id="educationLevel" className="relative w-3/5 mx-auto">
+            <div id="educationLevel" className="relative w-full md:w-3/5 mx-auto">
               <button
                 onClick={toggleDropdown}
                 className={`selectDropdown h-16 w-full flex items-center justify-between text-lg ${
@@ -503,7 +509,7 @@ const OwnerQuestions: React.FC<OwnerQuestionsProps> = ({ completeSection }) => {
             exit={{ opacity: 0, y: -50 }}
             transition={{ duration: 0.5 }}
           >
-          <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl md:text-center font-raleway mx-auto">
+            <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl md:text-center font-raleway mx-auto">
               <IoIosCheckmarkCircle
                 size={28}
                 color="red"
@@ -530,7 +536,10 @@ const OwnerQuestions: React.FC<OwnerQuestionsProps> = ({ completeSection }) => {
                   } pl-4 rounded-lg hover:bg-red-500 hover:text-white shadow-md cursor-pointer`}
                   onClick={() => {
                     handleInputChange({ field: "creditScore", value: option });
-                    if (goodCreditScore.includes(option)) {
+                    if (
+                      goodCreditScore.includes(option) &&
+                      ownerForm.creditScore !== option
+                    ) {
                       setAlert(
                         "info",
                         "Good credit discount applied",

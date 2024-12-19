@@ -4,10 +4,10 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <div className="w-full py-5">
+    <div className="h-fit w-full md:py-5 my-6">
       {/* Contact Info */}
-      <div className="h-96 max-w-6xl flex flex-col lg:flex-row mx-auto mt-10 p-8">
-        <div className="h-full w-1/2 flex flex-col justify-center">
+      <div className="md:h-96 max-w-6xl flex flex-col md:flex-row mx-auto md:mt-10 p-8">
+        <div className="h-full w-full md:w-1/2 flex flex-col justify-center">
           <h2 className="text-xl font-bold">You Insurance Agency</h2>
           <p className="text-lg">
             257 Timber Dr <br />
@@ -28,13 +28,13 @@ const Footer = () => {
           </div>
           <p className="mt-4 text-lg">
             <span className="font-bold">Office Hours:</span> <br />
-            Monday - Friday: 8:30 AM to 5:30 PM
+            Monday - Friday: <br/>8:30 AM to 5:30 PM
           </p>
         </div>
 
         {/* Map */}
-        <div className="h-full w-1/2 flex flex-col justify-end mt-14 md:mt-0">
-          <div className="w-full flex items-center lg:justify-end gap-3 mb-4">
+        <div className="h-full w-full md:w-1/2 flex flex-col justify-end mt-14 md:mt-0">
+          <div className="w-full flex items-center lg:justify-end gap-3 md:-mt-6 lg:mt-0 mb-4">
             <Link
               href="https://www.facebook.com/youinsuranceagency"
               target="blank"

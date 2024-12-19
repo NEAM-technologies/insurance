@@ -114,7 +114,7 @@ export const projects = [
     title: "Commercial",
     lottieUrl:
       "https://lottie.host/e8dcd266-d7c2-43e3-b04b-3d1d6c41d60d/PBXyBPSfut.lottie",
-    link: "/",
+    link: "/commercialInsurance",
   },
   {
     title: "Renters",
@@ -220,39 +220,6 @@ export const knowledgeCenter = [
     description: "Save Money with your New Home",
   },
 ];
-
-export const steps = [
-  "Name",
-  "Date of Birth?",
-  "Gender",
-  "Email",
-  "Phone Number",
-  "Height",
-  "Weight",
-  "Address",
-  "Marital Status",
-  "Tobacco Usage",
-  "Health Conditions",
-  "Coverage Type",
-  "Coverage Amount",
-];
-
-export const validationSchema: ValidationSchema = {
-  1: ["firstName", "lastName"],
-  2: ["dob.month", "dob.day", "dob.year"],
-  3: ["gender"],
-  4: ["email"],
-  5: ["phoneNumber"],
-  6: ["height.feet", "height.inches"],
-  7: ["weight"],
-  8: ["address.street", "address.city", "address.state", "address.zip"],
-  9: ["maritalStatus"],
-  10: ["tobaccoUse"],
-  11: ["healthConditions"],
-  12: ["coverageType"],
-  13: ["coverageAmount"],
-};
-
 export const usStates = [
   "Alabama",
   "Alaska",
@@ -345,7 +312,7 @@ export const coverageType = [
 export const coverageAmount = [
   "$50,000",
   "$100,000",
-  "$150,000",
+  "$100,000",
   "$200,000",
   "$250,000",
   "$300,000",
@@ -362,43 +329,6 @@ export const coverageAmount = [
   "$1,500,000",
   "$1,750,000",
   "$2,000,000",
-];
-
-export const autoInsuranceQuestions = [
-  {
-    question: "What do you use your Chevrolet for?",
-    options: ["Getting to Work", "Running Errands", "Pleasure", "Uber / Lyft"],
-  },
-  {
-    question: "How many miles per day do you drive?",
-    options: [5, 10, 20, "30+"],
-    note: "Most drivers average 30 per day",
-  },
-  {
-    question: "Do you own your Chevrolet 4500HD?",
-    options: ["Own", "Lease", "Finance"],
-    note: "Drivers who lease or finance may need more coverage",
-  },
-  {
-    question: "Would You Like Full Coverage or Liability Only?",
-    options: ["Full Coverage", "Liability Only"],
-    note: "Liability covers damage you cause other drivers or their property. Full coverage applies to damage to your vehicle.",
-  },
-  {
-    question: "Select Deductible for Collision",
-    options: [1000, 500, 250, 200, 100, 50, 0],
-    note: "Amount you pay in case of an accident.",
-  },
-  {
-    question: "Select Deductible for Comprehensive",
-    options: [1000, 500, 250, 200, 100, 50, 0],
-    note: "Amount you pay in case of theft, vandalism, etc.",
-  },
-  {
-    question: "Want to add a second vehicle?",
-    options: ["Yes", "No"],
-    note: "You can save up to 25% by having multiple vehicles on the same policy",
-  },
 ];
 
 export const occupationOptions = [
@@ -534,4 +464,68 @@ export const homeInsuranceCoverage = [
     bodilyInjury: "$250K / $500K",
     propertyDamage: "$250K",
   },
+];
+
+
+export const yearsInBusiness = [
+  "Less than 1 Year",
+  "1 Years",
+  "2 Years",
+  "3 Years",
+  "4 Years",
+  "5 Years",
+  "6 Years",
+  "7 Years",
+  "8 Years",
+  "9 Years",
+  "10 Years",
+  "11-15 Years",
+  "15-20 Years",
+  "20-30 Years",
+  "30-40 Years",
+  "40-50 Years"
+];
+
+export const employeeNumber = [
+  "None",
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6-10",
+  "11-20",
+  "21-30",
+  "31-40",
+  "41-50",
+  "51-100",
+  "More than 100",
+];
+
+export const annualRevenue = [
+  "Under $100,000",
+  "$100,001 - $500,000",
+  "$500,001 - $1,000,000",
+  "$1,000,001 - $5,000,000",
+  "$5,000,001 - $10,000,000",
+  "$Over $10,000,001",
+];
+
+export const annualPayroll = [
+  "Less than $50,000",
+  "$50,001 - $100,000",
+  "$100,001 - $200,000",
+  "$200,001 - $500,000",
+  "$Over $500,001",
+];
+
+export const businessCoverageOptions = [
+  "General_Liability",
+  "Commercial_Auto",
+  "Commercial_Property",
+  "Professional_Liability",
+  "Directors_and_Officers_Liability",
+  "Business_Owners_Package_Policy",
+  "Workers_Compensation",
+  "Commercial_Crime"
 ];

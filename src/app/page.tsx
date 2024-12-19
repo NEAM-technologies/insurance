@@ -8,7 +8,7 @@ import Link from "next/link";
 // Aceternity UI components
 import { HoverEffect } from "@/components/ui/CardHoverEffect";
 
-// json data
+// data
 import {
   insuranceOptions,
   knowledgeCenter,
@@ -46,72 +46,84 @@ export default function Home() {
 
   return (
     <>
-      <div className="relative h-60 xl:h-[370px] w-full">
-        <div className="h-full w-3/6 hidden xl:flex items-center justify-center text-3xl text-[#ff3448b9] font-lulo font-extrabold uppercase">
-          Your one stop <br /> solution for <br /> personalized <br /> insurance <br />
+      <div className="relative h-60 lg:h-[370px] w-full mt-4 md:mt-0">
+        <div className="h-full w-3/6 hidden lg:flex items-center justify-center text-3xl text-[#ff3448b9] font-lulo font-extrabold uppercase">
+          Your one stop <br /> solution for <br /> personalized <br /> insurance{" "}
+          <br />
           coverage.
         </div>
         <Image
           src="/familyImg.jpg"
           alt="Image with a family"
-          height={1920}
+          height={412}
           width={1920}
-          className="absolute top-0 left-0 -z-10"
+          className="absolute top-0 left-0 h-44 md:h-full w-full sm:mt-6 lg:mt-0 -z-10"
         />
       </div>
-      <h2 className="md:w-2/3 flex xl:hidden text-xl md:text-3xl text-gray-700 text-center font-extrabold tracking-wide uppercase mx-auto">
-        Your one stop solution for personalized insurance <br />
+      <h2 className="xs:w-4/5 flex lg:hidden text-xl md:text-3xl text-[#ff3448b9] text-center font-extrabold uppercase xs:mx-auto sm:mt-14 lg:mt-0">
+        Your one stop solution for personalized insurance{" "}
+        <br className="md:hidden" />
         coverage.
       </h2>
-      <div className="max-w-6xl mx-auto px-8">
+      <div className="max-w-6xl mx-auto my-10 px-8">
         <HoverEffect items={projects} />
       </div>
-      <div className="h-60 lg:h-52 w-full flex flex-col lg:flex-row items-center justify-center bg-[#fbdbdc]">
+      <div className="h-60 lg:h-52 w-full flex flex-col lg:flex-row items-center justify-center bg-[#fbdbdc] px-2">
         <Image src="/logobox.png" alt="logo" height={100} width={100} />
-        <p className="max-w-2xl lg:w-2/5 lg:text-2xl text-gray-600 text-center font-lulo mt-4 lg:mt-0">
+        <p className="max-w-2xl lg:w-4/5 lg:text-2xl text-gray-600 text-center font-lulo mt-2">
           20 YEARS OF COMBINED EXPERTISE 15 PARTNERS ACROSS NORTH CAROLINA
         </p>
       </div>
-      <div className="w-full flex flex-col items-center justify-center gap-6 py-8">
-        <h2 className="text-3xl lg:text-[44px] text-[#ff3447] text-center lg:text-left font-extrabold px-1">
-          Compare your Rates in Minutes!
-        </h2>
-        <p className="text-xl text-gray-600 text-center lg:text-left font-sans font-light px-3 lg:px-0">
-          FREE & No obligation, compare quotes from top providers and save more
-          on your policy today.
-        </p>
-        <div className="flex flex-col lg:flex-row items-center justify-center gap-16">
-          <p className="max-w-full lg:max-w-[36.5rem] text-[18px] lg:text-2xl text-[#f15e65] font-semibold px-6 lg:px-0">
-            Get the fastest and most accurate free quote by clicking this link!
-            Our system retrieves your information directly from your current
-            provider, making the process quick, simple, and hassle-free.
+      <div className="w-full flex flex-col items-center justify-center gap-6 py-8 mx-auto">
+        <div className="w-10/12 lg:w-full mx-auto space-y-8 md:space-y-10">
+          <h2 className="text-3xl lg:text-[44px] text-[#ff3447] text-center font-extrabold px-1">
+            Compare your Rates in Minutes!
+          </h2>
+          <p className="text-xl text-gray-600 md:text-center font-sans font-light">
+            FREE & No obligation, compare quotes from top providers and save
+            more on your policy today.
           </p>
-          <Link
-            href="https://app.usecanopy.com/c/you-insurance-agency"
-            target="blank"
-            rel="noopener noreferrer"
-            className="h-14 w-fit flex items-center justify-center bg-red-800/90 pb-2 pr-1 rounded-full hover:scale-95"
-          >
-            <span
-              className="text-sm lg:text-xs text-white font-medium uppercase bg-[#ff3448dc]
+          <div className="flex flex-col lg:flex-row items-center justify-center gap-16">
+            <p className="max-w-full lg:max-w-[36.5rem] text-[18px] lg:text-2xl text-[#f15e65] font-semibold">
+              Get the fastest and most accurate free quote by clicking this
+              link! Our system retrieves your information directly from your
+              current provider, making the process quick, simple, and
+              hassle-free.
+            </p>
+            <Link
+              href="https://app.usecanopy.com/c/you-insurance-agency"
+              target="blank"
+              rel="noopener noreferrer"
+              className="h-14 w-fit flex items-center justify-center bg-red-800/90 pb-2 pr-1 rounded-full hover:scale-95"
+            >
+              <span
+                className="text-sm lg:text-xs text-white font-medium uppercase bg-[#ff3448dc]
               px-6 py-4 border-2 border-transparent rounded-full transition
               duration-200 hover:bg-red-500
               hover:border-[#e87a85ef]"
-            >
-              Click here now!
-            </span>
-          </Link>
+              >
+                Click here now!
+              </span>
+            </Link>
+          </div>
         </div>
         <div className="w-full xl:w-3/6 flex flex-col items-center justify-center mt-5">
           <span className="text-7xl text-[#f15e63] font-bold mb-4">OR</span>
           <p className="text-3xl text-[#ff3447] font-poppins font-black -tracking-wide">
             Use our Forms
           </p>
-          <div className="flex flex-col lg:flex-row items-start justify-center gap-12 lg:gap-0 mt-8">
-            {insuranceOptions.map((option) => (
+          <div
+            className="grid gap-12 mt-8 
+                xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 
+                items-start justify-center"
+          >
+            {insuranceOptions.map((option, index) => (
               <div
                 key={option.id}
-                className="flex flex-col items-center justify-center gap-5"
+                className={`flex flex-col items-center justify-center gap-5 
+                  ${
+                    index === 0 ? "col-span-1 sm:col-span-2 lg:col-span-1" : ""
+                  }`}
               >
                 <div className="h-24 w-24 lg:h-32 lg:w-32 text-5xl lg:text-7xl text-white font-semibold bg-black rounded-full flex items-center justify-center">
                   {option.id}
@@ -158,7 +170,7 @@ export default function Home() {
         </h2>
         <div className="mx-auto">
           {/* Tabs */}
-          <div className="w-full flex items-center justify-center lg:gap-4 mb-6">
+          <div className="w-full flex items-center justify-center gap-2 lg:gap-4 text-center mb-6">
             {["View All", "Save Money", "Tips", "Guides"].map((tab, index) => (
               <Link
                 href="/"
@@ -180,7 +192,7 @@ export default function Home() {
               }) => (
                 <div
                   key={item.id}
-                  className="h-52 lg:h-40 w-72 lg:w-96 flex flex-col bg-white p-4 border-[1.25px] border-gray-300 mx-auto lg:mx-0 transition"
+                  className="h-52 lg:h-40 w-80 lg:w-96 flex flex-col bg-white p-4 border-[1.25px] border-gray-300 mx-auto lg:mx-0 transition"
                 >
                   <div className="flex items-start justify-between">
                     <p className="w-3/5 mt-2 text-gray-600">

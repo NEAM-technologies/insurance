@@ -70,7 +70,6 @@ const useAutoInsuranceStore = create<useAutoInsuranceState>()(
               setNewIncident: "",
             },
           ],
-          setNewIncident: "",
           secondDriver: "",
         },
         setDriverForm: (data: DriversFormData) => set({ driverForm: data }),
@@ -79,6 +78,8 @@ const useAutoInsuranceStore = create<useAutoInsuranceState>()(
         finalDetailsForm: {
           currentlyCarInsured: "",
           insuredCompany: "",
+          yearsWithCompany: "",
+          policyExpires: "",
           coverageNeed: "",
           militaryService: "",
           homeOwnership: "",
@@ -160,6 +161,8 @@ const useAutoInsuranceStore = create<useAutoInsuranceState>()(
             finalDetailsForm: {
               currentlyCarInsured: "",
               insuredCompany: "",
+              yearsWithCompany: "",
+              policyExpires: "",
               coverageNeed: "",
               militaryService: "",
               homeOwnership: "",

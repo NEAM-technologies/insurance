@@ -28,7 +28,7 @@ const Loader = () => {
   }
 
   return (
-    <div className="fixed top-0 right-0 h-full w-full flex flex-col items-center justify-center bg-white  z-[1000]">
+    <div className="fixed top-0 right-0 h-full w-full flex flex-col items-center justify-center bg-white z-[1000]">
       {/* Outer Spinner */}
       <div className="relative flex items-center justify-center mt-20 md:mt-0 animate-bounce-further">
         <div className="h-28 w-28 border-8 border-red-800 border-t-transparent rounded-full animate-spin" />
@@ -43,9 +43,10 @@ const Loader = () => {
         alt="logo"
         height={250}
         width={250}
-        className="-rotate-12"
+        priority
+        className="h-40 w-80 -rotate-12"
       />
-      <p className="text-center text-xl text-red-500 font-semibold italic mt-8">
+      <p className="text-center text-3xl text-red-500 font-semibold italic mt-12">
         Insure with You!
       </p>
     </div>

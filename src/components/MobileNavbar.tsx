@@ -55,7 +55,7 @@ const MobileNavbar = () => {
     <div
       className={`fixed top-0 left-0 w-screen flex-col lg:hidden items-center justify-center ${
         showMenu ? "h-fit overflow-hidden" : "h-24"
-      } ${hasScrolled ? "shadow-lg" : ""} z-[1000]`}
+      } ${hasScrolled ? "shadow-lg" : ""} z-[999]`}
     >
       <div
         className={`relative h-24 w-full flex items-center ${

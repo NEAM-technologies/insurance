@@ -142,7 +142,7 @@ const CoverageQuestions: React.FC<CoverageQuestionsProps> = ({
           />
           Are you currently insured?
         </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full mx-auto mt-8">
+        <div className="grid grid-cols-2 gap-4 w-full mx-auto mt-8">
           {["Yes", "No"].map((option, index) => (
             <div
               key={index}
@@ -153,7 +153,7 @@ const CoverageQuestions: React.FC<CoverageQuestionsProps> = ({
               } pl-4 rounded-lg hover:bg-red-500 hover:text-white shadow-md cursor-pointer`}
               onClick={() => {
                 handleInputChange({ field: "currentlyInsured", value: option });
-                if (option === "Yes") {
+                if (option === "Yes" && coverageForm.currentlyInsured !== "Yes") {
                   setAlert("info", "Insured discount applied", MdShield);
                 }
               }}
@@ -186,7 +186,7 @@ const CoverageQuestions: React.FC<CoverageQuestionsProps> = ({
             What company are you insured with?
           </p>
           {/* Selected Option Display */}
-          <div id="currentlyInsured" className="relative w-3/5 mx-auto">
+          <div id="currentlyInsured" className="relative w-full md:w-3/5 mx-auto">
             <button
               onClick={toggleDropdown}
               className={`selectDropdown h-16 w-full flex items-center justify-between md:text-lg ${
@@ -244,7 +244,7 @@ const CoverageQuestions: React.FC<CoverageQuestionsProps> = ({
                 color="red"
                 className="hidden sm:flex mt-1"
               />
-              How long have you been with Allstate?
+              How long have you been with {coverageForm.insuredCompany}?
             </p>
             <div
               id="insuredCompany"
@@ -293,7 +293,7 @@ const CoverageQuestions: React.FC<CoverageQuestionsProps> = ({
             exit={{ opacity: 0, y: -50 }}
             transition={{ duration: 0.5 }}
           >
-            {/* Number of Stories Question */}
+            {/* Policy Expiration Question */}
             <p className="flex items-start justify-center gap-2 text-2xl md:text-3xl md:text-center font-raleway mx-auto">
               <IoIosCheckmarkCircle
                 size={28}
@@ -378,7 +378,7 @@ const CoverageQuestions: React.FC<CoverageQuestionsProps> = ({
           )}
           <div
             id="policyExpires"
-            className="relative h-14 w-3/5 flex items-center gap-1 font-bold mx-auto mt-8 text-xl p-4 border border-black/20 rounded-lg shadow-md"
+            className="relative h-14 w-full md:w-3/5 flex items-center gap-1 font-bold mx-auto mt-8 text-xl p-4 border border-black/20 rounded-lg shadow-md"
           >
             $
             <input

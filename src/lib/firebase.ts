@@ -26,6 +26,58 @@ const firebaseConfig = {
 export const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 export const db = getFirestore(app);
 
+export const getAutoYear = async (): Promise<{
+  success: boolean;
+  data: AutoYear[];
+}> => {
+  let response;
+  try {
+    const autoInsuranceRef = collection(db, "autoInsurance");
+    const autoInsuranceSnap = await getDocs(autoInsuranceRef);
+
+    const autoInsuranceData: AutoYear[] = autoInsuranceSnap.docs.map(
+      (doc, index) => ({
+        id: index + 1, // Sequential IDs starting from 1
+        year: doc.id, // Firestore document ID used as the name
+      })
+    );
+
+    response = { success: true, data: autoInsuranceData };
+  } catch (e: any) {
+    response = { success: false, data: e.message || e };
+  }
+  return response;
+};
+
+export const getAutoInsuranceCollection = async (
+  documentId: string
+): Promise<{
+  success: boolean;
+  data: VehicleData[];
+}> => {
+  let response;
+  try {
+    // Reference to the specific document in the 'autoInsurance' collection
+    const documentRef = doc(db, "autoInsurance", documentId);
+
+    // Reference to the collection inside the specified document
+    const collectionRef = collection(documentRef, "rows");
+
+    // Fetch all documents within the nested collection
+    const collectionSnap = await getDocs(collectionRef);
+
+    const collectionData = collectionSnap.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+
+    response = { success: true, data: collectionData };
+  } catch (e: any) {
+    response = { success: false, data: e.message || e };
+  }
+  return response;
+};
+
 // export const uploadAutoInsuranceData = async (file: File) => {
 //   try {
 //     console.log("Starting uploadAutoInsuranceData...");
@@ -87,44 +139,43 @@ export const db = getFirestore(app);
 //   }
 // };
 
-export const getAutoDetails = async (): Promise<{
-  success: boolean;
-  data: AutoYear[];
-}> => {
-  let response;
-  try {
-    const autoInsuranceRef = collection(db, "autoInsurance");
-    const autoInsuranceSnap = await getDocs(autoInsuranceRef);
+// export const getAutoDetails = async (): Promise<{
+//   success: boolean;
+//   data: AutoYear[];
+// }> => {
+//   let response;
+//   try {
+//     const autoInsuranceRef = collection(db, "autoInsurance");
+//     const autoInsuranceSnap = await getDocs(autoInsuranceRef);
 
-    const autoInsuranceData: AutoYear[] = [];
+//     const autoInsuranceData: AutoYear[] = [];
 
-    for (const [index, doc] of autoInsuranceSnap.docs.entries()) {
-      // Fetch the 'rows' subcollection for the current document
-      const rowsRef = collection(doc.ref, "rows");
-      const rowsSnap = await getDocs(rowsRef);
+//     for (const [index, doc] of autoInsuranceSnap.docs.entries()) {
+//       // Fetch the 'rows' subcollection for the current document
+//       const rowsRef = collection(doc.ref, "rows");
+//       const rowsSnap = await getDocs(rowsRef);
 
-      // Map the rows data into the VehicleData format
-      const vehicles: VehicleData [] = rowsSnap.docs.map((rowDoc) => ({
-        make: rowDoc.data().make,
-        model: rowDoc.data().model,
-      }));
+//       // Map the rows data into the VehicleData format
+//       const vehicles: VehicleData [] = rowsSnap.docs.map((rowDoc) => ({
+//         make: rowDoc.data().make,
+//         model: rowDoc.data().model,
+//       }));
 
-      // Add the year and its vehicles to the result
-      autoInsuranceData.push({
-        id: index + 1, // Sequential ID starting from 1
-        year: doc.id, // Document ID as the year
-        vehicles,
-      });
-    }
+//       // Add the year and its vehicles to the result
+//       autoInsuranceData.push({
+//         id: index + 1, // Sequential ID starting from 1
+//         year: doc.id, // Document ID as the year
+//         vehicles,
+//       });
+//     }
 
-    response = { success: true, data: autoInsuranceData };
-  } catch (e: any) {
-    response = { success: false, data: e.message || e };
-  }
+//     response = { success: true, data: autoInsuranceData };
+//   } catch (e: any) {
+//     response = { success: false, data: e.message || e };
+//   }
 
-  return response;
-};
-
+//   return response;
+// };
 
 // const handleUpload = async () => {
 //   try {

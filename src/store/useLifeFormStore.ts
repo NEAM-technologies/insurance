@@ -6,52 +6,48 @@ const useLifeFormStore = create<useLifeInsuranceState>()(
   devtools(
     persist(
       (set) => ({
-        currentStep: 1,
-        setCurrentStep: (step: number) => set({ currentStep: step }),
-        formData: {
+        // Life form state
+        lifeForm: {
           firstName: "",
           lastName: "",
-          dob: { month: "", day: "", year: "" },
+          dobDate: "",
           gender: "",
           email: "",
           phoneNumber: "",
-          height: { feet: "", inches: "" },
+          feet: "",
+          inches: "",
           weight: "",
-          address: {
-            street: "",
-            unit: "",
-            city: "",
-            state: "",
-            zip: "",
-          },
+          street: "",
+          unit: "",
+          city: "",
+          state: "",
+          zip: "",
           maritalStatus: "",
           tobaccoUse: "",
           healthConditions: [],
           coverageType: "",
           coverageAmount: "",
         },
-        setFormData: (data: LifeFormData) => set({ formData: data }),
+        setLifeForm: (data: LifeFormData) => set({ lifeForm: data }),
 
         // Add a reset function to reset the state
         resetLifeForm: () =>
           set({
-            currentStep: 1,
-            formData: {
+            lifeForm: {
               firstName: "",
               lastName: "",
-              dob: { month: "", day: "", year: "" },
+              dobDate: "",
               gender: "",
               email: "",
               phoneNumber: "",
-              height: { feet: "", inches: "" },
+              feet: "",
+              inches: "",
               weight: "",
-              address: {
-                street: "",
-                unit: "",
-                city: "",
-                state: "",
-                zip: "",
-              },
+              street: "",
+              unit: "",
+              city: "",
+              state: "",
+              zip: "",
               maritalStatus: "",
               tobaccoUse: "",
               healthConditions: [],

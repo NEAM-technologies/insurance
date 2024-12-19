@@ -4,6 +4,6 @@
 import dynamic from "next/dynamic";
 
 // Dynamically import the page component
-const Page = dynamic(() => import("../../components/insurance/LifeInsurancePage"), { ssr: false });
+const Page = dynamic(() => import("../../components/insurance/CommercialInsurancePage"), { ssr: false });
 
 export default Page;

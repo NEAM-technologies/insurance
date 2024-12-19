@@ -72,7 +72,7 @@ const CompleteScreen = () => {
               alt="logo"
               height={50}
               width={50}
-              className="absolute top-[43%] left-[47%] animate-pulse"
+              className="absolute inset-0 m-auto animate-pulse"
             />
           </div>
           <div className="flex flex-col items-center justify-center gap-8">

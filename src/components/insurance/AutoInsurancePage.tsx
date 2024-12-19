@@ -4,7 +4,7 @@
 import React, { useEffect, useState } from "react";
 
 // firebase components
-import { getAutoDetails } from "@/lib/firebase";
+import { getAutoInsuranceCollection, getAutoYear } from "@/lib/firebase";
 
 // framer motion components
 import { AnimatePresence } from "framer-motion";
@@ -14,6 +14,7 @@ import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 // global store
 import useLoadingStore from "@/store/useLoadingStore";
+import useAutoInsuranceStore from "@/store/useAutoInsuranceStore";
 
 // custom components
 import VechileQuestions from "@/components/insurance/auto/VechileQuestions";
@@ -33,9 +34,11 @@ const sections = [
 
 const AutoInsurancePage = () => {
   const { setLoading } = useLoadingStore();
+  const { vehicleForm } = useAutoInsuranceStore();
+  const [year, setYear] = useState<AutoYear[]>([]);
+  const [vehicleDetails, setVehicleDetails] = useState<VehicleData[]>([]);
   const storedCompletedSections = localStorage.getItem("completedSections");
   const storedCurrentSection = localStorage.getItem("currentSection");
-  const [vehicleDetails, setVehicleDetails] = useState<AutoYear[]>([]);
   const [currentSection, setCurrentSection] = useState(
     storedCurrentSection ? Number(storedCurrentSection) : 0
   );
@@ -107,6 +110,7 @@ const AutoInsurancePage = () => {
         return (
           <VechileQuestions
             completeSection={completeSection}
+            year={year}
             vehicleDetails={vehicleDetails}
           />
         );
@@ -121,57 +125,80 @@ const AutoInsurancePage = () => {
     }
   };
 
+  const completedPercentage =
+  (Object.values(completedSections).filter((status) => status === "done")
+    .length /
+    Object.keys(completedSections).length) *
+  100;
+
+
   useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "smooth",
-    });
-    const fetchAllData = async () => {
+    const fetchAutoYear = async () => {
       setLoading(true);
       try {
-        // Check if data exists in localStorage
-        const cachedData = localStorage.getItem("vehicleDetails");
-        const cacheTimestamp = localStorage.getItem("vehicleDetailsTimestamp");
-
-        if (cachedData && cacheTimestamp) {
-          const isCacheValid =
-            new Date().getTime() - Number(cacheTimestamp) < 24 * 60 * 60 * 1000; // 1 day
-
-          if (isCacheValid) {
-            setVehicleDetails(JSON.parse(cachedData));
-            return;
-          }
+        const result = await getAutoYear();
+        if (result.success) {
+          const dataToStore = {
+            data: result.data,
+            timestamp: new Date().getTime(), // Current time in milliseconds
+          };
+          localStorage.setItem("autoYear", JSON.stringify(dataToStore)); // Save to local storage
+          setYear(result.data);
         }
-
-        // Fetch fresh data if no valid cache exists
-        const yearResult = await getAutoDetails();
-        if (yearResult.success) {
-          setVehicleDetails(yearResult.data);
-
-          // Save fetched data to localStorage
-          localStorage.setItem(
-            "vehicleDetails",
-            JSON.stringify(yearResult.data)
-          );
-          localStorage.setItem(
-            "vehicleDetailsTimestamp",
-            new Date().getTime().toString()
-          );
-        }
-      } catch (error) {
-        return [];
+      } catch (e) {
+        console.error("Error fetching auto year:", e);
+        setYear([]); // Set an empty array in case of an error
       } finally {
-        const timer = setTimeout(() => {
-          setLoading(false);
-        }, 1000);
-
-        return () => clearTimeout(timer);
+        setLoading(false);
       }
     };
 
-    fetchAllData();
-  }, [setLoading]);
+    const checkAndFetchData = () => {
+      const storedData = localStorage.getItem("autoYear");
+      const now = new Date().getTime();
+
+      if (storedData) {
+        const { data, timestamp } = JSON.parse(storedData);
+
+        // Check if one day (24 hours) has passed
+        if (now - timestamp < 24 * 60 * 60 * 1000) {
+          setYear(data); // Use the cached data
+          setLoading(false);
+          return;
+        }
+      }
+
+      // Fetch new data if no data or it's expired
+      fetchAutoYear();
+    };
+
+    checkAndFetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchInsuranceData = async () => {
+      const { v1Year, v2Year } = vehicleForm;
+
+      // Ensure at least one year is specified before fetching
+      if (v1Year || v2Year) {
+        setLoading(true);
+
+        try {
+          // Fetch data for v1Year or v2Year
+          const result = await getAutoInsuranceCollection(v1Year || v2Year);
+          if (result.success) {
+            setVehicleDetails(result.data);
+          }
+        } catch (error) {
+          return [];
+        } finally {
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchInsuranceData();
+  }, [vehicleForm.v1Year, vehicleForm.v2Year]);
 
   return (
     <>
@@ -180,7 +207,7 @@ const AutoInsurancePage = () => {
           src="https://lottie.host/f678cace-d7cd-432e-993c-604366bd2ab7/wxmJGyQ24V.lottie"
           loop
           autoplay
-          className="w-60 mx-auto"
+          className="w-60 mx-auto scale-x-[-1]"
         />
         <h1 className="w-5/6 md:w-full text-2xl md:text-3xl lg:text-4xl text-center font-raleway mx-auto">
           Hi there, let&apos;s help you find the best savings
@@ -206,7 +233,7 @@ const AutoInsurancePage = () => {
               <FaCheck className="text-sm sm:text-base md:text-lg xl:text-xl text-red-700" />
             )}
             <span
-              className={`text-sm sm:text-base md:text-lg ${
+              className={`text-xs sm:text-base md:text-lg ${
                 index === currentSection ||
                 completedSections[section.id] === "in-progress"
                   ? "text-black"
@@ -225,13 +252,13 @@ const AutoInsurancePage = () => {
         <div
           className="h-1 bg-red-500 transition-all"
           style={{
-            width: `${((currentSection + 1) / sections.length) * 100}%`,
+            width: `${completedPercentage}%`,
           }}
-        ></div>
+        />
       </div>
 
       {/* Section Content with Transition */}
-      <div className="w-4/5 md:w-[45%] bg-white mx-auto mt-10">
+      <div className="w-4/5 xl:w-[45%] bg-white mx-auto mt-10">
         <AnimatePresence mode="wait">
           <div key={sections[currentSection].id} className="h-full w-full">
             {renderSectionContent()}

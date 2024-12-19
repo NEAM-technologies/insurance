@@ -4,26 +4,21 @@ type LoadingState = {
   text: string;
 };
 
-type ValidationSchema = {
-  [key: number]: string[];
-};
-
 type LifeFormData = {
   firstName: string;
   lastName: string;
-  dob: { month: string; day: string; year: string };
+  dobDate: string;
   gender: string;
   email: string;
   phoneNumber: string;
-  height: { feet: string; inches: string };
+  feet: string;
+  inches: string;
   weight: string;
-  address: {
-    street: string;
-    unit: string;
-    city: string;
-    state: string;
-    zip: string;
-  };
+  street: string;
+  unit: string;
+  city: string;
+  state: string;
+  zip: string;
   maritalStatus: string;
   tobaccoUse: string;
   healthConditions: string[];
@@ -32,11 +27,37 @@ type LifeFormData = {
 };
 
 type useLifeInsuranceState = {
-  currentStep: number;
-  setCurrentStep: (step: number) => void;
-  formData: LifeFormData;
-  setFormData: (data: LifeFormData) => void;
+  lifeForm: LifeFormData;
+  setLifeForm: (data: LifeFormData) => void;
   resetLifeForm: () => void;
+};
+
+type CommercialFormData = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  companyName: string;
+  legalEntity: string;
+  briefDescription: string;
+  street: string;
+  unit: string;
+  city: string;
+  state: string;
+  zip: string;
+  yearsInBusiness: string;
+  numOfPartners: string;
+  numOfFullEmployees: string;
+  numOfPartEmployees: string;
+  annualRevenue: string;
+  annualPayroll: string;
+  coverageType: string[];
+};
+
+type useCommercialInsuranceState = {
+  commercialForm: CommercialFormData;
+  setCommercialForm: (data: CommercialFormData) => void;
+  resetCommercialForm: () => void;
 };
 
 type HomeFormData = {
@@ -83,15 +104,15 @@ type useHomeInsuranceState = {
   resetHomeForm: () => void;
 };
 
-type VehicleData = {
-  make: string;
-  model: string;
-};
-
 type AutoYear = {
   id: number;
   year: string;
-  vehicles: VehicleData[];
+};
+
+type VehicleData = {
+  id: number;
+  make: string;
+  model: string;
 };
 
 type VehicleFormData = {
@@ -153,6 +174,8 @@ type DriversFormData = {
 type FinalDetailsFormData = {
   currentlyCarInsured: string;
   insuredCompany: string;
+  yearsWithCompany: string;
+  policyExpires: string;
   coverageNeed: string;
   militaryService: string;
   homeOwnership: string;
